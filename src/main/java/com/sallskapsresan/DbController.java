@@ -30,6 +30,7 @@ public class DbController {
             int two = rs.getInt(1);
             return "Database connectivity seems " + (two == 2 ? "OK." : "weird!");
         }
+        //test
     }
 
 }
