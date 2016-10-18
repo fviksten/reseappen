@@ -14,7 +14,7 @@ loginAndRegister.register.RegisterService = function ($http) {
             password: password
         }
         console.log(this.user)
-        $http.post("/adduser",this.user )
+        $http.post("/adduser",this.user)
     }
 
 }

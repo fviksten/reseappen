@@ -1,47 +1,88 @@
 package com.sallskapsresan;
 
+import java.sql.Date;
+
 /**
  * Created by Administrator on 2016-10-18.
  */
 public class User {
-    private String firstName;
-    private String lastName;
-    private String userName;
-    private String eMail;
+    private String firstname;
+    private String lastname;
+    private String username;
+    private String email;
     private String password;
+    private Date joined;
+    private Date lastlogin;
+    private PersonalityType personalityType;
 
-    //Initial constructor
-    public User(String firstName, String lastName, String userName, String eMail, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.eMail = eMail;
+
+    //empty constructor to make it work with angular
+    public User() {
+    }
+
+    //setters to make it work with angular
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    //sets the personality type
-//    public void setPersonalityType(PersonalityType personalityType) {
-//        this.personalityType = personalityType;
-//    }
-
-    //getters for all fields
-    public String getFirstName() {
-        return firstName;
+    public void setJoined(Date joined) {
+        this.joined = joined;
     }
 
-    public String getLastName() {
-        return lastName;
+    public void setLastlogin(Date lastlogin) {
+        this.lastlogin = lastlogin;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setPersonalityType(PersonalityType personalityType) {
+        this.personalityType = personalityType;
     }
 
-    public String geteMail() {
-        return eMail;
+    //getters
+    public String getFirstname() {
+        return firstname;
     }
 
-//    public PersonalityType getPersonalityType() {
-//        return personalityType;
-//    }
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Date getJoined() {
+        return joined;
+    }
+
+    public Date getLastlogin() {
+        return lastlogin;
+    }
+
+    public PersonalityType getPersonalityType() {
+        return personalityType;
+    }
 }

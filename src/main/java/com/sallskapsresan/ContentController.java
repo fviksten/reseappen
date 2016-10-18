@@ -1,5 +1,6 @@
 package com.sallskapsresan;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,8 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ContentController {
 
+
+    //recieves, validates and directs new registered users' details to sqlrepository
     @PostMapping("/adduser")
-    public void addUser(@RequestBody User user) {
-        System.out.println(user.getFirstName());
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        System.out.println(user.getFirstname());
+        System.out.println(user.getLastname());
+        System.out.println(user.getUsername());
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 }

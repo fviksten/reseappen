@@ -1,5 +1,3 @@
-
-
 loginController = function () {
     this.search = function () {
         var self = this;
