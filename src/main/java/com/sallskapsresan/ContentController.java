@@ -58,4 +58,13 @@ public class ContentController {
         }
         return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
     }
+
+    @PostMapping("/persTest")
+    public ResponseEntity<HttpStatus> recievePersTest (@RequestBody String jsonLine) {
+        Answer answer = new Answer();
+        String output = answer.setType(jsonLine).name();
+        System.out.println(output);
+
+        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+    }
 }
