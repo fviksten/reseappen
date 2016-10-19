@@ -42,4 +42,13 @@ public class ContentController {
             return new ResponseEntity<Message>(message, HttpStatus.OK);
         }
     }
+
+    @PostMapping("/persTest")
+    public ResponseEntity<HttpStatus> recievePersTest (@RequestBody String jsonLine) {
+        Answer answer = new Answer();
+        String output = answer.setType(jsonLine).name();
+        System.out.println(output);
+
+        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+    }
 }
