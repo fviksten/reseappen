@@ -16,10 +16,10 @@ public class ContentController {
 
     //recieves, validates and directs new registered users' details to sqlrepository
     @PostMapping("/adduser")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
+    public ResponseEntity<HttpStatus> addUser(@RequestBody User user) {
         System.out.println(user.getFirstname());
         System.out.println(user.getLastname());
         System.out.println(user.getUsername());
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
     }
 }
