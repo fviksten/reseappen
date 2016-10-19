@@ -37,7 +37,7 @@ public class ContentController {
         if (bindingResult.hasErrors()) {
             message.setMessage("Error");
             return new ResponseEntity<Message>(message, HttpStatus.OK);
-        } else {
+        }   else {
             message.setMessage("Success");
             return new ResponseEntity<Message>(message, HttpStatus.OK);
         }
