@@ -18,7 +18,7 @@ loginAndRegister.register.RegisterController = function ($location,$http,$rootSc
             .then(function(response) {
                 if (response.data.message === "Success") {
                     $rootScope.user = response.data.user;
-                    $rootsScope.user.password = self.password;
+                    $rootScope.user.password = self.password;
                     $location.path("/perstest");
                 }
                 else {

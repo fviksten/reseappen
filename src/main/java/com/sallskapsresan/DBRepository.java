@@ -44,7 +44,7 @@ public class DBRepository {
                 user.setLastname(rs.getString("LastName"));
                 user.setEmail(rs.getString("EMail"));
                 user.setJoined(rs.getTimestamp("Created").toLocalDateTime());
-                user.setLastlogin(rs.getTimestamp("LastLogin").toLocalDateTime());
+//                user.setLastlogin(rs.getTimestamp("LastLogin").toLocalDateTime());
                 user.setUserID(rs.getLong("UserID"));
                 user.setPersonalityType(getPersonalityType(rs.getLong("Personality_ID")));
             }
