@@ -1,15 +1,33 @@
 package com.sallskapsresan;
 
+import org.hibernate.validator.constraints.Email;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 
 /**
  * Created by Administrator on 2016-10-18.
  */
 public class User {
+
+    @NotNull
+    @Size (min=2, max=30)
     private String firstname;
+
+    @NotNull
+    @Size (min=2, max=30)
     private String lastname;
+
+    @NotNull
+    @Size (min=6, max=20)
     private String username;
+
+    @NotNull
+    @Email
     private String email;
+
+    @NotNull
     private String password;
     private Date joined;
     private Date lastlogin;
