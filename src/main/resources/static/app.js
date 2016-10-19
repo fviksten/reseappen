@@ -1,13 +1,17 @@
-angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.register"])
+angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.register", "personalTest.persTest"])
     .config(["$routeProvider", function ($routeProvider) {
         $routeProvider
             .when("/login", {
                 templateUrl: "loginAndRegister/angularTemplates/login.template.html",
-                // controller: loginController,
-                // controllerAs: "vm"
+                controller: loginAndRegister.login.LoginController,
+                controllerAs: "vm"
             }).when("/register", {
             templateUrl: "loginAndRegister/angularTemplates/register.template.html",
             controller: loginAndRegister.register.RegisterController,
+            controllerAs: "vm"
+        }).when("/perstest", {
+            templateUrl: "personalTest/angularTemplates/persTest.template.html",
+            controller: personalTest.persTest.persTestController,
             controllerAs: "vm"
         }).otherwise("/login");
     }]);
