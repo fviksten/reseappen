@@ -5,22 +5,27 @@ if (!loginAndRegister.login)
     loginAndRegister.login = {};
 
 
-loginAndRegister.login.LoginController = function ($http) {
+loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
     var self = this;
     this.login = function () {
         $http.post("/authenticate", {
-            username : this.username,
-            password : this.password
+            username : self.username,
+            password : self.password
         })
             .then(function(response) {
                 console.log(response);
-                if (response.status == 200) {
+                if (response.data.message == "Success") {
+                    console.log(response);
+                    $rootScope.user = response.data.user;
+                    $rootsScope.user.password = self.password;
                     self.showErrorMessage = true;
-                    self.errorMessage = "Sucess!";
+                    self.errorMessage = "Success!";
+                    $location.path("/perstest")
                 }
                 else {
                     self.showErrorMessage = true;
-                    self.errorMessage = "DEnied!";
+                    self.errorMessage = "Denied!";
+                    $location.path("/login")
                 }
             });
     }

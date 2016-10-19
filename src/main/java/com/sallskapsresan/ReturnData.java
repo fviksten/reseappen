@@ -3,16 +3,26 @@ package com.sallskapsresan;
 /**
  * Created by Emil Båth on 2016-10-19.
  */
-public class Message {
+public class ReturnData {
     String message;
-    public Message() {
+    User user;
+
+    public ReturnData() {
     }
 
     public String getMessage() {
         return message;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

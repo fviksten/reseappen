@@ -9,12 +9,16 @@ if(!personalTest.persTest)
 
 
 
-personalTest.persTest.persTestService = function($http){
+personalTest.persTest.persTestService = function($http, $rootScope){
 
     var index = 0;
 
 
-    var questions = {persForm:[
+    var questions = {
+        username: $rootScope.user.username,
+        password: $rootScope.user.password,
+
+        persForm:[
 
         {
           question: "1) Do you prefer to focus on the outer world or on your own inner world?",
