@@ -16,12 +16,11 @@ loginAndRegister.register.RegisterController = function ($location,$http) {
             password: this.password1
         })
             .then(function(response) {
-                console.log(response.status)
-                if (response.status == 200) {
+                if (response.data.message === "Success") {
                     $location.path("/login");
                 }
                 else {
-                    self.errorMessage = "något gick fel: " + response.data;
+                    self.errorMessage = "något gick fel: " + response.data.message;
                     self.showErrorMessage = true;
                 }
             })
