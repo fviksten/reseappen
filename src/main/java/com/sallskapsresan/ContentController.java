@@ -22,4 +22,9 @@ public class ContentController {
         System.out.println(user.getUsername());
         return new ResponseEntity<HttpStatus>(HttpStatus.OK);
     }
+    @PostMapping("/persTest")
+    public ResponseEntity<HttpStatus> addUser() {
+        System.out.println("done!");
+        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+    }
 }
