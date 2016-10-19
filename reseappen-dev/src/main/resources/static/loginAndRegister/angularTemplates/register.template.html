@@ -1,0 +1,10 @@
+<form name="form" data-ng-submit="vm.addUser()" role="form">
+<div><input type="text" data-ng-model="vm.username" placeholder="Användarnamn"/></div>
+<div><input type="text" data-ng-model="vm.firstname" placeholder="Förnamn"/></div>
+<div><input type="text" data-ng-model="vm.lastname" placeholder="Efternamn"/></div>
+<div><input type="text" data-ng-model="vm.email" placeholder="E-post"/></div>
+<div><input type="password" data-ng-model="vm.password1" placeholder="Lösenord"/></div>
+<div><input type="password" data-ng-model="vm.password2" placeholder="Lösenord igen"/></div>
+<div><button type="submit">Loggga in</button></div>
+<div data-ng-if="vm.loading">loading...</div>
+</form>
