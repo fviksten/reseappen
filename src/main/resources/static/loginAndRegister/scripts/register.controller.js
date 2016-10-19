@@ -4,12 +4,28 @@ if (!loginAndRegister)
 if (!loginAndRegister.register)
     loginAndRegister.register = {};
 
-loginAndRegister.register.RegisterController = function (registerService, $location) {
+loginAndRegister.register.RegisterController = function ($location,$http) {
+    var self = this;
     this.addUser = function () {
         this.loading = true;
-        registerService.addUser(this.username, this.firstname, this.lastname, this.email, this.password1);
+        $http.post("/adduser",{
+            username: this.username,
+            firstname: this.firstname,
+            lastname: this.lastname,
+            email: this.email,
+            password: this.password1
+        })
+            .then(function(response) {
+                console.log(response.status)
+                if (response.status == 200) {
+                    $location.path("/login");
+                }
+                else {
+                    self.errorMessage = "något gick fel: " + response.data;
+                    self.showErrorMessage = true;
+                }
+            })
         this.loading = false;
-        $location.path("/login");
     };
 
     this.username;
@@ -19,4 +35,6 @@ loginAndRegister.register.RegisterController = function (registerService, $locat
     this.password1;
     this.password2;
     this.loading = false;
+    this.errorMessage;
+    this.showErrorMessage = false;
 };

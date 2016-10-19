@@ -3,8 +3,8 @@ angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.re
         $routeProvider
             .when("/login", {
                 templateUrl: "loginAndRegister/angularTemplates/login.template.html",
-                // controller: loginController,
-                // controllerAs: "vm"
+                controller: loginAndRegister.login.LoginController,
+                controllerAs: "vm"
             }).when("/register", {
             templateUrl: "loginAndRegister/angularTemplates/register.template.html",
             controller: loginAndRegister.register.RegisterController,

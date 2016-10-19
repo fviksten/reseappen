@@ -27,4 +27,11 @@ public class ContentController {
             return new ResponseEntity<String>("Everything went fine!", HttpStatus.OK);
         }
     }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<HttpStatus> authenticateUser(@RequestBody User user) {
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
+        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+    }
 }
