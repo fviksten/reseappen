@@ -85,14 +85,30 @@ personalTest.persTest.persTestService = function($http, $rootScope) {
 
     this.send = function () {
         console.log("send");
-        console.log(questions);
-        console.log($rootScope.user);
-        $http.post("/persTest", questions);
+        console.log( questions)
+        $http.post("/persTest",questions)
+            .then(function(response) {
+                $rootScope.user = response.data.user;
+                console.log($rootScope.user.personalityType)
+            });
     }
 
 
     this.logout = function () {
         $rootScope.user = {};
         console.log($rootScope.user);
+    }
+
+    this.getQuestions = function() {
+        return questions.persForm;
+    }
+
+    this.isReadyToSend = function () {
+        for (var i = 0; i < questions.persForm.length; i++) {
+            if (questions.persForm[i].result.length === 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }

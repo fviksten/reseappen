@@ -31,7 +31,7 @@
         <button data-ng-if="vm.questionObj.question != null" data-ng-click="vm.getQuestion()">Next Question</button>
         <br />
 
-        <button data-ng-click="vm.send()">Send</button>
+        <button data-ng-click="vm.send()" ng-disabled="!vm.isReadyToSend">Send</button>
         <br />
 
         <strong>Selected value:</strong> {{vm.questionObj.result}}<br />

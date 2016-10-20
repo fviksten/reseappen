@@ -58,10 +58,14 @@ public class ContentController {
     }
 
     @PostMapping("/persTest")
-    public ResponseEntity<HttpStatus> getPersonalityTestAnswers(@RequestBody Questions questions) {
-        System.out.println(questions.getType().name());
-
-        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+    public ResponseEntity<ReturnData> getPersonalityTestAnswers(@RequestBody Questions questions) {
+        System.out.println(questions.getUser().getPersonalityType().name());
+        User sessionUser = questions.getUser();
+        dBRepository.setPersonalityType(sessionUser);
+        ReturnData returnData = new ReturnData();
+        returnData.setUser(sessionUser);
+        returnData.setMessage("OK");
+        return new ResponseEntity<ReturnData>(returnData,HttpStatus.OK);
     }
 
 }

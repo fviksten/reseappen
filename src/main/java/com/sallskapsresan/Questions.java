@@ -9,6 +9,7 @@ import java.util.List;
 public class Questions {
 
     private List<Question> persForm;
+    private User user;
 
     public Questions() {
         this.persForm = new ArrayList<>();
@@ -20,6 +21,15 @@ public class Questions {
 
     public List<Question> getPersForm() {
         return persForm;
+    }
+
+    public User getUser() {
+        this.user.setPersonalityType(getType());
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public PersonalityType getType() {
