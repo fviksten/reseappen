@@ -10,9 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-/**
- * Created by Emil Båth on 2016-10-19.
- */
 @Component
 public class DBRepository {
 
@@ -22,11 +19,11 @@ public class DBRepository {
     public void addUser(User user) {
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("EXEC addUser ?,?,?,?,?")) {
-            ps.setString(1,user.getFirstname());
-            ps.setString(2,user.getLastname());
-            ps.setString(3,user.getUsername());
-            ps.setString(4,user.getPassword());
-            ps.setString(5,user.getEmail());
+            ps.setString(1, user.getFirstname());
+            ps.setString(2, user.getLastname());
+            ps.setString(3, user.getUsername());
+            ps.setString(4, user.getPassword());
+            ps.setString(5, user.getEmail());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("fel i addUser");
@@ -36,7 +33,7 @@ public class DBRepository {
     public boolean validateUser(User user) {
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT * FROM [dbo].[Users] WHERE UserName = ?")) {
-            ps.setString(1,user.getUsername());
+            ps.setString(1, user.getUsername());
             ResultSet rs = ps.executeQuery();
             return !rs.next();
         } catch (SQLException e) {
@@ -44,10 +41,35 @@ public class DBRepository {
         }
     }
 
+    public void setPersonalityType(User user) {
+        try (Connection conn = datasource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("EXEC setPersonalityType ?,?")) {
+            ps.setString(1, user.getUsername());
+            ps.setLong(2, user.getPersonalityType().ordinal() + 1);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("fel i setPersonalityType");
+        }
+    }
+
+    private long getPersonalityTypeID(PersonalityType personalityType) {
+        try (Connection conn = datasource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("EXEC getPersonalityTypeID ?")) {
+            ps.setString(1, personalityType.name());
+            ResultSet rs = ps.executeQuery();
+            long id = 1;
+            if (rs.next())
+                id = rs.getInt("PersonalityTypeID");
+            return id;
+        } catch (SQLException e) {
+            throw new RuntimeException("fel i setPersonalityType");
+        }
+    }
+
     public User getUser(String username) {
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("EXEC getUser ?")) {
-            ps.setString(1,username);
+            ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             User user = new User();
             if (rs.next()) {
@@ -61,15 +83,15 @@ public class DBRepository {
             }
             user.setUsername(username);
             return user;
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("fel i getUser");
         }
     }
 
     private PersonalityType getPersonalityType(long personality_id) {
         try (Connection conn = datasource.getConnection();
-        PreparedStatement ps = conn.prepareStatement("EXEC getPersonalityType ?")) {
-            ps.setLong(1,personality_id);
+             PreparedStatement ps = conn.prepareStatement("EXEC getPersonalityType ?")) {
+            ps.setLong(1, personality_id);
             ResultSet rs = ps.executeQuery();
             PersonalityType pt = PersonalityType.DEFAULT;
             if (rs.next()) {
@@ -83,9 +105,9 @@ public class DBRepository {
 
     public boolean validatePassword(String username, String password) {
         try (Connection conn = datasource.getConnection();
-        PreparedStatement ps = conn.prepareStatement("EXEC validatePassword ?,?")){
-            ps.setString(1,username);
-            ps.setString(2,password);
+             PreparedStatement ps = conn.prepareStatement("EXEC validatePassword ?,?")) {
+            ps.setString(1, username);
+            ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             return rs.next();
         } catch (SQLException e) {
