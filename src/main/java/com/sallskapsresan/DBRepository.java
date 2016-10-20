@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Emil Båth on 2016-10-19.
@@ -79,5 +81,16 @@ public class DBRepository {
         } catch (SQLException e) {
             throw new RuntimeException("FEL i validatePassword");
         }
+    }
+
+    public Destinations getListOfDestinations(){
+        Destinations listOfDestinations = new Destinations();
+        List<Destination> destinations = new ArrayList<>();
+        Destination dest1 = new Destination("Afghanistan");
+        Destination dest2 = new Destination("Argentina");
+        destinations.add(dest1);
+        destinations.add(dest2);
+        listOfDestinations.setListDestinations(destinations);
+        return listOfDestinations;
     }
 }
