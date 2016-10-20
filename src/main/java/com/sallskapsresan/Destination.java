@@ -5,14 +5,22 @@ package com.sallskapsresan;
  */
 public class Destination {
 
+    private int id;
     private String country;
 
-    public Destination(String country) {
+    public Destination(int id, String country) {
+        this.id = id; this.country = country;
+    }
+
+    public void setId (int id) {
+        this.id = id;
+    }
+    public void setCountry(String country) {
         this.country = country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public int getId () {
+        return id;
     }
 
     public String getCountry() {

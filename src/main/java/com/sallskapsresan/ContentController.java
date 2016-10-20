@@ -55,7 +55,6 @@ public class ContentController {
                 returnData.setMessage("Success");
                 User sessionUser = dBRepository.getUser(user.getUsername());
                 returnData.setUser(sessionUser);
-                session.setAttribute("user", sessionUser);
             } else {
                 returnData.setMessage("Kunde inte logga in!");
                 returnData.setUser(user);
@@ -74,15 +73,6 @@ public class ContentController {
         returnData.setMessage("OK");
         return new ResponseEntity<ReturnData>(returnData,HttpStatus.OK);
     }
-
-
-//    @PostMapping("/persTest")
-//    public ResponseEntity<HttpStatus> getPersonalityTestAnswers(@RequestBody Questions questions) {
-//        for (Question question : questions.getPersForm()) {
-//            System.out.println(question.getQuestion());
-//        }
-//        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
-//    }
 
     @GetMapping("/myDestinations")
     public Destinations getListOfDestinations(){

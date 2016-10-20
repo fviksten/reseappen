@@ -118,13 +118,16 @@ public class DBRepository {
     }
 
     public Destinations getListOfDestinations(){
-        Destinations listOfDestinations = new Destinations();
-        List<Destination> destinations = new ArrayList<>();
-        Destination dest1 = new Destination("Afghanistan");
-        Destination dest2 = new Destination("Argentina");
-        destinations.add(dest1);
-        destinations.add(dest2);
-        listOfDestinations.setListDestinations(destinations);
-        return listOfDestinations;
+        try (Connection conn = datasource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("EXEC getAllCountries")) {
+            ResultSet rs = ps.executeQuery();
+            Destinations listOfAllDestinations = new Destinations();
+            while (rs.next()) {
+                listOfAllDestinations.getListDestinations().add(new Destination(rs.getInt("CountryID"), rs.getString("CountryName")));
+            }
+            return listOfAllDestinations;
+        } catch (SQLException e) {
+            throw new RuntimeException("Fel i getListOfAllDestinations");
+        }
     }
 }
