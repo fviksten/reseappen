@@ -3,10 +3,7 @@ package com.sallskapsresan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -42,4 +39,13 @@ public class ContentController {
             return new ResponseEntity<Message>(message, HttpStatus.OK);
         }
     }
+
+    @PostMapping("/persTest")
+    public ResponseEntity<HttpStatus> getPersonalityTestAnswers(@RequestBody Questions questions) {
+        for (Question question : questions.getPersForm()) {
+            System.out.println(question.getQuestion());
+        }
+        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+    }
+
 }
