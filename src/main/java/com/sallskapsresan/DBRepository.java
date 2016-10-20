@@ -43,11 +43,12 @@ public class DBRepository {
                 user.setFirstname(rs.getString("FirstName"));
                 user.setLastname(rs.getString("LastName"));
                 user.setEmail(rs.getString("EMail"));
-                user.setJoined(rs.getTimestamp("Created").toLocalDateTime());
+//                user.setJoined(rs.getTimestamp("Created").toLocalDateTime());
 //                user.setLastlogin(rs.getTimestamp("LastLogin").toLocalDateTime());
                 user.setUserID(rs.getLong("UserID"));
                 user.setPersonalityType(getPersonalityType(rs.getLong("Personality_ID")));
             }
+            user.setUsername(username);
             return user;
         }catch(SQLException e) {
             throw new RuntimeException("fel i getUser");

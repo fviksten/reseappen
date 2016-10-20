@@ -15,7 +15,7 @@ personalTest.persTest.persTestController = function(persTestService, $location){
 
     this.send = function(){
         persTestService.send();
-        $location.path("/login");
+        $location.path("/personalpage");
     }
 
     this.logout = function() {

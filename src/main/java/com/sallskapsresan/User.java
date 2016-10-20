@@ -30,8 +30,8 @@ public class User {
 
 //    @NotNull
     private String password;
-    private LocalDateTime joined;
-    private LocalDateTime lastlogin;
+//    private LocalDateTime joined;
+//    private LocalDateTime lastlogin;
     private PersonalityType personalityType;
     private Long userID;
 
@@ -61,13 +61,13 @@ public class User {
         this.password = password;
     }
 
-    public void setJoined(LocalDateTime joined) {
-        this.joined = joined;
-    }
-
-    public void setLastlogin(LocalDateTime lastlogin) {
-        this.lastlogin = lastlogin;
-    }
+//    public void setJoined(LocalDateTime joined) {
+//        this.joined = joined;
+//    }
+//
+//    public void setLastlogin(LocalDateTime lastlogin) {
+//        this.lastlogin = lastlogin;
+//    }
 
     public void setPersonalityType(PersonalityType personalityType) {
         this.personalityType = personalityType;
@@ -93,14 +93,14 @@ public class User {
     public String getPassword() {
         return password;
     }
-
-    public LocalDateTime getJoined() {
-        return joined;
-    }
-
-    public LocalDateTime getLastlogin() {
-        return lastlogin;
-    }
+//
+//    public LocalDateTime getJoined() {
+//        return joined;
+//    }
+//
+//    public LocalDateTime getLastlogin() {
+//        return lastlogin;
+//    }
 
     public PersonalityType getPersonalityType() {
         return personalityType;

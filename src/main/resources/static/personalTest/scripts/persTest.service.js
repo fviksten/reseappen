@@ -68,8 +68,11 @@ personalTest.persTest.persTestService = function($http, $rootScope){
     this.send = function(){
         console.log("send");
         console.log( questions)
-        console.log($rootScope.user);
-        $http.post("/persTest",questions);
+        $http.post("/persTest",questions)
+            .then(function(response) {
+                $rootScope.user = response.data.user;
+                console.log($rootScope.user.personalityType)
+            });
     }
 
 
