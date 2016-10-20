@@ -67,20 +67,6 @@ public class Questions {
                 counterP++;
             }
         }
-//        if (counterI > counterE) {sb.append('I');}
-//        else {sb.append('E');}
-//        if (counterN > counterS) {sb.append('N');}
-//        else {sb.append('S');}
-//        if (counterF > counterT) {sb.append('F');}
-//        else {sb.append('T');}
-//        if (counterJ > counterP) {sb.append('J');}
-//        else {sb.append('P');}
-
-//        for (PersonalityType pt : PersonalityType.values()) {
-//            if (pt.name().equalsIgnoreCase(sb.toString())) {
-//                type = pt;
-//            }
-//        }
 
         if (counterI > counterE) {
             if (counterN > counterS) {

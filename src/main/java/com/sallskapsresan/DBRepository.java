@@ -61,7 +61,7 @@ public class DBRepository {
             ResultSet rs = ps.executeQuery();
             PersonalityType pt = PersonalityType.DEFAULT;
             if (rs.next()) {
-                pt = pt.getPersonalityType(rs.getString("PersonalityType"));
+                pt = PersonalityType.getPersonalityType(rs.getString("PersonalityType"));
             }
             return pt;
         } catch (SQLException e) {
