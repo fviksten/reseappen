@@ -15,7 +15,9 @@ personalTest.persTest.persTestService = function($http, $rootScope) {
 
 
     var questions = {
-        persForm: [
+        user: $rootScope.user,
+
+        persForm:[
 
             {
                 questionNbr: 1,
@@ -82,8 +84,13 @@ personalTest.persTest.persTestService = function($http, $rootScope) {
     this.send = function () {
         console.log("send");
         console.log(questions);
-
+        console.log($rootScope.user);
         $http.post("/persTest", questions);
     }
 
+
+    this.logout = function () {
+        $rootScope.user = {};
+        console.log($rootScope.user);
+    }
 }

@@ -8,6 +8,8 @@
 
     <h2>Personlighetstest</h2>
 
+    <div><button ng-click="vm.logout()">Logga ut</button></div>
+
     <div data-ng-init="vm.getQuestion()">
         <div data-ng-if="vm.questionObj.question != null">
             <strong><em>{{vm.questionObj.questionNbr}}. {{vm.questionObj.question}}</em></strong>

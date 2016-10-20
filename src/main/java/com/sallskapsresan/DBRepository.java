@@ -59,9 +59,9 @@ public class DBRepository {
         PreparedStatement ps = conn.prepareStatement("EXEC getPersonalityType ?")) {
             ps.setLong(1,personality_id);
             ResultSet rs = ps.executeQuery();
-            PersonalityType pt = PersonalityType.ENFJ;
+            PersonalityType pt = PersonalityType.DEFAULT;
             if (rs.next()) {
-                pt = pt.getPersonalityType(rs.getString("PersonalityType"));
+                pt = PersonalityType.getPersonalityType(rs.getString("PersonalityType"));
             }
             return pt;
         } catch (SQLException e) {

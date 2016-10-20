@@ -24,7 +24,7 @@ public class ContentController {
 
     //recieves, validates and directs new registered users' details to sqlrepository
     @PostMapping("/adduser")
-    public ResponseEntity<ReturnData> addUser(@RequestBody @Valid User user, BindingResult bindingResult, HttpSession session) {
+    public ResponseEntity<ReturnData> addUser(@RequestBody @Valid User user, BindingResult bindingResult) {
         ReturnData returnData = new ReturnData();
         if (bindingResult.hasErrors()) {
             returnData.setMessage("Error");
@@ -34,13 +34,12 @@ public class ContentController {
             dBRepository.addUser(user);
             User sessionUser = dBRepository.getUser(user.getUsername());
             returnData.setUser(sessionUser);
-            session.setAttribute("user",sessionUser);
         }
         return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<ReturnData> authenticateUser(@RequestBody User user, BindingResult bindingResult, HttpSession session) {
+    public ResponseEntity<ReturnData> authenticateUser(@RequestBody User user, BindingResult bindingResult) {
         ReturnData returnData = new ReturnData();
         if (bindingResult.hasErrors()) {
             returnData.setMessage("Error");
@@ -50,7 +49,6 @@ public class ContentController {
                 returnData.setMessage("Success");
                 User sessionUser = dBRepository.getUser(user.getUsername());
                 returnData.setUser(sessionUser);
-                session.setAttribute("user", sessionUser);
             } else {
                 returnData.setMessage("Kunde inte logga in!");
                 returnData.setUser(user);
@@ -60,11 +58,10 @@ public class ContentController {
     }
 
     @PostMapping("/persTest")
-    public ResponseEntity<HttpStatus> recievePersTest (@RequestBody String jsonLine) {
-        Answer answer = new Answer();
-        String output = answer.setType(jsonLine).name();
-        System.out.println(output);
+    public ResponseEntity<HttpStatus> getPersonalityTestAnswers(@RequestBody Questions questions) {
+        System.out.println(questions.getType().name());
 
         return new ResponseEntity<HttpStatus>(HttpStatus.OK);
     }
+
 }
