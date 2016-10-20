@@ -37,5 +37,5 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
     this.password;
     this.errorMessage;
     this.showErrorMessage = false;
-    this.loading = true;
+    this.loading = false;
 }
