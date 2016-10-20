@@ -47,6 +47,7 @@ personalTest.persTest.persTestService = function($http, $rootScope) {
                 question: "When making decisions, do you prefer to first look at logic and consistency or first look at the people and special circumstances?",
                 options: ["Look at logic", "Look at people and circumstances"],
                 answer: ["T", "F"],
+                result: ''
 
             },
 
@@ -81,6 +82,7 @@ personalTest.persTest.persTestService = function($http, $rootScope) {
     this.goBackToQuestion = function () {
         return questions.persForm[(--index)];
     }
+
     this.send = function () {
         console.log("send");
         console.log(questions);
