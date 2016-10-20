@@ -1,4 +1,7 @@
 angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.register", "personalTest.persTest"])
+    .run(function($rootScope) {
+        $rootScope.user ={};
+    })
     .config(["$routeProvider", function ($routeProvider) {
         $routeProvider
             .when("/login", {
