@@ -11,26 +11,34 @@
     <div><button ng-click="vm.logout()">Logga ut</button></div>
 
     <div data-ng-init="vm.getQuestion()">
-        <strong><em>{{vm.questionObj.question}}</em></strong>
-        <form>
-            <label>
-            <input type="radio" ng-model="vm.questionObj.result" name="answer" ng-value="vm.questionObj.answer[0]" > {{vm.questionObj.options[0]}}
-            </label>
-            <label>
-            <input type="radio" ng-model="vm.questionObj.result" name="answer" ng-value="vm.questionObj.answer[1]"> {{vm.questionObj.options[1]}}
-            </label>
-        </form>
+        <div data-ng-if="vm.questionObj.question != null">
+            <strong><em>{{vm.questionObj.questionNbr}}. {{vm.questionObj.question}}</em></strong>
+            <form>
+                <label>
+                <input type="radio" ng-model="vm.questionObj.result" name="answer" ng-value="vm.questionObj.answer[0]" > {{vm.questionObj.options[0]}}
+                </label>
+                <label>
+                <input type="radio" ng-model="vm.questionObj.result" name="answer" ng-value="vm.questionObj.answer[1]"> {{vm.questionObj.options[1]}}
+                </label>
+            </form>
+        </div>
+
+        <div data-ng-if="vm.questionObj.question== null">
+            <strong><em>Press Send send in your answers</em></strong>
+        </div>
+
+        <button data-ng-if="vm.questionObj.questionNbr!=1" data-ng-click="vm.goBackToQuestion()">Previous Question</button>
+        <button data-ng-if="vm.questionObj.question != null" data-ng-click="vm.getQuestion()">Next Question</button>
+        <br />
+
+        <button data-ng-click="vm.send()">Send</button>
+        <br />
+
+        <strong>Selected value:</strong> {{vm.questionObj.result}}<br />
+        <br />
+        <br />
+        <strong>Object:</strong> {{vm.questionObj.result}}<br />
+        <br />
     </div>
-
-    <button data-ng-click="vm.getQuestion()">Next Question</button>
-    <br />
-    <button data-ng-click="vm.send()">Send</button>
-    <br />
-    <strong>Selected value:</strong> {{vm.questionObj.result}}<br />
-    <br />
-    <br />
-    <strong>Object:</strong> {{vm.questionObj.result}}<br />
-    <br />
-
 </body>
 </html>
