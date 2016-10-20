@@ -4,18 +4,18 @@ if (!loginAndRegister)
 if (!loginAndRegister.register)
     loginAndRegister.register = {};
 
-loginAndRegister.register.RegisterController = function ($location,$http,$rootScope) {
+loginAndRegister.register.RegisterController = function ($location, $http, $rootScope) {
     var self = this;
     this.addUser = function () {
-        this.loading = true;
-        $http.post("/adduser",{
+        self.loading = true;
+        $http.post("/adduser", {
             username: self.username,
             firstname: self.firstname,
             lastname: self.lastname,
             email: self.email,
             password: self.password1
         })
-            .then(function(response) {
+            .then(function (response) {
                 if (response.data.message === "Success") {
                     $rootScope.user = response.data.user;
                     $rootScope.user.password = self.password;
@@ -25,8 +25,9 @@ loginAndRegister.register.RegisterController = function ($location,$http,$rootSc
                     self.errorMessage = "något gick fel: " + response.data.message;
                     self.showErrorMessage = true;
                 }
-            })
-        this.loading = false;
+            }).finally(function () {
+            self.loading = false;
+        });
     };
 
     this.username;

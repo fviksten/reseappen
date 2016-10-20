@@ -18,6 +18,11 @@ personalTest.persTest.persTestController = function(persTestService, $location){
         $location.path("/login");
     }
 
+    this.logout = function() {
+        persTestService.logout();
+        $location.path("/login");
+    }
+
     this.questionObj;
 
 
