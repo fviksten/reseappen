@@ -10,9 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-/**
- * Created by Emil Båth on 2016-10-19.
- */
 @Component
 public class DBRepository {
 
@@ -30,6 +27,31 @@ public class DBRepository {
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("fel i addUser");
+        }
+    }
+
+    public void setPersonalityType(User user) {
+        try (Connection conn = datasource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("EXEC setPersonalityType ?,?")) {
+            ps.setString(1,user.getUsername());
+            ps.setLong(2,user.getPersonalityType().ordinal() + 1);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("fel i setPersonalityType");
+        }
+    }
+
+    private long getPersonalityTypeID(PersonalityType personalityType) {
+        try (Connection conn = datasource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("EXEC getPersonalityTypeID ?")) {
+            ps.setString(1,personalityType.name());
+            ResultSet rs = ps.executeQuery();
+            long id = 1;
+            if (rs.next())
+                id = rs.getInt("PersonalityTypeID");
+            return id;
+        } catch (SQLException e) {
+            throw new RuntimeException("fel i setPersonalityType");
         }
     }
 
