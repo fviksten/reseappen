@@ -98,4 +98,17 @@ personalTest.persTest.persTestService = function($http, $rootScope) {
         $rootScope.user = {};
         console.log($rootScope.user);
     }
+
+    this.getQuestions = function() {
+        return questions.persForm;
+    }
+
+    this.isReadyToSend = function () {
+        for (var i = 0; i < questions.persForm.length; i++) {
+            if (questions.persForm[i].result.length === 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

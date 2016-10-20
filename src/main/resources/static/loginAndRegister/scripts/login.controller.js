@@ -22,7 +22,7 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
                     self.showErrorMessage = true;
                     self.errorMessage = "Success!";
                     console.log($rootScope.user);
-                    $location.path("/perstest")
+                    $location.path("/personalpage")
                 }
                 else {
                     self.showErrorMessage = true;
