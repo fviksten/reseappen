@@ -22,7 +22,7 @@ loginAndRegister.register.RegisterController = function ($location, $http, $root
                     $location.path("/perstest");
                 }
                 else {
-                    self.errorMessage = "något gick fel: " + response.data.message;
+                    self.errorMessage = "Something went wrong: " + response.data.message;
                     self.showErrorMessage = true;
                 }
             }).finally(function () {

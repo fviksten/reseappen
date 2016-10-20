@@ -33,6 +33,17 @@ public class DBRepository {
         }
     }
 
+    public boolean validateUser(User user) {
+        try (Connection conn = datasource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM [dbo].[Users] WHERE UserName = ?")) {
+            ps.setString(1,user.getUsername());
+            ResultSet rs = ps.executeQuery();
+            return !rs.next();
+        } catch (SQLException e) {
+            throw new RuntimeException("fel i addUser");
+        }
+    }
+
     public User getUser(String username) {
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("EXEC getUser ?")) {

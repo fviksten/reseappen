@@ -29,7 +29,12 @@ public class ContentController {
         if (bindingResult.hasErrors()) {
             returnData.setMessage("Error");
             returnData.setUser(user);
-        } else {
+        }
+        else if (!dBRepository.validateUser(user)) {
+            returnData.setMessage("Username already in use");
+            returnData.setUser(user);
+        }
+        else {
             returnData.setMessage("Success");
             dBRepository.addUser(user);
             User sessionUser = dBRepository.getUser(user.getUsername());
@@ -61,6 +66,7 @@ public class ContentController {
     public ResponseEntity<ReturnData> getPersonalityTestAnswers(@RequestBody Questions questions) {
         System.out.println(questions.getUser().getPersonalityType().name());
         User sessionUser = questions.getUser();
+
         ReturnData returnData = new ReturnData();
         returnData.setUser(sessionUser);
         returnData.setMessage("OK");
