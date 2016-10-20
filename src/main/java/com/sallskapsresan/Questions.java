@@ -1,13 +1,36 @@
 package com.sallskapsresan;
 
-import com.google.gson.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Answer {
+/**
+ * Created by Administrator on 2016-10-19.
+ */
+public class Questions {
 
-    public PersonalityType setType(String jsonLine) {
+    private List<Question> persForm;
 
-        String result = parser(jsonLine);
-        PersonalityType type = PersonalityType.ENFJ;
+    public Questions() {
+        this.persForm = new ArrayList<>();
+    }
+
+    public void setPersForm(List<Question> persForm) {
+        this.persForm = persForm;
+    }
+
+    public List<Question> getPersForm() {
+        return persForm;
+    }
+
+    public PersonalityType getType() {
+
+        StringBuilder sb = new StringBuilder();
+
+        for (Question question : persForm) {
+            sb.append(question.getResult());
+        }
+
+        PersonalityType type = PersonalityType.DEFAULT;
 
         int counterI = 0;
         int counterE = 0;
@@ -18,7 +41,7 @@ public class Answer {
         int counterJ = 0;
         int counterP = 0;
 
-        for (char c : result.toCharArray()) {
+        for (char c : sb.toString().toCharArray()) {
             if (c == 'I') {
                 counterI++;
             }
@@ -64,25 +87,24 @@ public class Answer {
                 if (counterF > counterT) {
                     if (counterJ > counterP) {
                         type = PersonalityType.INFJ;
+                    } else {
+                        type = PersonalityType.INFP;
                     }
-                    else {type = PersonalityType.INFP;}
-                }
-                else {
+                } else {
                     if (counterJ > counterP) {
                         type = PersonalityType.INTJ;
                     } else {
                         type = PersonalityType.INTP;
                     }
                 }
-            }
-            else {
+            } else {
                 if (counterF > counterT) {
                     if (counterJ > counterP) {
                         type = PersonalityType.ISFJ;
+                    } else {
+                        type = PersonalityType.ISFP;
                     }
-                    else {type = PersonalityType.ISFP;}
-                }
-                else {
+                } else {
                     if (counterJ > counterP) {
                         type = PersonalityType.ISTJ;
                     } else {
@@ -90,31 +112,29 @@ public class Answer {
                     }
                 }
             }
-        }
-        else {
+        } else if (counterI < counterE) {
             if (counterN > counterS) {
                 if (counterF > counterT) {
                     if (counterJ > counterP) {
                         type = PersonalityType.ENFJ;
+                    } else {
+                        type = PersonalityType.ENFP;
                     }
-                    else {type = PersonalityType.ENFP;}
-                }
-                else {
+                } else {
                     if (counterJ > counterP) {
                         type = PersonalityType.ENTJ;
                     } else {
                         type = PersonalityType.ENTP;
                     }
                 }
-            }
-            else {
+            } else {
                 if (counterF > counterT) {
                     if (counterJ > counterP) {
                         type = PersonalityType.ESFJ;
+                    } else {
+                        type = PersonalityType.ESFP;
                     }
-                    else {type = PersonalityType.ESFP;}
-                }
-                else {
+                } else {
                     if (counterJ > counterP) {
                         type = PersonalityType.ESTJ;
                     } else {
@@ -122,26 +142,11 @@ public class Answer {
                     }
                 }
             }
-
         }
+        else {type = PersonalityType.DEFAULT;}
 
         return type;
     }
 
-    private String parser(String jsonLine) {
-        StringBuilder type = new StringBuilder();
-
-        JsonElement jelement = new JsonParser().parse(jsonLine);
-        JsonObject jobject = jelement.getAsJsonObject();
-        JsonArray jarray = jobject.getAsJsonArray("persForm");
-
-        for (int i = 0; i < jarray.size(); i++) {
-            jobject = jarray.get(i).getAsJsonObject();
-            String s = jobject.get("result").toString().substring(1,2);
-            type.append(s);
-        }
-
-        return type.toString();
-    }
 
 }
