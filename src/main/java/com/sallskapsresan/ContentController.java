@@ -67,4 +67,13 @@ public class ContentController {
 
         return new ResponseEntity<HttpStatus>(HttpStatus.OK);
     }
+
+//    @PostMapping("/persTest")
+//    public ResponseEntity<HttpStatus> getPersonalityTestAnswers(@RequestBody Questions questions) {
+//        for (Question question : questions.getPersForm()) {
+//            System.out.println(question.getQuestion());
+//        }
+//        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+//    }
+
 }
