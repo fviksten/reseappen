@@ -12,9 +12,17 @@ personalTest.persTest.persTestController = function(persTestService, $location){
     this.getQuestion = function(){
         this.questionObj = persTestService.getQuestion();
     }
+    this.goBackToQuestion= function() {
+        this.questionObj=persTestService.goBackToQuestion();
+    }
 
     this.send = function(){
         persTestService.send();
+        $location.path("/personalpage");
+    }
+
+    this.logout = function() {
+        persTestService.logout();
         $location.path("/login");
     }
 
