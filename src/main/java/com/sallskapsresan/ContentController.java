@@ -80,4 +80,10 @@ public class ContentController {
         return destinations;
     }
 
+    @PostMapping("/myDestinations")
+    public void submitListOfFavoriteDestinations(@RequestBody MyFavoriteDestinations myFavoriteDestinations) {
+        User user = myFavoriteDestinations.getUser();
+        Destinations favoriteDestinations = myFavoriteDestinations.getFavoriteDestinations();
+    }
+
 }

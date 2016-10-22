@@ -39,7 +39,7 @@ public class DBRepository {
             ResultSet rs = ps.executeQuery();
             return !rs.next();
         } catch (SQLException e) {
-            throw new RuntimeException("fel i addUser");
+            throw new RuntimeException("Fel i addUser");
         }
     }
 
@@ -50,7 +50,7 @@ public class DBRepository {
             ps.setLong(2, user.getPersonalityType().ordinal() + 1);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("fel i setPersonalityType");
+            throw new RuntimeException("Fel i setPersonalityType");
         }
     }
 
@@ -64,7 +64,7 @@ public class DBRepository {
                 id = rs.getInt("PersonalityTypeID");
             return id;
         } catch (SQLException e) {
-            throw new RuntimeException("fel i setPersonalityType");
+            throw new RuntimeException("Fel i setPersonalityType");
         }
     }
 
