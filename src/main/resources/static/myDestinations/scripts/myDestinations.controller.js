@@ -11,6 +11,7 @@ myDestinations.destinations.myDestinationsController = function(myDestinationsSe
 
 
 
+
     var self = this;
 
     this.getObject = function(){
