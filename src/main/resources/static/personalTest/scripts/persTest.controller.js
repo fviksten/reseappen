@@ -20,7 +20,7 @@ personalTest.persTest.persTestController = function(persTestService, $location){
 
     this.send = function(){
         persTestService.send();
-        $location.path("/personalpage");
+        $location.path("/mydestinations");
     }
 
     this.logout = function() {

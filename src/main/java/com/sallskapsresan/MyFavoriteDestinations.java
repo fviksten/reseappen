@@ -12,7 +12,7 @@ public class MyFavoriteDestinations {
     private List<Long> favoriteDestinations;
 
     public MyFavoriteDestinations() {
-        this.user = new User();
+//        this.user = new User();
         this.favoriteDestinations = new ArrayList<>();
     }
 
