@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 public class DBRepository {
@@ -112,6 +113,21 @@ public class DBRepository {
             return rs.next();
         } catch (SQLException e) {
             throw new RuntimeException("FEL i validatePassword");
+        }
+    }
+
+    public void insertFavoritesForUser(int userID, List<Integer> countryIDs, boolean favorite) {
+        try (Connection conn = datasource.getConnection();
+        PreparedStatement ps = conn.prepareStatement("EXEC insertEvaluationsForUser ?,?,?")) {
+            for (Integer id : countryIDs) {
+                ps.setLong(1,userID);
+                ps.setLong(2,id);
+                ps.setBoolean(3,favorite);
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (SQLException e) {
+            throw new RuntimeException("Fel i insertFavorites");
         }
     }
 }
