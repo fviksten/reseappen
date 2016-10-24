@@ -80,7 +80,7 @@ public class ContentController {
         return destinations;
     }
 
-    @GetMapping ("/suggestionsForMe")
+    @GetMapping ("/mySuggestions")
     public ResponseEntity<Destinations> getSuggestionsForUser (@RequestBody User user) {
         if (dBRepository.validatePassword(user.getUsername(), user.getPassword())) {
             Destinations suggestions = dBRepository.getSuggestions(user);
