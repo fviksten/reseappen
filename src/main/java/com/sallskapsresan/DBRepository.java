@@ -118,6 +118,7 @@ public class DBRepository {
     }
 
     public void insertFavoritesForUser(long userID, List<Long> countryIDs, boolean favorite) {
+        System.out.println(userID);
         try (Connection conn = datasource.getConnection();
         PreparedStatement ps = conn.prepareStatement("EXEC insertEvaluationsForUser ?,?,?")) {
             for (Long id : countryIDs) {
