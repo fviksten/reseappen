@@ -1,23 +1,57 @@
-<form name="form" data-ng-submit="vm.addUser()" role="form">
-    <div><input type="text" data-ng-model="vm.username" placeholder="Användarnamn"/></div>
-    <div><input type="text" data-ng-model="vm.firstname" placeholder="Förnamn"/></div>
-    <div><input type="text" data-ng-model="vm.lastname" placeholder="Efternamn"/></div>
-    <div><input type="text" data-ng-model="vm.email" placeholder="E-post"/></div>
-    <!--<div><input type="password" data-ng-model="vm.password1" placeholder="Lösenord" id="pw1"/></div>-->
-    <!--<div><input type="password" data-ng-model="vm.password2" placeholder="Lösenord igen" id="pw2" pw-check="pw1"/>-->
+<main>
+<form name="form" data-ng-submit="vm.addUser()" role="form" novalidate>
+
+<!--USERNAME-->
+    <div id="usernameinput" class="form-group" ng-class="{'has-error' : form.username.$invalid && !form.username.$pristine,
+            'has-success' : form.username.$valid && !form.username.$pristine}">
+
+        <input type="text" name="username" class="form-control" data-ng-model="vm.username" placeholder="Användarnamn"
+               ng-minlength="6" ng-maxlength="20" required/>
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        <p ng-show="form.username.$error.minlength" class="help-block">Användarnamnet är för kort.</p>
+        <p ng-show="form.username.$error.maxlength" class="help-block">Användarnamnet är för långt.</p>
+        <p ng-show="!form.username.$error.minlength && !form.username.$error.maxlength && form.username.$invalid &&
+            !form.username.$pristine" class="help-block">Användarnamn krävs.</p>
+    </div>
+<!--FIRSTNAME-->
+    <div class="form-group" ng-class="{ 'has-error' : form.firstname.$invalid && !form.firstname.$pristine,
+            'has-success' : form.firstname.$valid && !form.firstname.$pristine}">
+
+        <input type="text" name="firstname" class="form-control" data-ng-model="vm.firstname" placeholder="Förnamn"
+               required />
+        <p ng-show="form.firstname.$invalid && !form.firstname.$pristine" class="help-block">Förnamn krävs.</p>
+    </div>
+<!--LASTNAME-->
+    <div class="form-group" ng-class="{ 'has-error' : form.lastname.$invalid && !form.lastname.$pristine,
+            'has-success' : form.lastname.$valid && !form.lastname.$pristine}">
+
+        <input type="text" name="lastname" class="form-control" data-ng-model="vm.lastname" placeholder="Efternamn"
+               required />
+        <p ng-show="form.lastname.$invalid && !form.lastname.$pristine" class="help-block">Efternamn krävs.</p>
+    </div>
+<!--EMAIL-->
+    <div class="form-group" ng-class="{ 'has-error' : form.email.$invalid && !form.email.$pristine,
+            'has-success' : form.email.$valid && !form.email.$pristine}">
+
+        <input type="email" name="email" class="form-control" data-ng-model="vm.email" placeholder="E-post"/>
+        <p ng-show="form.email.$invalid && !form.email.$pristine" class="help-block">Ange en giltig E-post adress.</p>
+    </div>
+
     <div><input type='password' id='pw1' placeholder="Lösenord" class="form-control"
-           ng-model='vm.password1' ng-required/></div>
+                ng-model='vm.password1' ng-required/></div>
     <div><input type='password' name='pw2' placeholder="Upprepa lösenord" class="form-control"
-           ng-model='vm.password2' ng-required pw-check='pw1'/></div>
+                ng-model='vm.password2' ng-required pw-check='pw1'/></div>
     </div>
 
-  <p class='msg-error' ng-show='form.pw2.$error.pwmatch'>
-    Lösenorden matchar inte
-  </p>
-
+    <p class='msg-error' ng-show='form.pw2.$error.pwmatch'>
+        Lösenorden matchar inte
+    </p>
+<!--SUBMIT BUTTON-->
     <div>
-        <button type="submit">Log in</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Logga in</button>
     </div>
-    <div data-ng-if="vm.loading">Loading...</div>
+
+    <div data-ng-if="vm.loading">Laddar...</div>
     <div data-ng-if="vm.showErrorMessage">{{vm.errorMessage}}</div>
 </form>
+</main>

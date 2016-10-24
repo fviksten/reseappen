@@ -1,13 +1,10 @@
-<h1>Hello from myDestinations</h1>
 
 <div data-ng-init="vm.getObject()">
 
-
-    <h1>Choose 3 favorite destinations</h1>
-    <select ng-model="vm.aCountry" ng-options="item.country for item in vm.object.listDestinations | orderBy:'country'"
-            ng-value="item.id">
-        <option value="">--- Välj destination ---</option>
-    </select>
+        <h1>Välj 3 favoritdestinationer</h1>
+        <select ng-model="vm.aCountry" ng-options="item.country for item in vm.object.listDestinations | orderBy:'country'" ng-value="item.id">
+            <option value="">--- Välj destination ---</option>
+        </select>
 
     <button id="addButton" ng-click="vm.addItemToList()">Lägg till</button>
 
@@ -16,10 +13,8 @@
         <button ng-click="vm.removeItemFromList(countryItem)">Ta bort</button>
     </p>
 
-    <p>
-        <button id="submitButton" ng-click="vm.sendForm()" disabled>Skicka</button>
-    </p>
-    <div data-ng-if="vm.loading">Loading...</div>
+        <p><button id="submitButton" ng-click="vm.sendForm()" disabled>Skicka</button></p>
+        <div data-ng-if="vm.loading">Loading...</div>
 
 
 </div>
