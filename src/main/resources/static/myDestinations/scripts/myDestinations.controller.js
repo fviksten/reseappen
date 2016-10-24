@@ -10,8 +10,6 @@ if(!myDestinations.destinations)
 myDestinations.destinations.myDestinationsController = function(myDestinationsService, $location, $http, $rootScope){
 
 
-
-
     var self = this;
 
     this.getObject = function(){

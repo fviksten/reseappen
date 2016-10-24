@@ -7,7 +7,8 @@ if(!personalTest)
 if(!personalTest.persTest)
     personalTest.persTest = {};
 
-personalTest.persTest.persTestController = function(persTestService, $location){
+personalTest.persTest.persTestController = function(persTestService, $location, $rootScope){
+
     var self = this;
     this.getQuestion = function(){
         this.questionObj = persTestService.getQuestion();
