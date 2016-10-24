@@ -28,7 +28,7 @@ public class DBRepository {
             ps.setString(5, user.getEmail());
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("fel i addUser");
+            throw new RuntimeException("Fel i addUser");
         }
     }
 
@@ -39,7 +39,7 @@ public class DBRepository {
             ResultSet rs = ps.executeQuery();
             return !rs.next();
         } catch (SQLException e) {
-            throw new RuntimeException("fel i addUser");
+            throw new RuntimeException("Fel i addUser");
         }
     }
 
@@ -50,7 +50,7 @@ public class DBRepository {
             ps.setLong(2, user.getPersonalityType().ordinal() + 1);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("fel i setPersonalityType");
+            throw new RuntimeException("Fel i setPersonalityType");
         }
     }
 
@@ -64,7 +64,7 @@ public class DBRepository {
                 id = rs.getInt("PersonalityTypeID");
             return id;
         } catch (SQLException e) {
-            throw new RuntimeException("fel i setPersonalityType");
+            throw new RuntimeException("Fel i setPersonalityType");
         }
     }
 
@@ -86,7 +86,7 @@ public class DBRepository {
             user.setUsername(username);
             return user;
         } catch (SQLException e) {
-            throw new RuntimeException("fel i getUser");
+            throw new RuntimeException("Fel i getUser");
         }
     }
 
@@ -113,7 +113,22 @@ public class DBRepository {
             ResultSet rs = ps.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            throw new RuntimeException("FEL i validatePassword");
+            throw new RuntimeException("Fel i validatePassword");
+        }
+    }
+
+    public void insertFavoritesForUser(long userID, List<Long> countryIDs, boolean favorite) {
+        try (Connection conn = datasource.getConnection();
+        PreparedStatement ps = conn.prepareStatement("EXEC insertEvaluationsForUser ?,?,?")) {
+            for (Long id : countryIDs) {
+                ps.setLong(1,userID);
+                ps.setLong(2,id);
+                ps.setBoolean(3,favorite);
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (SQLException e) {
+            throw new RuntimeException("Fel i insertFavorites");
         }
     }
 
