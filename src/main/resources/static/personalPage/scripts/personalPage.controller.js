@@ -11,7 +11,6 @@ personalPage.persPage.personalPageController = function ($rootScope,$location) {
         $location.path("/login");
     }
     this.suggestions=function() {
-        console.log("nu är vi i suggestion()"); //Ska bort
         $location.path("/suggestions");
     }
 }

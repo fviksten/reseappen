@@ -82,11 +82,13 @@ public class ContentController {
 
     @GetMapping ("/mySuggestions")
     public ResponseEntity<Destinations> getSuggestionsForUser (@RequestBody User user) {
-        if (dBRepository.validatePassword(user.getUsername(), user.getPassword())) {
+        System.out.println("I contentController men innan anrop till repository");
+
             Destinations suggestions = dBRepository.getSuggestions(user);
+            System.out.println("I contentController efter .getSuggestions");
             return new ResponseEntity<Destinations>(suggestions, HttpStatus.OK);
-        }
-        return new ResponseEntity<Destinations>(new Destinations(), HttpStatus.OK);
+
+
     }
 
     @PostMapping("/myDestinations")
