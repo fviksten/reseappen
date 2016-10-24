@@ -80,6 +80,15 @@ public class ContentController {
         return destinations;
     }
 
+    @GetMapping ("/suggestions")
+    public ResponseEntity<Destinations> getSuggestionsForUser (@RequestBody User user) {
+        if (dBRepository.validatePassword(user.getUsername(), user.getPassword())) {
+            Destinations suggestions = dBRepository.getSuggestions(user);
+            return new ResponseEntity<Destinations>(suggestions, HttpStatus.OK);
+        }
+        return new ResponseEntity<Destinations>(new Destinations(), HttpStatus.OK);
+    }
+
     @PostMapping("/myDestinations")
     public ResponseEntity<ReturnData> submitListOfFavoriteDestinations(@RequestBody MyFavoriteDestinations myFavoriteDestinations) {
         User user = myFavoriteDestinations.getUser();
