@@ -13,6 +13,7 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function(d
         console.log(this.object)
     };
     this.getObject = function () {
+        console.log('ready to sent HTTPGetObject');
         $http.get("/suggestionsForMe")
             .then(function (response) {
                 self.object = response.data;
