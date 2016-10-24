@@ -29,3 +29,4 @@ angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.re
             }
         ).otherwise("/login");
     }]);
+
