@@ -80,15 +80,14 @@ public class ContentController {
         return destinations;
     }
 
-    @GetMapping ("/mySuggestions")
+    @PostMapping ("/mySuggestions")
     public ResponseEntity<Destinations> getSuggestionsForUser (@RequestBody User user) {
-        System.out.println("I contentController men innan anrop till repository");
-
+        if (dBRepository.validatePassword(user.getUsername(), user.getPassword())) {
             Destinations suggestions = dBRepository.getSuggestions(user);
-            System.out.println("I contentController efter .getSuggestions");
             return new ResponseEntity<Destinations>(suggestions, HttpStatus.OK);
-
-
+        } else {
+            return new ResponseEntity<Destinations>(new Destinations(), HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @PostMapping("/myDestinations")

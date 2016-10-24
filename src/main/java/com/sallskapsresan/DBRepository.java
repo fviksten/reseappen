@@ -148,7 +148,6 @@ public class DBRepository {
     }
 
     public Destinations getSuggestions(User user) {
-        System.out.println("I repository");
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("EXEC getSuggestions ?, ?")) {
             ps.setLong(1, user.getUserID());
