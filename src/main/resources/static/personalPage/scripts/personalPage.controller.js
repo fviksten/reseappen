@@ -10,6 +10,10 @@ personalPage.persPage.personalPageController = function ($rootScope,$location) {
         $rootScope.user = {};
         $location.path("/login");
     }
+    this.suggestions=function() {
+        console.log("nu är vi i suggestion()"); //Ska bort
+        $location.path("/suggestions");
+    }
 }
 
 

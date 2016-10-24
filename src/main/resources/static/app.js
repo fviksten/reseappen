@@ -1,4 +1,4 @@
-angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.register", "personalTest.persTest", "myDestinations.destinations"])
+angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.register", "personalTest.persTest", "myDestinations.destinations", "suggestions.destinationSuggestions"])
     .run(function($rootScope) {
         $rootScope.user ={};
 
@@ -24,6 +24,11 @@ angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.re
         }).when("/personalpage", {
                 templateUrl: "personalPage/angularTemplates/personalPage.template.html",
                 controller: personalPage.persPage.personalPageController,
+                controllerAs: "vm"
+            }
+        ).when("/suggestions", {
+                templateUrl: "suggestions/angularTemplates/destinationSuggestions.template.html",
+                controller: suggestions.destinationSuggestions.destinationSuggestionsController,
                 controllerAs: "vm"
             }
         ).otherwise("/login");
