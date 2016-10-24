@@ -78,8 +78,10 @@ myDestinations.destinations.myDestinationsController = function(myDestinationsSe
         .then(function(response) {
             $rootScope.user = response.data.user;
             console.log($rootScope.user.personalityType)
+            $location.path("/personalpage");
         })
-        $location.path("/personalpage");
+            .finally(function () {
+                self.loading = false;
+            });
     };
 }
-

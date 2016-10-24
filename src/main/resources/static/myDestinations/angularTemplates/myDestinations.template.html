@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-    <h1>Hello from myDestinations</h1>
 
     <div data-ng-init="vm.getObject()">
 
-
-
-        <h1>Choose 3 favorite destinations</h1>
+        <h1>Välj 3 favoritdestinationer</h1>
         <select ng-model="vm.aCountry" ng-options="item.country for item in vm.object.listDestinations | orderBy:'country'" ng-value="item.id">
             <option value="">--- Välj destination ---</option>
         </select>
@@ -29,6 +18,3 @@
 
 
     </div>
-
-</body>
-</html>
