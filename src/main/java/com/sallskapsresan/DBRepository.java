@@ -145,4 +145,20 @@ public class DBRepository {
             throw new RuntimeException("Fel i getListOfAllDestinations");
         }
     }
+
+    public Destinations getSuggestions(User user) {
+        try (Connection conn = datasource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("EXEC getSuggestions ?, ?")) {
+            ps.setInt(1, user.g);
+            ps.setInt(2, user.getPersonalityType().ordinal()+1);
+            ResultSet rs = ps.executeQuery();
+            Destinations listOfSuggestions = new Destinations();
+            while (rs.next()) {
+                listOfSuggestions.getListDestinations().add(new Destination(rs.getInt("CountryID"), rs.getString("CountryName")));
+            }
+            return listOfSuggestions;
+        } catch (SQLException e) {
+            throw new RuntimeException("Fel i getSuggestions");
+        }
+    }
 }
