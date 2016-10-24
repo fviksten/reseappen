@@ -21,4 +21,13 @@ public class Destinations {
     public List<Destination> getListDestinations() {
         return listDestinations;
     }
+
+//    public List<Integer> getDestinationsID() {
+//        List<Integer> destinationsID = new ArrayList<>();
+//
+//        for (Destination destination : listDestinations) {
+//            destinationsID.add(destination.getId());
+//        }
+//        return destinationsID;
+//    }
 }

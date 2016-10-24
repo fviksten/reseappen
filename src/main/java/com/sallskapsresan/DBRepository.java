@@ -28,7 +28,7 @@ public class DBRepository {
             ps.setString(5, user.getEmail());
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("fel i addUser");
+            throw new RuntimeException("Fel i addUser");
         }
     }
 
@@ -39,7 +39,7 @@ public class DBRepository {
             ResultSet rs = ps.executeQuery();
             return !rs.next();
         } catch (SQLException e) {
-            throw new RuntimeException("fel i addUser");
+            throw new RuntimeException("Fel i addUser");
         }
     }
 
@@ -50,7 +50,7 @@ public class DBRepository {
             ps.setLong(2, user.getPersonalityType().ordinal() + 1);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("fel i setPersonalityType");
+            throw new RuntimeException("Fel i setPersonalityType");
         }
     }
 
@@ -64,7 +64,7 @@ public class DBRepository {
                 id = rs.getInt("PersonalityTypeID");
             return id;
         } catch (SQLException e) {
-            throw new RuntimeException("fel i setPersonalityType");
+            throw new RuntimeException("Fel i setPersonalityType");
         }
     }
 
@@ -86,7 +86,7 @@ public class DBRepository {
             user.setUsername(username);
             return user;
         } catch (SQLException e) {
-            throw new RuntimeException("fel i getUser");
+            throw new RuntimeException("Fel i getUser");
         }
     }
 
@@ -113,14 +113,14 @@ public class DBRepository {
             ResultSet rs = ps.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            throw new RuntimeException("FEL i validatePassword");
+            throw new RuntimeException("Fel i validatePassword");
         }
     }
 
-    public void insertFavoritesForUser(int userID, List<Integer> countryIDs, boolean favorite) {
+    public void insertFavoritesForUser(long userID, List<Long> countryIDs, boolean favorite) {
         try (Connection conn = datasource.getConnection();
         PreparedStatement ps = conn.prepareStatement("EXEC insertEvaluationsForUser ?,?,?")) {
-            for (Integer id : countryIDs) {
+            for (Long id : countryIDs) {
                 ps.setLong(1,userID);
                 ps.setLong(2,id);
                 ps.setBoolean(3,favorite);
@@ -149,7 +149,6 @@ public class DBRepository {
     public Destinations getSuggestions(User user) {
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("EXEC getSuggestions ?, ?")) {
-            ps.setInt(1, user.g);
             ps.setInt(2, user.getPersonalityType().ordinal()+1);
             ResultSet rs = ps.executeQuery();
             Destinations listOfSuggestions = new Destinations();
@@ -162,3 +161,4 @@ public class DBRepository {
         }
     }
 }
+
