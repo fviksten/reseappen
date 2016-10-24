@@ -10,21 +10,22 @@
 
     <div data-ng-init="vm.getObject()">
 
-        <strong>1) <em>{{vm.object.listDestinations[0].country}}</em></strong>
-        <strong>2) <em>{{vm.object.listDestinations[1].country}}</em></strong>
 
-        <br>
 
-        <form>
-            <select name="countries">
-                <option value="volvo">{{vm.object.listDestinations[0].country}}</option>
-                <option value="saab">{{vm.object.listDestinations[1].country}}</option>
-            </select>
-            <br><br>
-            <input type="submit">
-        </form>
+        <h1>Choose 3 favorite destinations</h1>
+        <select ng-model="vm.aCountry" ng-options="item.country for item in vm.object.listDestinations | orderBy:'country'" ng-value="item.id">
+            <option value="">--- Välj destination ---</option>
+        </select>
 
-        <button ng-click="vm.getObject()">Push me!!!</button>
+        <button id="addButton" ng-click="vm.addItemToList()">Lägg till</button>
+
+        <p ng-repeat="countryItem in vm.chosenCountries track by $index">
+            <span>{{countryItem.country}}</span>
+            <button ng-click="vm.removeItemFromList(countryItem)">Ta bort</button>
+        </p>
+
+        <p><button id="submitButton" ng-click="vm.sendForm()" disabled>Skicka</button></p>
+        <div data-ng-if="vm.loading">Loading...</div>
 
 
     </div>
