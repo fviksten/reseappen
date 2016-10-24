@@ -9,7 +9,7 @@ import java.util.List;
 public class MyFavoriteDestinations {
 
     private User user;
-    private List<Integer> favoriteDestinations;
+    private List<Long> favoriteDestinations;
 
     public MyFavoriteDestinations() {
         this.user = new User();
@@ -20,7 +20,7 @@ public class MyFavoriteDestinations {
         this.user = user;
     }
 
-    public void setFavoriteDestinations(List<Integer> favoriteDestinations) {
+    public void setFavoriteDestinations(List<Long> favoriteDestinations) {
         this.favoriteDestinations = favoriteDestinations;
     }
 
@@ -28,7 +28,7 @@ public class MyFavoriteDestinations {
         return user;
     }
 
-    public List<Integer> getFavoriteDestinations() {
+    public List<Long> getFavoriteDestinations() {
         return favoriteDestinations;
     }
 }

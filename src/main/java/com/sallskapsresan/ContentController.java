@@ -54,6 +54,7 @@ public class ContentController {
             if (dBRepository.validatePassword(user.getUsername(),user.getPassword())) {
                 returnData.setMessage("Success");
                 User sessionUser = dBRepository.getUser(user.getUsername());
+                System.out.println(sessionUser.getUserID());
                 returnData.setUser(sessionUser);
             } else {
                 returnData.setMessage("Kunde inte logga in!");
@@ -82,9 +83,19 @@ public class ContentController {
     @PostMapping("/myDestinations")
     public ResponseEntity<ReturnData> submitListOfFavoriteDestinations(@RequestBody MyFavoriteDestinations myFavoriteDestinations) {
         User user = myFavoriteDestinations.getUser();
+        System.out.println(user.getUserID());
+        System.out.println(myFavoriteDestinations.getFavoriteDestinations().get(0));
+        ReturnData returnData = new ReturnData();
         if (dBRepository.validatePassword(user.getUsername(), user.getPassword())){
-            
+            boolean favorite = true;
+            dBRepository.insertFavoritesForUser(user.getUserID(), myFavoriteDestinations.getFavoriteDestinations(), favorite);
+            returnData.setUser(user);
+            returnData.setMessage("OK");
         }
+        else {
+            returnData.setUser(user);
+            returnData.setMessage("Något gick fel");
+        }
+        return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
     }
-
 }
