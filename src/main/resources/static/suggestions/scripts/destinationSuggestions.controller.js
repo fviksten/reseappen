@@ -13,7 +13,7 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function(d
         console.log(this.object)
     };
     this.getObject = function () {
-        $http.get("/mySuggestions")
+        $http.get("/suggestionsForMe")
             .then(function (response) {
                 self.object = response.data;
                 console.log(self.object);
