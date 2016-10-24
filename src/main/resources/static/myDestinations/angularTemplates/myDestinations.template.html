@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <h1>Hello from myDestinations</h1>
+
+    <div data-ng-init="vm.getObject()">
+
+        <strong>1) <em>{{vm.object.listDestinations[0].country}}</em></strong>
+        <strong>2) <em>{{vm.object.listDestinations[1].country}}</em></strong>
+
+        <br>
+
+        <form>
+            <select name="countries">
+                <option value="volvo">{{vm.object.listDestinations[0].country}}</option>
+                <option value="saab">{{vm.object.listDestinations[1].country}}</option>
+            </select>
+            <br><br>
+            <input type="submit">
+        </form>
+
+        <button ng-click="vm.getObject()">Push me!!!</button>
+
+
+    </div>
+
+</body>
+</html>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -70,6 +71,12 @@ public class ContentController {
         returnData.setUser(sessionUser);
         returnData.setMessage("OK");
         return new ResponseEntity<ReturnData>(returnData,HttpStatus.OK);
+    }
+
+    @GetMapping("/myDestinations")
+    public Destinations getListOfDestinations(){
+        Destinations destinations = dBRepository.getListOfDestinations();
+        return destinations;
     }
 
 }

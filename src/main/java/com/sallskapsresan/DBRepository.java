@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -128,6 +129,20 @@ public class DBRepository {
             ps.executeBatch();
         } catch (SQLException e) {
             throw new RuntimeException("Fel i insertFavorites");
+        }
+    }
+
+    public Destinations getListOfDestinations(){
+        try (Connection conn = datasource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("EXEC getAllCountries")) {
+            ResultSet rs = ps.executeQuery();
+            Destinations listOfAllDestinations = new Destinations();
+            while (rs.next()) {
+                listOfAllDestinations.getListDestinations().add(new Destination(rs.getInt("CountryID"), rs.getString("CountryName")));
+            }
+            return listOfAllDestinations;
+        } catch (SQLException e) {
+            throw new RuntimeException("Fel i getListOfAllDestinations");
         }
     }
 }
