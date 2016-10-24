@@ -1,23 +1,26 @@
 package com.sallskapsresan;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Administrator on 2016-10-22.
  */
 public class MyFavoriteDestinations {
 
     private User user;
-    private Destinations favoriteDestinations;
+    private List<Integer> favoriteDestinations;
 
     public MyFavoriteDestinations() {
         this.user = new User();
-        this.favoriteDestinations = new Destinations();
+        this.favoriteDestinations = new ArrayList<>();
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public void setFavoriteDestinations(Destinations favoriteDestinations) {
+    public void setFavoriteDestinations(List<Integer> favoriteDestinations) {
         this.favoriteDestinations = favoriteDestinations;
     }
 
@@ -25,7 +28,7 @@ public class MyFavoriteDestinations {
         return user;
     }
 
-    public Destinations getFavoriteDestinations() {
+    public List<Integer> getFavoriteDestinations() {
         return favoriteDestinations;
     }
 }

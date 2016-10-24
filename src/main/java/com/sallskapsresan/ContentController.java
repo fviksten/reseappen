@@ -81,9 +81,11 @@ public class ContentController {
     }
 
     @PostMapping("/myDestinations")
-    public void submitListOfFavoriteDestinations(@RequestBody MyFavoriteDestinations myFavoriteDestinations) {
+    public ResponseEntity<ReturnData> submitListOfFavoriteDestinations(@RequestBody MyFavoriteDestinations myFavoriteDestinations) {
         User user = myFavoriteDestinations.getUser();
-        Destinations favoriteDestinations = myFavoriteDestinations.getFavoriteDestinations();
+        if (dBRepository.validatePassword(user.getUsername(), user.getPassword())){
+            
+        }
     }
 
 }

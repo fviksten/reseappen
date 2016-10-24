@@ -86,7 +86,7 @@ public class DBRepository {
             user.setUsername(username);
             return user;
         } catch (SQLException e) {
-            throw new RuntimeException("fel i getUser");
+            throw new RuntimeException("Fel i getUser");
         }
     }
 
@@ -113,7 +113,7 @@ public class DBRepository {
             ResultSet rs = ps.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            throw new RuntimeException("FEL i validatePassword");
+            throw new RuntimeException("Fel i validatePassword");
         }
     }
 
