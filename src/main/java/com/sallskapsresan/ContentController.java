@@ -65,7 +65,6 @@ public class ContentController {
 
     @PostMapping("/persTest")
     public ResponseEntity<ReturnData> getPersonalityTestAnswers(@RequestBody Questions questions) {
-        System.out.println(questions.getUser().getPersonalityType().name());
         User sessionUser = questions.getUser();
         dBRepository.setPersonalityType(sessionUser);
         ReturnData returnData = new ReturnData();

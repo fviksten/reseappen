@@ -117,6 +117,21 @@ public class DBRepository {
         }
     }
 
+    public void insertFavoritesForUser(int userID, List<Integer> countryIDs, boolean favorite) {
+        try (Connection conn = datasource.getConnection();
+        PreparedStatement ps = conn.prepareStatement("EXEC insertEvaluationsForUser ?,?,?")) {
+            for (Integer id : countryIDs) {
+                ps.setLong(1,userID);
+                ps.setLong(2,id);
+                ps.setBoolean(3,favorite);
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (SQLException e) {
+            throw new RuntimeException("Fel i insertFavorites");
+        }
+    }
+
     public Destinations getListOfDestinations(){
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("EXEC getAllCountries")) {
