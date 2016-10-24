@@ -14,14 +14,11 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
             password : self.password
         })
             .then(function(response) {
-                console.log(response);
                 if (response.data.message == "Success") {
-                    console.log(response);
                     $rootScope.user = response.data.user;
                     $rootScope.user.password = self.password;
                     self.showErrorMessage = true;
                     self.errorMessage = "Success!";
-                    console.log($rootScope.user);
                     $location.path("/personalpage")
                 }
                 else {

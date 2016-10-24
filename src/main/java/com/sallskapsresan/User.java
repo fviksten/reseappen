@@ -83,11 +83,7 @@ public class User {
     }
 
     //getters
-    public long getUserID () {
-        return userID;
-    }
-
-    public String getFirstname() {
+        public String getFirstname() {
         return firstname;
     }
 
