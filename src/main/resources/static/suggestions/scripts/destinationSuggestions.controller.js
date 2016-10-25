@@ -12,12 +12,11 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function(d
         console.log($rootScope.user);
         $http.post("/mySuggestions",$rootScope.user).then(function (response) {
                 self.object = response.data;
+            $("iframe").attr("src","https://www.google.com/maps/embed/v1/place?key=AIzaSyAjjsG2ur6grCBa1u9UP6etCWnKiR6Uma0&q=" + response.data.listDestinations[0].country )
                 // går att kontrollera http-responsen ifall usern är fel.
             });
     }
     this.object;
-
-    this.mapurl = "https://www.google.com/maps/embed/v1/place?key=&q=Space+Needle,Seattle+WA"
 
 }
 
