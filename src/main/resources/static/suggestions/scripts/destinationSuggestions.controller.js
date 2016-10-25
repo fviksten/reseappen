@@ -12,8 +12,11 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function(d
         console.log($rootScope.user);
         $http.post("/mySuggestions",$rootScope.user).then(function (response) {
                 self.object = response.data;
-                // går att kontrollera http-responsen ifall usern är fel.
             });
+    }
+
+    this.like=function() {
+
     }
     this.object;
 
