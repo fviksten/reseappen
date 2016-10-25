@@ -21,7 +21,7 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
             self.loading = false;
             self.showErrorMessage = true;
             console.log(response)
-            self.errorMessage = response
+            self.errorMessage = response.message
         });
     }
     this.username;
