@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,21 +22,64 @@ public class DBRepository {
     @Autowired
     DataSource datasource;
 
-    public void addUser(User user) {
+    public void createPasswords() throws NoSuchAlgorithmException {
+        for (int i = 0; i < 50; i++) {
+            try (Connection conn = datasource.getConnection();
+
+                 PreparedStatement ps = conn.prepareStatement("UPDATE [dbo].[Users] SET HashedPassword = ?, Salt = ? WHERE UserID = ?")) {
+
+                String salt = createSalt();
+                String password = "123";
+
+
+                ps.setString(1, hashedPassword(password, salt));
+                ps.setString(2, salt);
+                ps.setLong(3, i);
+                ps.executeUpdate();
+
+                System.out.println("new password " + i);
+            } catch (SQLException e) {
+                throw new RuntimeException("Fel i addUser");
+            }
+        }
+    }
+
+//    public void addUser(User user) {
+//        try (Connection conn = datasource.getConnection();
+//             PreparedStatement ps = conn.prepareStatement("EXEC addUser ?,?,?,?,?")) {
+//            ps.setString(1, user.getFirstname());
+//            ps.setString(2, user.getLastname());
+//            ps.setString(3, user.getUsername());
+//            ps.setString(4, user.getPassword());
+//            ps.setString(5, user.getEmail());
+//            ps.executeUpdate();
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Fel i addUser");
+//        }
+//    }
+
+    public void addUser(User user) throws NoSuchAlgorithmException {
         try (Connection conn = datasource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("EXEC addUser ?,?,?,?,?")) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO Users (FirstName, LastName, UserName, HashedPassword, Email, Salt) VALUES (?, ?, ?, ?, ?, ?)")) {
+            String salt = createSalt();
+
             ps.setString(1, user.getFirstname());
             ps.setString(2, user.getLastname());
             ps.setString(3, user.getUsername());
-            ps.setString(4, user.getPassword());
+            ps.setString(4, hashedPassword(user.getPassword(), salt));
             ps.setString(5, user.getEmail());
+            ps.setString(6, salt);
             ps.executeUpdate();
-        } catch (SQLException e) {
+
+            System.out.println("Sent to database");
+        }
+        catch (SQLException e) {
             throw new RuntimeException("Fel i addUser");
         }
     }
 
-    public boolean validateUser(User user) {
+
+    public boolean validateUsername(User user) {
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT * FROM [dbo].[Users] WHERE UserName = ?")) {
             ps.setString(1, user.getUsername());
@@ -105,17 +152,41 @@ public class DBRepository {
         }
     }
 
-    public boolean validatePassword(String username, String password) {
+//    public boolean validatePassword(String username, String password) {
+//        try (Connection conn = datasource.getConnection();
+//             PreparedStatement ps = conn.prepareStatement("EXEC validatePassword ?,?")) {
+//            ps.setString(1, username);
+//            ps.setString(2, password);
+//            ResultSet rs = ps.executeQuery();
+//            return rs.next();
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Fel i validatePassword");
+//        }
+//    }
+
+    public boolean validatePassword(String username, String password) throws NoSuchAlgorithmException {
+
         try (Connection conn = datasource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("EXEC validatePassword ?,?")) {
+             PreparedStatement ps = conn.prepareStatement("SELECT HashedPassword, Salt FROM [dbo].[Users] WHERE Username = ?")) {
             ps.setString(1, username);
-            ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-            return rs.next();
+
+            if (rs.next()) {
+                String storedHash = rs.getString(1).trim();
+                String salt = rs.getString(2).trim();
+                String hash = hashedPassword(password, salt);
+                if (storedHash.equals(hash)) {
+                    System.out.println("right password");
+                    return true;
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException("Fel i validatePassword");
         }
+        System.out.println("wrong password");
+        return false;
     }
+
 
     public void insertFavoritesForUser(long userID, List<Long> countryIDs, boolean favorite) {
         System.out.println(userID);
@@ -161,6 +232,19 @@ public class DBRepository {
         } catch (SQLException e) {
             throw new RuntimeException("Fel i getSuggestions");
         }
+    }
+
+    private String hashedPassword (String password, String salt) throws NoSuchAlgorithmException {
+        byte[] hash = MessageDigest.getInstance("SHA-256").digest((salt + password).getBytes());
+        String hashed = DatatypeConverter.printBase64Binary(hash);
+        return hashed;
+    }
+
+    private String createSalt () {
+        SecureRandom sr = new SecureRandom();
+        byte bytes[] = new byte[20];
+        sr.nextBytes(bytes);
+        return DatatypeConverter.printBase64Binary(bytes);
     }
 }
 
