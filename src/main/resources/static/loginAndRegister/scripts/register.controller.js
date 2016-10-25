@@ -21,7 +21,9 @@ loginAndRegister.register.RegisterController = function ($location, $http, $root
                 $location.path("/perstest");
             }).error(function (response) {
             self.loading = false;
-            self.errorMessage = response.errorMessage
+            self.showErrorMessage = true;
+            console.log(response)
+            self.errorMessage = response.fieldErrors
         });
     };
 

@@ -14,11 +14,11 @@ public class User {
 
     private Long userID;
 
-    @NotNull
-    @Size (min=2, max=30)
+    @NotNull (message="Fältet förnamn är obligatoriskt!")
+    @Size (min=2, max=30, message="Ditt förnamn måste vara mellan två och 30 tecken långt!")
     private String firstname;
 
-    @NotNull
+    @NotNull(message="Fältet efternamn är obligatoriskt!")
     @Size (min=2, max=30)
     private String lastname;
 
