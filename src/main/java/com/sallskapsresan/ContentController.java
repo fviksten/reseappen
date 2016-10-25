@@ -85,13 +85,14 @@ public class ContentController {
         return destinations;
     }
 
-    @GetMapping ("/suggestions")
+    @PostMapping ("/mySuggestions")
     public ResponseEntity<Destinations> getSuggestionsForUser (@RequestBody User user) {
         if (dBRepository.validatePassword(user.getUsername(), user.getPassword())) {
             Destinations suggestions = dBRepository.getSuggestions(user);
             return new ResponseEntity<Destinations>(suggestions, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Destinations>(new Destinations(), HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<Destinations>(new Destinations(), HttpStatus.OK);
     }
 
     @PostMapping("/myDestinations")
@@ -99,6 +100,7 @@ public class ContentController {
         User user = myFavoriteDestinations.getUser();
         System.out.println(user.getUserID());
         System.out.println(myFavoriteDestinations.getFavoriteDestinations().get(0));
+        System.out.println(user.getPassword());
         ReturnData returnData = new ReturnData();
         if (dBRepository.validatePassword(user.getUsername(), user.getPassword())){
             boolean favorite = true;

@@ -1,34 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-    <h1>Hello from myDestinations</h1>
+<div data-ng-init="vm.getObject()">
 
-    <div data-ng-init="vm.getObject()">
-
-
-
-        <h1>Choose 3 favorite destinations</h1>
+        <h1>Välj 3 favoritdestinationer</h1>
         <select ng-model="vm.aCountry" ng-options="item.country for item in vm.object.listDestinations | orderBy:'country'" ng-value="item.id">
             <option value="">--- Välj destination ---</option>
         </select>
 
-        <button id="addButton" ng-click="vm.addItemToList()">Lägg till</button>
+    <button id="addButton" ng-click="vm.addItemToList()">Lägg till</button>
 
-        <p ng-repeat="countryItem in vm.chosenCountries track by $index">
-            <span>{{countryItem.country}}</span>
-            <button ng-click="vm.removeItemFromList(countryItem)">Ta bort</button>
-        </p>
+    <p ng-repeat="countryItem in vm.chosenCountries track by $index">
+        <span>{{countryItem.country}}</span>
+        <button ng-click="vm.removeItemFromList(countryItem)">Ta bort</button>
+    </p>
 
         <p><button id="submitButton" ng-click="vm.sendForm()" disabled>Skicka</button></p>
         <div data-ng-if="vm.loading">Loading...</div>
 
 
-    </div>
-
-</body>
-</html>
+</div>
