@@ -58,9 +58,9 @@ public class ContentController {
                 User sessionUser = dBRepository.getUser(user.getUsername());
                 returnData.setUser(sessionUser);
             } else {
-                returnData.setMessage("Kunde inte logga in!");
-                returnData.setUser(user);
-                throw new InvalidPasswordException();
+//                returnData.setMessage("Kunde inte logga in!");
+//                returnData.setUser(user);
+                throw new InvalidPasswordException("Inloggningen misslyckades! Försök igen.");
             }
         }
 

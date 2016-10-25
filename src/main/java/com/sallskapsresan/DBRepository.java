@@ -183,7 +183,7 @@ public class DBRepository {
         } catch (SQLException e) {
             throw new RuntimeException("Fel i validatePassword");
         }
-        System.out.println("wrong password");
+//        System.out.println("wrong password");
         return false;
     }
 
