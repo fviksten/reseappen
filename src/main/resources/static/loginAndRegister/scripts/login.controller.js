@@ -15,7 +15,7 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
         })
             .success(function (response) {
                 $rootScope.user = response.user;
-                $rootScope.user.password = self.password1;
+                $rootScope.user.password = self.password;
                 $location.path("/personalpage");
             }).error(function (response) {
             self.loading = false;

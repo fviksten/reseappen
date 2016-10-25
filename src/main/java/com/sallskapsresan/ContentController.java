@@ -84,6 +84,7 @@ public class ContentController {
             Destinations suggestions = dBRepository.getSuggestions(user);
             return new ResponseEntity<Destinations>(suggestions, HttpStatus.OK);
         } else {
+            System.out.println("Error");
             return new ResponseEntity<Destinations>(new Destinations(), HttpStatus.UNAUTHORIZED);
         }
     }
