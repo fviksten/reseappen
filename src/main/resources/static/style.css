@@ -5,3 +5,20 @@
     color: #325a8b;
     background-color: white;
 }
+.button1{
+    background-color: #ff9110;
+    border: none;
+    color: #24478f;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    float: left;
+
+}
+main {
+    margin-left:300px;
+    margin-right:300px;
+}

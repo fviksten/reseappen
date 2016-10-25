@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
  */
 public class User {
 
+    private Long userID;
+
 //    @NotNull
 //    @Size (min=2, max=30)
     private String firstname;
@@ -33,7 +35,6 @@ public class User {
 //    private LocalDateTime joined;
 //    private LocalDateTime lastlogin;
     private PersonalityType personalityType;
-    private Long userID;
 
 
     //empty constructor to make it work with angular
@@ -41,6 +42,10 @@ public class User {
     }
 
     //setters to make it work with angular
+    public void setUserID(long userID) {
+        this.userID = userID;
+    }
+
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
@@ -61,7 +66,11 @@ public class User {
         this.password = password;
     }
 
-//    public void setJoined(LocalDateTime joined) {
+    public void setUserID(Long userID) {
+        this.userID = userID;
+    }
+
+    //    public void setJoined(LocalDateTime joined) {
 //        this.joined = joined;
 //    }
 //
@@ -74,7 +83,7 @@ public class User {
     }
 
     //getters
-    public String getFirstname() {
+        public String getFirstname() {
         return firstname;
     }
 
@@ -93,7 +102,12 @@ public class User {
     public String getPassword() {
         return password;
     }
-//
+
+    public Long getUserID() {
+        return userID;
+    }
+
+    //
 //    public LocalDateTime getJoined() {
 //        return joined;
 //    }
@@ -104,9 +118,5 @@ public class User {
 
     public PersonalityType getPersonalityType() {
         return personalityType;
-    }
-
-    public void setUserID(long userID) {
-        this.userID = userID;
     }
 }

@@ -1,15 +1,14 @@
 /**
  * Created by Administrator on 2016-10-18.
  */
-if(!personalTest)
+if (!personalTest)
     var personalTest = {};
 
-if(!personalTest.persTest)
+if (!personalTest.persTest)
     personalTest.persTest = {};
 
 
-
-personalTest.persTest.persTestService = function($http, $rootScope) {
+personalTest.persTest.persTestService = function ($http, $rootScope) {
 
     var index = -1;
 
@@ -17,7 +16,7 @@ personalTest.persTest.persTestService = function($http, $rootScope) {
     var questions = {
         user: $rootScope.user,
 
-        persForm:[
+        persForm: [
 
             {
                 questionNbr: 1,
@@ -85,12 +84,19 @@ personalTest.persTest.persTestService = function($http, $rootScope) {
 
     this.send = function () {
         console.log("send");
-        console.log( questions)
-        $http.post("/persTest",questions)
-            .then(function(response) {
+        console.log(questions)
+        $http.post("/persTest", questions)
+            .then(function (response) {
                 $rootScope.user = response.data.user;
                 console.log($rootScope.user.personalityType)
-            });
+            }).finally(function () {
+                for (var i = 0; i < questions.persForm.length; i++) {
+                questions.persForm[i].result = '';
+                    console.log(questions);
+            }
+                index = -1
+            }
+        );
     }
 
 
@@ -99,7 +105,7 @@ personalTest.persTest.persTestService = function($http, $rootScope) {
         console.log($rootScope.user);
     }
 
-    this.getQuestions = function() {
+    this.getQuestions = function () {
         return questions.persForm;
     }
 

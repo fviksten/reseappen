@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,12 @@ public class ContentController {
         if (bindingResult.hasErrors()) {
             returnData.setMessage("Error");
             returnData.setUser(user);
-        } else {
+        }
+        else if (!dBRepository.validateUser(user)) {
+            returnData.setMessage("Username already in use");
+            returnData.setUser(user);
+        }
+        else {
             returnData.setMessage("Success");
             dBRepository.addUser(user);
             User sessionUser = dBRepository.getUser(user.getUsername());
@@ -48,6 +54,7 @@ public class ContentController {
             if (dBRepository.validatePassword(user.getUsername(),user.getPassword())) {
                 returnData.setMessage("Success");
                 User sessionUser = dBRepository.getUser(user.getUsername());
+                System.out.println(sessionUser.getUserID());
                 returnData.setUser(sessionUser);
             } else {
                 returnData.setMessage("Kunde inte logga in!");
@@ -59,7 +66,6 @@ public class ContentController {
 
     @PostMapping("/persTest")
     public ResponseEntity<ReturnData> getPersonalityTestAnswers(@RequestBody Questions questions) {
-        System.out.println(questions.getUser().getPersonalityType().name());
         User sessionUser = questions.getUser();
         dBRepository.setPersonalityType(sessionUser);
         ReturnData returnData = new ReturnData();
@@ -68,4 +74,39 @@ public class ContentController {
         return new ResponseEntity<ReturnData>(returnData,HttpStatus.OK);
     }
 
+    @GetMapping("/myDestinations")
+    public Destinations getListOfDestinations(){
+        Destinations destinations = dBRepository.getListOfDestinations();
+        return destinations;
+    }
+
+    @PostMapping ("/mySuggestions")
+    public ResponseEntity<Destinations> getSuggestionsForUser (@RequestBody User user) {
+        if (dBRepository.validatePassword(user.getUsername(), user.getPassword())) {
+            Destinations suggestions = dBRepository.getSuggestions(user);
+            return new ResponseEntity<Destinations>(suggestions, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Destinations>(new Destinations(), HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @PostMapping("/myDestinations")
+    public ResponseEntity<ReturnData> submitListOfFavoriteDestinations(@RequestBody MyFavoriteDestinations myFavoriteDestinations) {
+        User user = myFavoriteDestinations.getUser();
+        System.out.println(user.getUserID());
+        System.out.println(myFavoriteDestinations.getFavoriteDestinations().get(0));
+        System.out.println(user.getPassword());
+        ReturnData returnData = new ReturnData();
+        if (dBRepository.validatePassword(user.getUsername(), user.getPassword())){
+            boolean favorite = true;
+            dBRepository.insertFavoritesForUser(user.getUserID(), myFavoriteDestinations.getFavoriteDestinations(), favorite);
+            returnData.setUser(user);
+            returnData.setMessage("OK");
+        }
+        else {
+            returnData.setUser(user);
+            returnData.setMessage("Något gick fel");
+        }
+        return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
+    }
 }

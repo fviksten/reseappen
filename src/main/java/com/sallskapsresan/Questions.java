@@ -8,8 +8,8 @@ import java.util.List;
  */
 public class Questions {
 
-    private List<Question> persForm;
     private User user;
+    private List<Question> persForm;
 
     public Questions() {
         this.persForm = new ArrayList<>();
