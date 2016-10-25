@@ -14,23 +14,23 @@ public class User {
 
     private Long userID;
 
-//    @NotNull
-//    @Size (min=2, max=30)
+    @NotNull
+    @Size (min=2, max=30)
     private String firstname;
 
-//    @NotNull
-//    @Size (min=2, max=30)
+    @NotNull
+    @Size (min=2, max=30)
     private String lastname;
 
     @NotNull
     @Size (min=6, max=20)
     private String username;
 
-//    @NotNull
-//    @Email
+    @NotNull
+    @Email
     private String email;
 
-//    @NotNull
+    @NotNull
     private String password;
 //    private LocalDateTime joined;
 //    private LocalDateTime lastlogin;
