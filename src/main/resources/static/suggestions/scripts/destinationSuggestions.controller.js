@@ -1,10 +1,10 @@
-if (!suggestions)
+if(!suggestions)
     var suggestions = {};
 
-if (!suggestions.destinationSuggestions)
+if(!suggestions.destinationSuggestions)
     suggestions.destinationSuggestions = {};
 
-suggestions.destinationSuggestions.destinationSuggestionsController = function (destinationSuggestionsService, $location, $http, $rootScope) {
+suggestions.destinationSuggestions.destinationSuggestionsController = function(destinationSuggestionsService, $location, $http, $rootScope) {
     var self = this;
 
     this.getObject = function () {
@@ -37,9 +37,8 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function (
     this.object;
 
     this.currentSuggestion;
-    this.loading = false;
-    this.index = 0;
-    this.mapurl = "https://www.google.com/maps/embed/v1/place?key=&q=Space+Needle,Seattle+WA"
+    this.loading=false;
+    this.index=0;
 
 }
 

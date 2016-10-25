@@ -40,20 +40,23 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler{
             fieldErrorResources.add(fieldErrorResource);
         }
 
-        ErrorResource error = new ErrorResource("Invalid input", iie.getMessage());
+        ValidationErrorResource error = new ValidationErrorResource("Invalid input", iie.getMessage());
         error.setFieldErrors(fieldErrorResources);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-
-        for (FieldErrorResource fieldErrorResource : error.getFieldErrors()) {
-            System.out.println(fieldErrorResource.getMessage());
-            System.out.println(fieldErrorResource.getCode());
-            System.out.println(fieldErrorResource.getField());
-            System.out.println(fieldErrorResource.getResource());
-        }
-
         return handleExceptionInternal(e, error, headers, HttpStatus.UNPROCESSABLE_ENTITY, webRequest);
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ResponseEntity<Object> handleInvalidPasswordException(InvalidPasswordException e, WebRequest webRequest) {
+        InvalidPasswordException ipe = (InvalidPasswordException) e;
+        ErrorResource error = new ErrorResource("Invalid input", ipe.getMessage());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return handleExceptionInternal(e, error, headers, HttpStatus.BAD_REQUEST, webRequest);
     }
 }
