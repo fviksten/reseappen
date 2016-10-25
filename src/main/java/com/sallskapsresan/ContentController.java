@@ -1,16 +1,15 @@
 package com.sallskapsresan;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.sql.SQLException;
 
 /**
  * Created by Administrator on 2016-10-18.
@@ -18,6 +17,7 @@ import javax.validation.Valid;
 
 @RestController
 public class ContentController {
+
 
     @Autowired
     DBRepository dBRepository;
@@ -30,6 +30,8 @@ public class ContentController {
         if (bindingResult.hasErrors()) {
             returnData.setMessage("Error");
             returnData.setUser(user);
+            System.out.println(bindingResult.toString());
+//            throw new InvalidInputException("Invalid input", bindingResult);
         }
         else if (!dBRepository.validateUser(user)) {
             returnData.setMessage("Username already in use");
@@ -41,6 +43,7 @@ public class ContentController {
             User sessionUser = dBRepository.getUser(user.getUsername());
             returnData.setUser(sessionUser);
         }
+        System.out.println(returnData.getMessage());
         return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
     }
 
@@ -50,6 +53,7 @@ public class ContentController {
         if (bindingResult.hasErrors()) {
             returnData.setMessage("Error");
             returnData.setUser(user);
+
         }   else {
             if (dBRepository.validatePassword(user.getUsername(),user.getPassword())) {
                 returnData.setMessage("Success");
@@ -61,6 +65,7 @@ public class ContentController {
                 returnData.setUser(user);
             }
         }
+
         return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
     }
 
