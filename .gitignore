@@ -1,4 +1,4 @@
- target/
+target/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -28,3 +28,6 @@ nbdist/
 ### node_modules ###
 
 node_modules
+angularIntro/
+src/main/resources/myDestinations/
+
