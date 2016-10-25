@@ -13,6 +13,7 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
     this.removeRed = function() {
         usernameInput.removeClass('has-error');
         passwordInput.removeClass('has-error');
+        this.showErrorMessage = false;
     };
 
     this.login = function () {
