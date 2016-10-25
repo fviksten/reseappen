@@ -52,7 +52,6 @@ public class ContentController {
             returnData.setUser(user);
 
         }   else {
-//            dBRepository.createPasswords();
             if (dBRepository.validatePassword(user.getUsername(),user.getPassword())) {
                 returnData.setMessage("Success");
                 User sessionUser = dBRepository.getUser(user.getUsername());
