@@ -1,12 +1,12 @@
 <main>
 <form name="form" data-ng-submit="vm.login()" role="form">
 
-    <div class="form-group">
-        <input type="text" class="form-control" data-ng-model="vm.username" placeholder="Användarnamn"/>
+    <div id="usernameInput" class="form-group">
+        <input type="text" class="form-control" data-ng-model="vm.username" placeholder="Användarnamn" ng-keyup="vm.removeRed()"/>
     </div>
 
-    <div class="form-group">
-        <input type="password" class="form-control" data-ng-model="vm.password" placeholder="Lösenord"/>
+    <div id="passwordInput" class="form-group">
+        <input type="password" class="form-control" data-ng-model="vm.password" placeholder="Lösenord" ng-keyup="vm.removeRed()"/>
     </div>
 
     <div>
@@ -27,5 +27,3 @@
     <a href="#/register">Ny användare</a>
 </div>
 </main>
-
-
