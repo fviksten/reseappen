@@ -13,21 +13,15 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
             username : self.username,
             password : self.password
         })
-            .then(function(response) {
-                if (response.data.message == "Success") {
-                    $rootScope.user = response.data.user;
-                    $rootScope.user.password = self.password;
-                    self.showErrorMessage = true;
-                    self.errorMessage = "Success!";
-                    $location.path("/personalpage")
-                }
-                else {
-                    self.showErrorMessage = true;
-                    self.errorMessage = "Denied!";
-                    $location.path("/login")
-                }
-            }).finally(function() {
+            .success(function (response) {
+                $rootScope.user = response.user;
+                $rootScope.user.password = self.password;
+                $location.path("/personalpage");
+            }).error(function (response) {
             self.loading = false;
+            self.showErrorMessage = true;
+            console.log(response)
+            self.errorMessage = response.message
         });
     }
     this.username;
