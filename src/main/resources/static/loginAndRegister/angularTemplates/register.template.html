@@ -18,8 +18,7 @@
         <div class="form-group" ng-class="{ 'has-error' : form.firstname.$invalid && !form.firstname.$pristine,
             'has-success' : form.firstname.$valid && !form.firstname.$pristine}">
 
-            <input type="text" name="firstname" class="form-control" data-ng-model="vm.firstname" placeholder="Förnamn"
-                   required/>
+            <input type="text" name="firstname" class="form-control" data-ng-model="vm.firstname" placeholder="Förnamn" required/>
             <p ng-show="form.firstname.$invalid && !form.firstname.$pristine" class="help-block">Förnamn krävs.</p>
         </div>
         <!--LASTNAME-->

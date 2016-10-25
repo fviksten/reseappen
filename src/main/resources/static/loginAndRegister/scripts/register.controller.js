@@ -15,18 +15,13 @@ loginAndRegister.register.RegisterController = function ($location, $http, $root
             email: self.email,
             password: self.password1
         })
-            .then(function (response) {
-                if (response.data.message === "Success") {
-                    $rootScope.user = response.data.user;
-                    $rootScope.user.password = self.password1;
-                    $location.path("/perstest");
-                }
-                else {
-                    self.errorMessage = "Something went wrong: " + response.data.message;
-                    self.showErrorMessage = true;
-                }
-            }).finally(function () {
+            .success(function (response) {
+                $rootScope.user = response.data.user;
+                $rootScope.user.password = self.password1;
+                $location.path("/perstest");
+            }).error(function (response) {
             self.loading = false;
+            self.errorMessage = response.errorMessage
         });
     };
 
