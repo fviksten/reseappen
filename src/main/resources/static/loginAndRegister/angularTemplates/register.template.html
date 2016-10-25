@@ -1,59 +1,71 @@
 <main>
     <form name="form" data-ng-submit="vm.addUser()" role="form" novalidate>
 
-        <!--USERNAME-->
-        <div id="usernameinput" class="form-group" ng-class="{'has-error' : form.username.$invalid && !form.username.$pristine,
-            'has-success' : form.username.$valid && !form.username.$pristine}">
+<!--USERNAME-->
+        <div id="usernameinput" class="form-group" ng-class="{'has-error' : form.username.$invalid && form.username.$dirty,
+            'has-success' : form.username.$valid && form.username.$dirty}">
 
             <input type="text" name="username" class="form-control" data-ng-model="vm.username"
                    placeholder="Användarnamn"
-                   ng-minlength="6" ng-maxlength="20"/>
+                   ng-minlength="6" ng-maxlength="20" required/>
             <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-            <p ng-show="form.username.$error.minlength" class="help-block">Användarnamnet är för kort.</p>
-            <p ng-show="form.username.$error.maxlength" class="help-block">Användarnamnet är för långt.</p>
-            <p ng-show="!form.username.$error.minlength && !form.username.$error.maxlength && form.username.$invalid &&
-            !form.username.$pristine" class="help-block">Användarnamn krävs.</p>
+            <p class="help-block" ng-show="form.username.$error.minlength">Användarnamnet är för kort</p>
+            <p class="help-block" ng-show="form.username.$error.maxlength">Användarnamnet är för långt</p>
+            <p class="help-block" ng-show="!form.username.$error.minlength && !form.username.$error.maxlength && form.username.$invalid &&
+            form.username.$dirty">Användarnamn krävs</p>
         </div>
-        <!--FIRSTNAME-->
-        <div class="form-group" ng-class="{ 'has-error' : form.firstname.$invalid && !form.firstname.$pristine,
-            'has-success' : form.firstname.$valid && !form.firstname.$pristine}">
+<!--FIRSTNAME-->
+        <div class="form-group" ng-class="{ 'has-error' : form.firstname.$invalid && form.firstname.$dirty,
+            'has-success' : form.firstname.$valid && form.firstname.$dirty}">
 
             <input type="text" name="firstname" class="form-control" data-ng-model="vm.firstname" placeholder="Förnamn"
-                   />
-            <p ng-show="form.firstname.$invalid && !form.firstname.$pristine" class="help-block">Förnamn krävs.</p>
+                   required/>
+            <p class="help-block" ng-show="form.firstname.$invalid && !form.firstname.$pristine">Förnamn krävs</p>
         </div>
-        <!--LASTNAME-->
-        <div class="form-group" ng-class="{ 'has-error' : form.lastname.$invalid && !form.lastname.$pristine,
-            'has-success' : form.lastname.$valid && !form.lastname.$pristine}">
+<!--LASTNAME-->
+        <div class="form-group" ng-class="{ 'has-error' : form.lastname.$invalid && form.lastname.$dirty,
+            'has-success' : form.lastname.$valid && form.lastname.$dirty}">
 
             <input type="text" name="lastname" class="form-control" data-ng-model="vm.lastname" placeholder="Efternamn"
-                   />
-            <p ng-show="form.lastname.$invalid && !form.lastname.$pristine" class="help-block">Efternamn krävs.</p>
+                   required/>
+            <p class="help-block" ng-show="form.lastname.$invalid && !form.lastname.$pristine">Efternamn krävs</p>
         </div>
-        <!--EMAIL-->
-        <div class="form-group" ng-class="{ 'has-error' : form.email.$invalid && !form.email.$pristine,
-            'has-success' : form.email.$valid && !form.email.$pristine}">
+<!--EMAIL-->
+        <div class="form-group" ng-class="{ 'has-error' : form.email.$invalid && form.email.$dirty,
+            'has-success' : form.email.$valid && form.email.$dirty}">
 
             <input type="email" name="email" class="form-control" data-ng-model="vm.email" placeholder="E-post"/>
-            <p ng-show="form.email.$invalid && !form.email.$pristine" class="help-block">Ange en giltig E-post
-                adress.</p>
+            <p class="help-block" ng-show="form.email.$invalid && form.email.$dirty">Ange en giltig E-post
+                adress</p>
+        </div>
+<!--PASSWORD1-->
+        <div class="form-group" ng-class="{ 'has-error' : form.pw2.$invalid && !form.pw2.$pristine,
+            'has-success' : form.pw2.$valid && !form.pw2.$pristine}">
+            <input type='password' id='pw1'
+                   placeholder="Lösenord"
+                   class="form-control"
+                   ng-model='vm.password1'
+                   required/></div>
+<!--PASSWORD2-->
+        <div class="form-group" ng-class="{ 'has-error' : form.pw2.$invalid && form.pw2.$dirty,
+            'has-success' : form.pw2.$valid && form.pw2.$dirty}">
+            <input type='password' name='pw2'
+                   placeholder="Upprepa lösenord"
+                   class="form-control"
+                   ng-model='vm.password2'
+                   required pw-check='pw1' />
+            <p class='msg-error help-block' ng-show='form.pw2.$error.pwmatch && form.pw2.$dirty'>
+                Lösenorden matchar inte
+            </p>
         </div>
 
-        <div><input type='password' id='pw1' placeholder="Lösenord" class="form-control"
-                    ng-model='vm.password1' ng-required/></div>
-        <div><input type='password' name='pw2' placeholder="Upprepa lösenord" class="form-control"
-                    ng-model='vm.password2' ng-required pw-check='pw1'/></div>
-        </div>
 
-        <p class='msg-error' ng-show='form.pw2.$error.pwmatch'>
-            Lösenorden matchar inte
-        </p>
-        <!--SUBMIT BUTTON-->
+<!--SUBMIT BUTTON-->
         <div>
             <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Logga in</button>
         </div>
 
         <div data-ng-if="vm.loading">Laddar...</div>
-        <div data-ng-if="vm.showErrorMessage">{{vm.errorMessage}}</div>
+        <div data-ng-if="vm.showErrorMessage" ng-repeat="fielderror in vm.errorMessage">{{fielderror.message}}</div>
     </form>
 </main>

@@ -27,6 +27,8 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function(d
     this.currentSuggestion;
     this.loading=false;
     this.index=0;
+    this.mapurl = "https://www.google.com/maps/embed/v1/place?key=&q=Space+Needle,Seattle+WA"
+
 }
 
 
