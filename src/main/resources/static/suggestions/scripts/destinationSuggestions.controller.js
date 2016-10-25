@@ -9,9 +9,13 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function(d
 
     this.getObject = function () {
         self.loading=true;
+        console.log($rootScope.user)
+
         $http.post("/mySuggestions",$rootScope.user).then(function (response) {
                 self.object = response.data;
             self.currentSuggestion=response.data.listDestinations[self.index];
+            $("iframe").attr("src","https://www.google.com/maps/embed/v1/place?key=AIzaSyAjjsG2ur6grCBa1u9UP6etCWnKiR6Uma0&q=" + response.data.listDestinations[self.index].country )
+                // går att kontrollera http-responsen ifall usern är fel.
             });
         self.loading=false;
     }
@@ -21,9 +25,11 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function(d
             self.index++;
         } else{self.index=0;}
         self.currentSuggestion=self.object.listDestinations[self.index];
+        $("iframe").attr("src","https://www.google.com/maps/embed/v1/place?key=AIzaSyAjjsG2ur6grCBa1u9UP6etCWnKiR6Uma0&q=" + self.currentSuggestion.country )
     };
 
     this.object;
+
     this.currentSuggestion;
     this.loading=false;
     this.index=0;

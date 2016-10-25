@@ -176,14 +176,12 @@ public class DBRepository {
                 String salt = rs.getString(2).trim();
                 String hash = hashedPassword(password, salt);
                 if (storedHash.equals(hash)) {
-                    System.out.println("right password");
                     return true;
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Fel i validatePassword");
         }
-        System.out.println("wrong password");
         return false;
     }
 

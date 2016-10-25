@@ -25,9 +25,6 @@ public class ContentController {
     public ResponseEntity<ReturnData> addUser(@RequestBody @Valid User user, BindingResult bindingResult) throws NoSuchAlgorithmException {
         ReturnData returnData = new ReturnData();
         if (bindingResult.hasErrors()) {
-//            returnData.setMessage("Error");
-//            returnData.setUser(user);
-            System.out.println(bindingResult.toString());
             throw new InvalidInputException("Invalid input", bindingResult);
         }
         else if (!dBRepository.validateUsername(user)) {
@@ -40,7 +37,6 @@ public class ContentController {
             User sessionUser = dBRepository.getUser(user.getUsername());
             returnData.setUser(sessionUser);
         }
-        System.out.println(returnData.getMessage());
         return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
     }
 
@@ -58,8 +54,7 @@ public class ContentController {
                 User sessionUser = dBRepository.getUser(user.getUsername());
                 returnData.setUser(sessionUser);
             } else {
-                returnData.setMessage("Kunde inte logga in!");
-                returnData.setUser(user);
+                throw new InvalidPasswordException("Inloggningen misslyckades! Försök igen.");
             }
         }
 
@@ -89,6 +84,7 @@ public class ContentController {
             Destinations suggestions = dBRepository.getSuggestions(user);
             return new ResponseEntity<Destinations>(suggestions, HttpStatus.OK);
         } else {
+            System.out.println("Error");
             return new ResponseEntity<Destinations>(new Destinations(), HttpStatus.UNAUTHORIZED);
         }
     }
