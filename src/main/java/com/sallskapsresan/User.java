@@ -16,23 +16,23 @@ public class User {
 
     private Long userID;
 
-//    @NotNull
-//    @Size (min=2, max=30)
+    @NotNull
+    @Size (min=2, max=30)
     private String firstname;
 
-//    @NotNull
-//    @Size (min=2, max=30)
+    @NotNull
+    @Size (min=2, max=30)
     private String lastname;
 
     @NotNull
     @Size (min=6, max=20)
     private String username;
 
-//    @NotNull
-//    @Email
+    @NotNull
+    @Email
     private String email;
 
-//    @NotNull
+    @NotNull
     private String password;
 //    private LocalDateTime joined;
 //    private LocalDateTime lastlogin;
@@ -69,7 +69,11 @@ public class User {
         this.password = password;
     }
 
-//    public void setJoined(LocalDateTime joined) {
+    public void setUserID(Long userID) {
+        this.userID = userID;
+    }
+
+    //    public void setJoined(LocalDateTime joined) {
 //        this.joined = joined;
 //    }
 //
@@ -82,11 +86,7 @@ public class User {
     }
 
     //getters
-    public long getUserID () {
-        return userID;
-    }
-
-    public String getFirstname() {
+        public String getFirstname() {
         return firstname;
     }
 
@@ -105,7 +105,12 @@ public class User {
     public String getPassword() {
         return password;
     }
-//
+
+    public Long getUserID() {
+        return userID;
+    }
+
+    //
 //    public LocalDateTime getJoined() {
 //        return joined;
 //    }

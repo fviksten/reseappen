@@ -1,17 +1,19 @@
 package com.sallskapsresan;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+<<<<<<< HEAD
 import java.security.NoSuchAlgorithmException;
+=======
+import java.sql.SQLException;
+>>>>>>> 0c11df54061a87c4a6fb549e2ba58778b161194c
 
 /**
  * Created by Administrator on 2016-10-18.
@@ -19,6 +21,7 @@ import java.security.NoSuchAlgorithmException;
 
 @RestController
 public class ContentController {
+
 
     @Autowired
     DBRepository dBRepository;
@@ -31,6 +34,8 @@ public class ContentController {
         if (bindingResult.hasErrors()) {
             returnData.setMessage("Error");
             returnData.setUser(user);
+            System.out.println(bindingResult.toString());
+//            throw new InvalidInputException("Invalid input", bindingResult);
         }
         else if (!dBRepository.validateUsername(user)) {
             returnData.setMessage("Username already in use");
@@ -42,6 +47,7 @@ public class ContentController {
             User sessionUser = dBRepository.getUser(user.getUsername());
             returnData.setUser(sessionUser);
         }
+        System.out.println(returnData.getMessage());
         return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
     }
 
@@ -51,6 +57,7 @@ public class ContentController {
         if (bindingResult.hasErrors()) {
             returnData.setMessage("Error");
             returnData.setUser(user);
+
         }   else {
 //            dBRepository.createPasswords();
             if (dBRepository.validatePassword(user.getUsername(),user.getPassword())) {
@@ -62,6 +69,7 @@ public class ContentController {
                 returnData.setUser(user);
             }
         }
+
         return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
     }
 
@@ -81,13 +89,15 @@ public class ContentController {
         return destinations;
     }
 
-    @GetMapping ("/mySuggestions")
+
+    @PostMapping ("/mySuggestions")
     public ResponseEntity<Destinations> getSuggestionsForUser (@RequestBody User user) throws NoSuchAlgorithmException {
         if (dBRepository.validatePassword(user.getUsername(), user.getPassword())) {
             Destinations suggestions = dBRepository.getSuggestions(user);
             return new ResponseEntity<Destinations>(suggestions, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Destinations>(new Destinations(), HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<Destinations>(new Destinations(), HttpStatus.OK);
     }
 
     @PostMapping("/myDestinations")
@@ -95,6 +105,7 @@ public class ContentController {
         User user = myFavoriteDestinations.getUser();
         System.out.println(user.getUserID());
         System.out.println(myFavoriteDestinations.getFavoriteDestinations().get(0));
+        System.out.println(user.getPassword());
         ReturnData returnData = new ReturnData();
         if (dBRepository.validatePassword(user.getUsername(), user.getPassword())){
             boolean favorite = true;
