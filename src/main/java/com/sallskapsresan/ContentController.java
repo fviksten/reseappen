@@ -1,19 +1,12 @@
 package com.sallskapsresan;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-<<<<<<< HEAD
 import java.security.NoSuchAlgorithmException;
-=======
-import java.sql.SQLException;
->>>>>>> 0c11df54061a87c4a6fb549e2ba58778b161194c
 
 /**
  * Created by Administrator on 2016-10-18.
