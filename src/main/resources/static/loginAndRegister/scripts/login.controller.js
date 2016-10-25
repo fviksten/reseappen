@@ -7,6 +7,7 @@ if (!loginAndRegister.login)
 
 loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
     var self = this;
+
     this.login = function () {
         self.loading = true;
         $http.post("/authenticate", {
@@ -23,7 +24,7 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
                 }
                 else {
                     self.showErrorMessage = true;
-                    self.errorMessage = "Denied!";
+                    self.errorMessage = "Felaktigt användarnamn eller lösenord";
                     $location.path("/login")
                 }
             }).finally(function() {
