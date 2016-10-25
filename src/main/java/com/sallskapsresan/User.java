@@ -14,23 +14,23 @@ public class User {
 
     private Long userID;
 
-    @NotNull
-    @Size (min=2, max=30)
+    @NotNull (message="Fältet förnamn är obligatoriskt!")
+    @Size (min=1, max=30, message="Förnamnet måste vara mellan en och 30 bokstäver långt!")
     private String firstname;
 
-    @NotNull
-    @Size (min=2, max=30)
+    @NotNull (message="Fältet efternamn är obligatoriskt!")
+    @Size (min=1, max=30, message="Efternamnet måste vara mellan en och 30 bokstäver långt!")
     private String lastname;
 
-    @NotNull
-    @Size (min=6, max=20)
+    @NotNull (message="Fältet användarnamn är obligatoriskt!")
+    @Size (min=6, max=20, message="Användarnamnet måste vara mellan sex och tjugo bokstäver långt!")
     private String username;
 
-    @NotNull
-    @Email
+    @NotNull (message="Fältet epost är obligatoriskt!")
+    @Email (message="Eposten angavs i ett felaktigt format!")
     private String email;
 
-    @NotNull
+    @NotNull (message="Fältet lösenord är obligatoriskt!")
     private String password;
 //    private LocalDateTime joined;
 //    private LocalDateTime lastlogin;

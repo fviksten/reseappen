@@ -63,6 +63,7 @@ public class ContentController {
             } else {
                 returnData.setMessage("Kunde inte logga in!");
                 returnData.setUser(user);
+                throw new InvalidPasswordException();
             }
         }
 
