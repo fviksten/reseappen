@@ -25,10 +25,10 @@ public class ContentController {
     public ResponseEntity<ReturnData> addUser(@RequestBody @Valid User user, BindingResult bindingResult) throws NoSuchAlgorithmException {
         ReturnData returnData = new ReturnData();
         if (bindingResult.hasErrors()) {
-            returnData.setMessage("Error");
-            returnData.setUser(user);
+//            returnData.setMessage("Error");
+//            returnData.setUser(user);
             System.out.println(bindingResult.toString());
-//            throw new InvalidInputException("Invalid input", bindingResult);
+            throw new InvalidInputException("Invalid input", bindingResult);
         }
         else if (!dBRepository.validateUsername(user)) {
             returnData.setMessage("Username already in use");
