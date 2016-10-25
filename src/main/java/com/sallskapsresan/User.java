@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.DatatypeConverter;
+import java.security.SecureRandom;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
@@ -14,27 +16,28 @@ public class User {
 
     private Long userID;
 
-//    @NotNull
-//    @Size (min=2, max=30)
+    @NotNull
+    @Size (min=2, max=30)
     private String firstname;
 
-//    @NotNull
-//    @Size (min=2, max=30)
+    @NotNull
+    @Size (min=2, max=30)
     private String lastname;
 
     @NotNull
     @Size (min=6, max=20)
     private String username;
 
-//    @NotNull
-//    @Email
+    @NotNull
+    @Email
     private String email;
 
-//    @NotNull
+    @NotNull
     private String password;
 //    private LocalDateTime joined;
 //    private LocalDateTime lastlogin;
     private PersonalityType personalityType;
+    private String salt;
 
 
     //empty constructor to make it work with angular
@@ -118,5 +121,13 @@ public class User {
 
     public PersonalityType getPersonalityType() {
         return personalityType;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }
