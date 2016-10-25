@@ -1,5 +1,6 @@
 package com.sallskapsresan;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -15,7 +16,7 @@ public class UserValidator implements Validator {
     }
 
     @Override
-    public void validate(Object obj, Errors e) {
+    public void validate(Object obj, Errors errors) {
         User user = (User) obj;
     }
 }
