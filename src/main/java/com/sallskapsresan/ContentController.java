@@ -94,6 +94,7 @@ public class ContentController {
         }
     }
 
+
     @PostMapping("/myDestinations")
     public ResponseEntity<ReturnData> submitListOfFavoriteDestinations(@RequestBody MyFavoriteDestinations myFavoriteDestinations) throws NoSuchAlgorithmException {
         User user = myFavoriteDestinations.getUser();
