@@ -1,15 +1,12 @@
 package com.sallskapsresan;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.sql.SQLException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by Administrator on 2016-10-18.
@@ -25,15 +22,15 @@ public class ContentController {
 
     //recieves, validates and directs new registered users' details to sqlrepository
     @PostMapping("/adduser")
-    public ResponseEntity<ReturnData> addUser(@RequestBody @Valid User user, BindingResult bindingResult) {
+    public ResponseEntity<ReturnData> addUser(@RequestBody @Valid User user, BindingResult bindingResult) throws NoSuchAlgorithmException {
         ReturnData returnData = new ReturnData();
         if (bindingResult.hasErrors()) {
-            returnData.setMessage("Error");
-            returnData.setUser(user);
+//            returnData.setMessage("Error");
+//            returnData.setUser(user);
             System.out.println(bindingResult.toString());
-//            throw new InvalidInputException("Invalid input", bindingResult);
+            throw new InvalidInputException("Invalid input", bindingResult);
         }
-        else if (!dBRepository.validateUser(user)) {
+        else if (!dBRepository.validateUsername(user)) {
             returnData.setMessage("Username already in use");
             returnData.setUser(user);
         }
@@ -48,17 +45,17 @@ public class ContentController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<ReturnData> authenticateUser(@RequestBody User user, BindingResult bindingResult) {
+    public ResponseEntity<ReturnData> authenticateUser(@RequestBody User user, BindingResult bindingResult) throws NoSuchAlgorithmException {
         ReturnData returnData = new ReturnData();
         if (bindingResult.hasErrors()) {
             returnData.setMessage("Error");
             returnData.setUser(user);
 
         }   else {
+//            dBRepository.createPasswords();
             if (dBRepository.validatePassword(user.getUsername(),user.getPassword())) {
                 returnData.setMessage("Success");
                 User sessionUser = dBRepository.getUser(user.getUsername());
-                System.out.println(sessionUser.getUserID());
                 returnData.setUser(sessionUser);
             } else {
                 returnData.setMessage("Kunde inte logga in!");
@@ -86,8 +83,9 @@ public class ContentController {
         return destinations;
     }
 
+
     @PostMapping ("/mySuggestions")
-    public ResponseEntity<Destinations> getSuggestionsForUser (@RequestBody User user) {
+    public ResponseEntity<Destinations> getSuggestionsForUser (@RequestBody User user) throws NoSuchAlgorithmException {
         if (dBRepository.validatePassword(user.getUsername(), user.getPassword())) {
             Destinations suggestions = dBRepository.getSuggestions(user);
             return new ResponseEntity<Destinations>(suggestions, HttpStatus.OK);
@@ -97,7 +95,7 @@ public class ContentController {
     }
 
     @PostMapping("/myDestinations")
-    public ResponseEntity<ReturnData> submitListOfFavoriteDestinations(@RequestBody MyFavoriteDestinations myFavoriteDestinations) {
+    public ResponseEntity<ReturnData> submitListOfFavoriteDestinations(@RequestBody MyFavoriteDestinations myFavoriteDestinations) throws NoSuchAlgorithmException {
         User user = myFavoriteDestinations.getUser();
         System.out.println(user.getUserID());
         System.out.println(myFavoriteDestinations.getFavoriteDestinations().get(0));
