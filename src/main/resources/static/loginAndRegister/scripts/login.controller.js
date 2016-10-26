@@ -7,13 +7,13 @@ if (!loginAndRegister.login)
 
 loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
     var self = this;
-    var usernameInput;
-    var passwordInput;
+    this.usernameInput = angular.element( document.querySelector( '#usernameInput' ) );
+    this.passwordInput = angular.element( document.querySelector( '#passwordInput' ) );
 
     this.removeRed = function() {
-        usernameInput.removeClass('has-error');
-        passwordInput.removeClass('has-error');
-        this.showErrorMessage = false;
+            self.usernameInput.removeClass('has-error has-feedback');
+            self.passwordInput.removeClass('has-error has-feedback');
+            this.showErrorMessage = false;
     };
 
     this.login = function () {
@@ -29,11 +29,9 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
             }).error(function (response) {
             self.loading = false;
             self.showErrorMessage = true;
-            self.errorMessage = response.message
-            usernameInput = angular.element( document.querySelector( '#usernameInput' ) );
-            usernameInput.addClass('has-error');
-            passwordInput = angular.element( document.querySelector( '#passwordInput' ) );
-            passwordInput.addClass('has-error');
+            self.errorMessage = response.message;
+            self.usernameInput.addClass('has-error has-feedback');
+            self.passwordInput.addClass('has-error has-feedback');
         });
     }
     this.username;
