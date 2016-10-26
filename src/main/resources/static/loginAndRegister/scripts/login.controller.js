@@ -29,7 +29,7 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
             }).error(function (response) {
             self.loading = false;
             self.showErrorMessage = true;
-            self.errorMessage = response.message;
+            self.errorMessage = response.runtimeErrors[0].message;
             self.usernameInput.addClass('has-error has-feedback');
             self.passwordInput.addClass('has-error has-feedback');
         });

@@ -33,7 +33,7 @@ public class DBRepository {
             ps.executeUpdate();
         }
         catch (SQLException e) {
-            throw new RuntimeException("Error in addUser");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -45,7 +45,7 @@ public class DBRepository {
             ResultSet rs = ps.executeQuery();
             return !rs.next();
         } catch (SQLException e) {
-            throw new RuntimeException("Error in validateUsername");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -56,7 +56,7 @@ public class DBRepository {
             ps.setLong(2, user.getPersonalityType().ordinal() + 1);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error in setPersonalityType");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -70,7 +70,7 @@ public class DBRepository {
                 id = rs.getInt("PersonalityTypeID");
             return id;
         } catch (SQLException e) {
-            throw new RuntimeException("Error in getPersonalityTypeID");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -91,7 +91,7 @@ public class DBRepository {
             user.setUsername(username);
             return user;
         } catch (SQLException e) {
-            throw new RuntimeException("Error in getUser");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -106,7 +106,7 @@ public class DBRepository {
             }
             return pt;
         } catch (SQLException e) {
-            throw new RuntimeException("Error in getPersonalityType");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -126,7 +126,7 @@ public class DBRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error in validatePassword");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
         return false;
     }
@@ -144,7 +144,7 @@ public class DBRepository {
             }
             ps.executeBatch();
         } catch (SQLException e) {
-            throw new RuntimeException("Error in insertFavorites");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -158,7 +158,7 @@ public class DBRepository {
             }
             return listOfAllDestinations;
         } catch (SQLException e) {
-            throw new RuntimeException("Error in getListOfAllDestinations");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -174,7 +174,7 @@ public class DBRepository {
             }
             return listOfSuggestions;
         } catch (SQLException e) {
-            throw new RuntimeException("Error in getSuggestions");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
     public Destinations getListOfFavourites(User user) {
@@ -188,7 +188,7 @@ public class DBRepository {
             }
             return listOfSuggestions;
         } catch (SQLException e) {
-            throw new RuntimeException("Fel i getListOfFavourites");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 }

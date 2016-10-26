@@ -11,23 +11,23 @@ public class User {
 
     private Long userID;
 
-    @NotNull (message="Fältet förnamn är obligatoriskt!")
-    @Size (min=1, max=30, message="Förnamnet måste vara mellan en och 30 bokstäver långt!")
+    @NotNull (message="Firstname is a manadatory field!")
+    @Size (min=1, max=30, message="Firstname may be between one and 30 characters long!")
     private String firstname;
 
-    @NotNull (message="Fältet efternamn är obligatoriskt!")
-    @Size (min=1, max=30, message="Efternamnet måste vara mellan en och 30 bokstäver långt!")
+    @NotNull (message="Lastname is a mandatory field!")
+    @Size (min=1, max=30, message="Lastname may be between one and 30 characters long!")
     private String lastname;
 
-    @NotNull (message="Fältet användarnamn är obligatoriskt!")
-    @Size (min=6, max=20, message="Användarnamnet måste vara mellan sex och tjugo bokstäver långt!")
+    @NotNull (message="Username is a mandatory field!")
+    @Size (min=6, max=20, message="Username may be between six and 20 characters long!")
     private String username;
 
-    @NotNull (message="Fältet epost är obligatoriskt!")
-    @Email (message="Eposten angavs i ett felaktigt format!")
+    @NotNull (message="Email is a mandatory field!")
+    @Email (message="The email-format does not meet the requirements!")
     private String email;
 
-    @NotNull (message="Fältet lösenord är obligatoriskt!")
+    @NotNull (message="Password is a mandatory field!")
     private String password;
     private PersonalityType personalityType;
 
