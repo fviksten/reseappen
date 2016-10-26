@@ -6,9 +6,10 @@
 <div ng-init="vm.getFavourites()">
 
     <h2>Favoritresemål:</h2>
-    <div>{{vm.object.listDestinations[0].country}}</div>
-    <div>{{vm.object.listDestinations[1].country}}</div>
-    <div>{{vm.object.listDestinations[2].country}}</div>
-
+    <p ng-repeat="item in vm.object.listDestinations track by $index">
+    <span>{{item.country}}</span>
+        <br>
+    <img data-ng-src="img/{{item.country}}.jpg">
+        <br>
+    </p>
 </div>
-
