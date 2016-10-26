@@ -53,7 +53,7 @@ public class ContentController {
                 User sessionUser = dBRepository.getUser(user.getUsername());
                 returnData.setUser(sessionUser);
             } else {
-                throw new InvalidPasswordException("Inloggningen misslyckades! Försök igen.");
+                throw new InvalidPasswordException("The log in failed. Please try again.");
             }
         }
 
@@ -92,9 +92,6 @@ public class ContentController {
     @PostMapping("/myDestinations")
     public ResponseEntity<ReturnData> submitListOfFavoriteDestinations(@RequestBody MyFavoriteDestinations myFavoriteDestinations) throws NoSuchAlgorithmException {
         User user = myFavoriteDestinations.getUser();
-        System.out.println(user.getUserID());
-        System.out.println(myFavoriteDestinations.getFavoriteDestinations().get(0));
-        System.out.println(user.getPassword());
         ReturnData returnData = new ReturnData();
         if (dBRepository.validatePassword(user.getUsername(), user.getPassword())){
             boolean favorite = true;
@@ -104,7 +101,7 @@ public class ContentController {
         }
         else {
             returnData.setUser(user);
-            returnData.setMessage("Något gick fel");
+            returnData.setMessage("Something went wrong");
         }
         return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
     }
