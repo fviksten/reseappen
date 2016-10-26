@@ -33,6 +33,11 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function(d
         $("iframe").attr("src", "https://www.google.com/maps/embed/v1/place?key=AIzaSyAjjsG2ur6grCBa1u9UP6etCWnKiR6Uma0&q=" + self.currentSuggestion.country)
     };
 
+    this.logout = function() {
+        $rootScope.user = {};
+        $location.path("/login");
+    }
+
     this.object;
 
     this.currentSuggestion;

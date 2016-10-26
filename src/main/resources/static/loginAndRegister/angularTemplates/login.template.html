@@ -2,15 +2,27 @@
 <form name="form" data-ng-submit="vm.login()" role="form">
 
     <div id="usernameInput" class="form-group">
-        <input type="text" class="form-control" data-ng-model="vm.username" placeholder="Användarnamn" ng-keyup="vm.removeRed()"/>
+        <input type="text"
+               class="form-control"
+               data-ng-model="vm.username"
+               placeholder="Användarnamn"
+               ng-keyup="vm.removeRed()"/>
+        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
     </div>
 
     <div id="passwordInput" class="form-group">
-        <input type="password" class="form-control" data-ng-model="vm.password" placeholder="Lösenord" ng-keyup="vm.removeRed()"/>
+        <input type="password"
+               class="form-control"
+               data-ng-model="vm.password"
+               placeholder="Lösenord"
+               ng-keyup="vm.removeRed()"/>
+        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
     </div>
 
     <div>
-        <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Logga in</button>
+        <button type="submit"
+                class="btn btn-primary"
+                ng-disabled="form.$invalid">Logga in</button>
     </div>
 
 </form>
