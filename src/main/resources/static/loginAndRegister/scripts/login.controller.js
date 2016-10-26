@@ -7,6 +7,15 @@ if (!loginAndRegister.login)
 
 loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
     var self = this;
+    this.usernameInput = angular.element( document.querySelector( '#usernameInput' ) );
+    this.passwordInput = angular.element( document.querySelector( '#passwordInput' ) );
+
+    this.removeRed = function() {
+            self.usernameInput.removeClass('has-error has-feedback');
+            self.passwordInput.removeClass('has-error has-feedback');
+            this.showErrorMessage = false;
+    };
+
     this.login = function () {
         self.loading = true;
         $http.post("/authenticate", {
@@ -20,7 +29,9 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
             }).error(function (response) {
             self.loading = false;
             self.showErrorMessage = true;
-            self.errorMessage = response.message
+            self.errorMessage = response.message;
+            self.usernameInput.addClass('has-error has-feedback');
+            self.passwordInput.addClass('has-error has-feedback');
         });
     }
     this.username;

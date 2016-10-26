@@ -2,65 +2,103 @@
     <form name="form" data-ng-submit="vm.addUser()" role="form" novalidate>
 
 <!--USERNAME-->
-        <div id="usernameinput" class="form-group" ng-class="{'has-error' : form.username.$invalid && form.username.$dirty,
-            'has-success' : form.username.$valid && form.username.$dirty}">
-
-            <input type="text" name="username" class="form-control" data-ng-model="vm.username"
-                   placeholder="Användarnamn" required
-                   ng-minlength="6" ng-maxlength="20"/>
+        <div class="form-group" ng-class="{
+            'has-error': form.username.$invalid && form.username.$dirty,
+            'has-success has-feedback' : form.username.$valid && form.username.$dirty
+        }">
+            <input type="text"
+                   name="username"
+                   class="form-control"
+                   data-ng-model="vm.username"
+                   placeholder="Användarnamn"
+                   ng-minlength="6" ng-maxlength="20" required/>
             <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+
             <p class="help-block" ng-show="form.username.$error.minlength">Användarnamnet är för kort</p>
             <p class="help-block" ng-show="form.username.$error.maxlength">Användarnamnet är för långt</p>
-            <p class="help-block" ng-show="!form.username.$error.minlength && !form.username.$error.maxlength && form.username.$invalid &&
-            form.username.$dirty">Användarnamn krävs</p>
+            <p class="help-block" ng-show="
+                !form.username.$error.minlength && !form.username.$error.maxlength
+                && form.username.$invalid && form.username.$dirty">Användarnamn krävs</p>
         </div>
 <!--FIRSTNAME-->
-        <div class="form-group" ng-class="{ 'has-error' : form.firstname.$invalid && form.firstname.$dirty,
-            'has-success' : form.firstname.$valid && form.firstname.$dirty}">
+        <div class="form-group" ng-class="{
+            'has-error' : form.firstname.$invalid && form.firstname.$dirty,
+            'has-success has-feedback' : form.firstname.$valid && form.firstname.$dirty
+        }">
+            <input type="text"
+                   name="firstname"
+                   class="form-control"
+                   data-ng-model="vm.firstname"
+                   placeholder="Förnamn"
+                   required/>
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
 
-            <input type="text" name="firstname" class="form-control" data-ng-model="vm.firstname" placeholder="Förnamn" required/>
             <p class="help-block" ng-show="form.firstname.$invalid && !form.firstname.$pristine">Förnamn krävs</p>
         </div>
 <!--LASTNAME-->
-        <div class="form-group" ng-class="{ 'has-error' : form.lastname.$invalid && form.lastname.$dirty,
-            'has-success' : form.lastname.$valid && form.lastname.$dirty}">
+        <div class="form-group" ng-class="{
+            'has-error' : form.lastname.$invalid && form.lastname.$dirty,
+            'has-success has-feedback' : form.lastname.$valid && form.lastname.$dirty
+        }">
+            <input type="text"
+                   name="lastname"
+                   class="form-control"
+                   data-ng-model="vm.lastname"
+                   placeholder="Efternamn"
+                   required="required"/>
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
 
-            <input type="text" name="lastname" class="form-control" data-ng-model="vm.lastname" placeholder="Efternamn" required/>
             <p class="help-block" ng-show="form.lastname.$invalid && !form.lastname.$pristine">Efternamn krävs</p>
         </div>
 <!--EMAIL-->
-        <div class="form-group" ng-class="{ 'has-error' : form.email.$invalid && form.email.$dirty,
-            'has-success' : form.email.$valid && form.email.$dirty}">
+        <div class="form-group" ng-class="{
+            'has-error' : form.email.$invalid && form.email.$dirty,
+            'has-success has-feedback' : form.email.$valid && form.email.$dirty
+            }">
+            <input type="email"
+                   name="email"
+                   class="form-control"
+                   data-ng-model="vm.email"
+                   placeholder="E-post"/>
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
 
-            <input type="email" name="email" class="form-control" data-ng-model="vm.email" placeholder="E-post"/>
-            <p class="help-block" ng-show="form.email.$invalid && form.email.$dirty">Ange en giltig E-post
-                adress</p>
+            <p class="help-block" ng-show="form.email.$invalid && form.email.$dirty">Ange en giltig E-post adress</p>
         </div>
 <!--PASSWORD1-->
-        <div class="form-group" ng-class="{ 'has-error' : form.pw2.$invalid && !form.pw2.$pristine,
-            'has-success' : form.pw2.$valid && !form.pw2.$pristine}">
+        <div class="form-group" ng-class="{
+            'has-error' : form.pw2.$invalid && !form.pw2.$pristine,
+            'has-success has-feedback' : form.pw2.$valid && !form.pw2.$pristine
+        }">
             <input type='password' id='pw1'
                    placeholder="Lösenord"
                    class="form-control"
                    ng-model='vm.password1'
-                   required/></div>
+                   required/>
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
 <!--PASSWORD2-->
-        <div class="form-group" ng-class="{ 'has-error' : form.pw2.$invalid && form.pw2.$dirty,
-            'has-success' : form.pw2.$valid && form.pw2.$dirty}">
+        <div class="form-group" ng-class="{
+            'has-error' : form.pw2.$invalid && form.pw2.$dirty,
+            'has-success has-feedback' : form.pw2.$valid && form.pw2.$dirty
+        }">
             <input type='password' name='pw2'
                    placeholder="Upprepa lösenord"
                    class="form-control"
                    ng-model='vm.password2'
                    required pw-check='pw1' />
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+
             <p class='msg-error help-block' ng-show='form.pw2.$error.pwmatch && form.pw2.$dirty'>
-                Lösenorden matchar inte
-            </p>
+                Lösenorden matchar inte </p>
         </div>
 
 
 <!--SUBMIT BUTTON-->
         <div>
-            <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Logga in</button>
+            <button type="submit"
+                    class="btn btn-primary"
+                    ng-disabled="form.$invalid">Logga in
+            </button>
         </div>
 
         <div data-ng-if="vm.loading">Laddar...</div>

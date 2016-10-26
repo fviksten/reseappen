@@ -9,7 +9,6 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function(d
 
     this.getObject = function () {
         self.loading = true;
-        console.log($rootScope.user)
         $http.post("/mySuggestions", $rootScope.user).then(function (response) {
             self.object = response.data;
             self.currentSuggestion = response.data.listDestinations[self.index];
@@ -33,6 +32,11 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function(d
         self.currentSuggestion = self.object.listDestinations[self.index];
         $("iframe").attr("src", "https://www.google.com/maps/embed/v1/place?key=AIzaSyAjjsG2ur6grCBa1u9UP6etCWnKiR6Uma0&q=" + self.currentSuggestion.country)
     };
+
+    this.logout = function() {
+        $rootScope.user = {};
+        $location.path("/login");
+    }
 
     this.object;
 
