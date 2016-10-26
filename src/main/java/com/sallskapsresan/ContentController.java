@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
 
 /**
  * Created by Administrator on 2016-10-18.
@@ -40,25 +41,31 @@ public class ContentController {
         return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<ReturnData> authenticateUser(@RequestBody User user, BindingResult bindingResult) throws NoSuchAlgorithmException {
-        ReturnData returnData = new ReturnData();
-        if (bindingResult.hasErrors()) {
-            returnData.setMessage("Error");
-            returnData.setUser(user);
-
-        }   else {
+//    @PostMapping("/authenticate")
+//    public ResponseEntity<ReturnData> authenticateUser(@RequestBody User user, BindingResult bindingResult) throws NoSuchAlgorithmException {
+//        ReturnData returnData = new ReturnData();
+//        if (bindingResult.hasErrors()) {
+//            returnData.setMessage("Error");
+//            returnData.setUser(user);
+//
+//        }   else {
 //            dBRepository.createPasswords();
-            if (dBRepository.validatePassword(user.getUsername(),user.getPassword())) {
-                returnData.setMessage("Success");
-                User sessionUser = dBRepository.getUser(user.getUsername());
-                returnData.setUser(sessionUser);
-            } else {
-                throw new InvalidPasswordException("Inloggningen misslyckades! Försök igen.");
-            }
-        }
+//            if (dBRepository.validatePassword(user.getUsername(),user.getPassword())) {
+//                returnData.setMessage("Success");
+//                User sessionUser = dBRepository.getUser(user.getUsername());
+//                returnData.setUser(sessionUser);
+//            } else {
+//                throw new InvalidPasswordException("Inloggningen misslyckades! Försök igen.");
+//            }
+//        }
+//
+//        return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
+//    }
 
-        return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
+    @RequestMapping("/authenticate")
+    public Principal user(Principal user) {
+        System.out.println(user);
+        return user;
     }
 
     @PostMapping("/persTest")

@@ -5,28 +5,56 @@ if (!loginAndRegister.login)
     loginAndRegister.login = {};
 
 
-loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
+loginAndRegister.login.LoginController = function ($http, $location, $rootScope) {
     var self = this;
-    this.login = function () {
+
+    self.login = function () {
         self.loading = true;
-        $http.post("/authenticate", {
-            username : self.username,
-            password : self.password
-        })
-            .success(function (response) {
-                $rootScope.user = response.user;
-                $rootScope.user.password = self.password;
-                $location.path("/personalpage");
-            }).error(function (response) {
+        authenticate(self.credentials, function () {
+            if ($rootScope.authenticated) {
+                $location.path("/personalpage")
+                self.error = false;
+            } else {
+                $location.path("/login");
+                self.error = true;
+            }
             self.loading = false;
-            self.showErrorMessage = true;
-            console.log(response)
-            self.errorMessage = response.message
+
+        })
+    }
+
+    var self = this
+
+    var authenticate = function (credentials, callback) {
+        var headers = credentials ? {
+            authorization: "Basic "
+            + btoa(credentials.username + ":" + credentials.password)
+        } : {};
+
+        $http.get('/authenticate', {headers: headers})
+            .success(function (response) {
+                if (response.name) {
+                    $rootScope.authenticated = true;
+                    console.log(response.name);
+                } else {
+                    $rootScope.authenticated = false;
+                }
+                callback && callback();
+            })
+            .error(function () {
+                $rootScope.authenticated = false;
+                callback && callback();
+            });
+    };
+
+    self.logout = function() {
+        $http.post('logout', {}).finally(function() {
+            $rootScope.authenticated = false;
+            $location.path("/");
         });
     }
-    this.username;
-    this.password;
-    this.errorMessage;
-    this.showErrorMessage = false;
-    this.loading = false;
+
+    authenticate();
+    self.credentials = {};
+    self.loading = false;
 }
