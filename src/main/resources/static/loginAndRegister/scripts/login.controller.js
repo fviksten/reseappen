@@ -7,6 +7,15 @@ if (!loginAndRegister.login)
 
 loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
     var self = this;
+    var usernameInput;
+    var passwordInput;
+
+    this.removeRed = function() {
+        usernameInput.removeClass('has-error');
+        passwordInput.removeClass('has-error');
+        this.showErrorMessage = false;
+    };
+
     this.login = function () {
         self.loading = true;
         $http.post("/authenticate", {
@@ -20,8 +29,11 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
             }).error(function (response) {
             self.loading = false;
             self.showErrorMessage = true;
-            console.log(response)
             self.errorMessage = response.message
+            usernameInput = angular.element( document.querySelector( '#usernameInput' ) );
+            usernameInput.addClass('has-error');
+            passwordInput = angular.element( document.querySelector( '#passwordInput' ) );
+            passwordInput.addClass('has-error');
         });
     }
     this.username;

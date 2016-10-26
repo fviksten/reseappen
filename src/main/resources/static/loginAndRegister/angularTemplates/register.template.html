@@ -2,7 +2,7 @@
     <form name="form" data-ng-submit="vm.addUser()" role="form" novalidate>
 
 <!--USERNAME-->
-        <div id="usernameinput" class="form-group" ng-class="{'has-error' : form.username.$invalid && form.username.$dirty,
+        <div class="form-group" ng-class="{'has-error' : form.username.$invalid && form.username.$dirty,
             'has-success' : form.username.$valid && form.username.$dirty}">
 
             <input type="text" name="username" class="form-control" data-ng-model="vm.username"
