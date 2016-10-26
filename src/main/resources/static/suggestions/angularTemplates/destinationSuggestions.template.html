@@ -1,4 +1,7 @@
-
+<nav>
+    <button type="button" class="btn btn-warning" onclick="location.href='#/personalpage'">Personal page</button>
+    <button type="button" class="btn btn-info" ng-click="vm.logout()">Logga ut - {{user.username}}</button>
+</nav>
 
 <h1>Reseförslag </h1>
 <h4>Baserat på din personlighet är det troligt att du kommer att uppskatta följande resemål:</h4>
@@ -7,7 +10,7 @@
 
     <h2> {{vm.currentSuggestion.country}}</h2>
 
-    <p><button class="button1" ng-click="vm.nextSuggestion()" >Nästa tips</button></p>
+    <p><button type="button" class="btn btn-warning" ng-click="vm.nextSuggestion()" >Nästa tips</button></p>
     <div data-ng-if="vm.loading">Loading...</div>
 
 </div>

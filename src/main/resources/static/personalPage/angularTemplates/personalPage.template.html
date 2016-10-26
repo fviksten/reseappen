@@ -1,3 +1,8 @@
+<nav>
+    <button type="button" class="btn btn-warning" ng-click="vm.suggestions()">Vill du få nya restips?</button>
+    <button type="button" class="btn btn-warning" onclick="location.href='#/perstest'">Gör personlighetstestet</button>
+    <button type="button" class="btn btn-info" ng-click="vm.logout()">Logga ut - {{user.username}}</button>
+</nav>
 <div ng-init="vm.getFavourites()">
 
     <div><button ng-click="vm.logout()">Logga ut</button></div>
@@ -9,3 +14,4 @@
     <div><button ng-click="vm.suggestions()" class="button1">Vill du få nya restips?</button></div>
     <br>
 </div>
+
