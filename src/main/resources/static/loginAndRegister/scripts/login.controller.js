@@ -20,7 +20,6 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
             }).error(function (response) {
             self.loading = false;
             self.showErrorMessage = true;
-            console.log(response)
             self.errorMessage = response.message
         });
     }
