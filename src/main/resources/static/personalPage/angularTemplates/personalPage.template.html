@@ -5,13 +5,10 @@
 </nav>
 <div ng-init="vm.getFavourites()">
 
-    <div><button ng-click="vm.logout()">Logga ut</button></div>
     <h2>Favoritresemål:</h2>
     <div>{{vm.object.listDestinations[0].country}}</div>
     <div>{{vm.object.listDestinations[1].country}}</div>
     <div>{{vm.object.listDestinations[2].country}}</div>
-    <a href="#/perstest">Gör personlighetstest</a>
-    <div><button ng-click="vm.suggestions()" class="button1">Vill du få nya restips?</button></div>
-    <br>
+
 </div>
 
