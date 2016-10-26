@@ -1,6 +1,7 @@
-<div><button ng-click="vm.logout()">Logga ut</button></div>
-<h1>Persontyp:</h1>
-<div>{{user.personalityType}}</div>
-<a href="#/perstest">Gör personlighetstest</a>
-<div><button ng-click="vm.suggestions()" class="button1">Vill du få nya restips?</button></div>
-<br>
+<nav>
+    <button type="button" class="btn btn-warning" ng-click="vm.suggestions()">Vill du få nya restips?</button>
+    <button type="button" class="btn btn-warning" onclick="location.href='#/perstest'">Gör personlighetstestet</button>
+    <button type="button" class="btn btn-info" ng-click="vm.logout()">Logga ut - {{user.username}}</button>
+</nav>
+
+
