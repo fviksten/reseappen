@@ -7,6 +7,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016-10-18.
@@ -108,5 +110,11 @@ public class ContentController {
             returnData.setMessage("Något gick fel");
         }
         return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
+    }
+
+    @PostMapping("/myFavourites")
+    public Destinations getListOfFavourites(@RequestBody User user){
+        Destinations destinations = dBRepository.getListOfFavourites(user);
+        return destinations;
     }
 }

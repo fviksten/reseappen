@@ -9,7 +9,6 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function(d
 
     this.getObject = function () {
         self.loading = true;
-        console.log($rootScope.user)
         $http.post("/mySuggestions", $rootScope.user).then(function (response) {
             self.object = response.data;
             self.currentSuggestion = response.data.listDestinations[self.index];

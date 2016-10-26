@@ -231,6 +231,20 @@ public class DBRepository {
             throw new RuntimeException("Fel i getSuggestions");
         }
     }
+    public Destinations getListOfFavourites(User user) {
+        try (Connection conn = datasource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT DR.Country_ID, CT.CountryName FROM [dbo].[DestinationRanking] AS DR INNER JOIN [dbo].[Countries] AS CT ON DR.Country_ID=CT.CountryID WHERE DR.User_ID = ?")) {
+            ps.setLong(1, user.getUserID());
+            ResultSet rs = ps.executeQuery();
+            Destinations listOfSuggestions = new Destinations();
+            while (rs.next()) {
+                listOfSuggestions.getListDestinations().add(new Destination(rs.getInt("Country_ID"), rs.getString("CountryName")));
+            }
+            return listOfSuggestions;
+        } catch (SQLException e) {
+            throw new RuntimeException("Fel i getListOfFavourites");
+        }
+    }
 
     private String hashedPassword (String password, String salt) throws NoSuchAlgorithmException {
         byte[] hash = MessageDigest.getInstance("SHA-256").digest((salt + password).getBytes());
@@ -244,5 +258,7 @@ public class DBRepository {
         sr.nextBytes(bytes);
         return DatatypeConverter.printBase64Binary(bytes);
     }
+
+
 }
 
