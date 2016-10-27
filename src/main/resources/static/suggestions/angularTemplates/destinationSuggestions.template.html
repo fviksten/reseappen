@@ -1,22 +1,22 @@
 <nav>
     <button type="button" class="btn btn-warning" onclick="location.href='#/personalpage'">Personal page</button>
-    <button type="button" class="btn btn-info" ng-click="vm.logout()">Logga ut - {{vm.username}}</button>
+    <button type="button" class="btn btn-info" ng-click="vm.logout()">Log out - {{vm.username}}</button>
 </nav>
 
-<h1>Reseförslag </h1>
-<h4>Baserat på din personlighet är det troligt att du kommer att uppskatta följande resemål:</h4>
+<h1>Travel recommendations </h1>
+<h4>Based on your personality, you might like to visit:</h4>
 
 <div data-ng-init="vm.getObject()">
 
     <h2> {{vm.currentSuggestion.country}}</h2>
 
-    <p><button type="button" class="btn btn-warning" ng-click="vm.nextSuggestion()" >Nästa tips</button></p>
+    <p><button type="button" class="btn btn-warning" ng-click="vm.nextSuggestion()" >Next recommendation</button></p>
     <div data-ng-if="vm.loading">Loading...</div>
 
 </div>
 
     <br>
-        <img data-ng-src="img/{{vm.currentSuggestion.country}}.jpg">
+        <img data-ng-src="img/{{vm.currentSuggestion.country}}.jpg" width="600">
     <br>
 
 <iframe
