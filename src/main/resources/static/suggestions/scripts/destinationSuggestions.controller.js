@@ -18,7 +18,7 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function(d
             // går att kontrollera http-responsen ifall usern är fel.
         }).error(function (response) {
             $rootScope.user = {};
-            $location.path("/error").search({error:response.runtimeErrors[0].message});;
+            $location.path("/error").search({error:response.runtimeErrors[0].message});
         });
         self.loading = false;
     }
