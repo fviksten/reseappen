@@ -9,16 +9,16 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function(d
 
     this.getObject = function () {
         self.loading = true;
-        $http.post("/mySuggestions", $rootScope.user).then(function (response) {
-            self.object = response.data;
-            self.currentSuggestion = response.data.listDestinations[self.index];
-            if (response.data.listDestinations[self.index]) {
-                $("iframe").attr("src", "https://www.google.com/maps/embed/v1/place?key=AIzaSyAjjsG2ur6grCBa1u9UP6etCWnKiR6Uma0&q=" + response.data.listDestinations[self.index].country)
+        $http.post("/mySuggestions", $rootScope.user).success(function (response) {
+            self.object = response;
+            self.currentSuggestion = response.listDestinations[self.index];
+            if (response.listDestinations[self.index]) {
+                $("iframe").attr("src", "https://www.google.com/maps/embed/v1/place?key=AIzaSyAjjsG2ur6grCBa1u9UP6etCWnKiR6Uma0&q=" + response.listDestinations[self.index].country)
             }
             // går att kontrollera http-responsen ifall usern är fel.
-        }, function (response) {
+        }).error(function (response) {
             $rootScope.user = {};
-            $location.path("/login");
+            $location.path("/error").search({error:response.runtimeErrors[0].message});;
         });
         self.loading = false;
     }
