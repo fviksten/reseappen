@@ -1,4 +1,4 @@
-angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.register", "personalTest.persTest", "myDestinations.destinations", "suggestions.destinationSuggestions"])
+angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.register", "personalTest.persTest", "myDestinations.destinations", "suggestions.destinationSuggestions", "exception.exception"])
     .service("userService",userService)
     .config(["$routeProvider","$httpProvider", function ($routeProvider,$httpProvider) {
         $routeProvider
@@ -26,6 +26,11 @@ angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.re
         ).when("/suggestions", {
                 templateUrl: "suggestions/angularTemplates/destinationSuggestions.template.html",
                 controller: suggestions.destinationSuggestions.destinationSuggestionsController,
+                controllerAs: "vm"
+            }
+        ).when("/error", {
+                templateUrl: "exception/angularTemplates/exception.template.html",
+                controller: exception.exception.exceptionController,
                 controllerAs: "vm"
             }
         ).otherwise("/login");
