@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,17 +57,6 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler{
 
         ErrorResource error = new ErrorResource();
         error.setErrors(userValidationErrorResources);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        return handleExceptionInternal(e, error, headers, HttpStatus.BAD_REQUEST, webRequest);
-    }
-
-    @ExceptionHandler(InvalidPasswordException.class)
-    public ResponseEntity<Object> handleInvalidPasswordException(InvalidPasswordException e, WebRequest webRequest) {
-        InvalidPasswordException ipe = (InvalidPasswordException) e;
-        ErrorResource error = new ErrorResource();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

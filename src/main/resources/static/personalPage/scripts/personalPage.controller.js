@@ -4,20 +4,18 @@ if(!personalPage)
 if(!personalPage.persPage)
     personalPage.persPage = {};
 
-personalPage.persPage.personalPageController = function ($rootScope,$location, $http) {
+personalPage.persPage.personalPageController = function (userService,$location,$http) {
+
     var self = this;
 
     this.getFavourites = function () {
-        $http.post("/myFavourites", $rootScope.user).then(function (response) {
-            self.object = response.data; //Tar en stund att ladda
+        $http.post("/myFavourites", userService.user).then(function (response) {
+            self.object = response.data; //TAr en stund att ladda
         });
     }
-
-    this.logout = function () {
-        $rootScope.user = {};
-        $location.path("/login");
-    }
-    this.suggestions = function () {
+    this.username = userService.user.username;
+    this.logout = userService.logout;
+    this.suggestions=function() {
         $location.path("/suggestions");
     }
     this.newFavourites = function () {
@@ -36,15 +34,15 @@ personalPage.persPage.personalPageController = function ($rootScope,$location, $
         self.chosenCountries.push(self.aCountry);
         var indexOfAddedItem = self.countries.listDestinations.indexOf(self.aCountry);
         var sendObject = {
-            user: $rootScope.user,
+            user: userService.user,
             favoriteDestinations: [self.chosenCountries[0].id]
         };
         self.object.listDestinations.push({id: self.chosenCountries[0].id, country : self.aCountry.country});
 
         $http.post("/myDestinations",sendObject)
             .then(function(response) {
-                $rootScope.user = response.data.user;
-                console.log($rootScope.user.personalityType)
+                userService.user = response.data.user;
+                console.log(userService.user.personalityType)
                 $location.path("/personalpage");
             })
             .finally(function () {
