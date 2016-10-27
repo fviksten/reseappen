@@ -15,17 +15,24 @@ loginAndRegister.register.RegisterController = function ($location, $http, $root
             email: self.email,
             password: self.password1
         })
-            .then(function (response) {
-                if (response.data.message === "Success") {
-                    userService.user = response.data.user;
-                    console.log(userService.user)
-                    $location.path("/perstest");
+            .success(function (response) {
+                var credentials = {
+                    username: self.username,
+                    password: self.password1
                 }
-                else {
-                    self.errorMessage = "Something went wrong: " + response.data.message;
-                    self.showErrorMessage = true;
-                }
-            }).finally(function () {
+                userService.authenticate(credentials, function () {
+                    if (userService.authenticated) {
+                        $location.path("/perstest")
+                        self.error = false;
+                    } else {
+                        $location.path("/login");
+                        self.error = true;
+                    }
+                })
+            }).error(function () {
+            self.errorMessage = "Something went wrong: " + response.data.message;
+            self.showErrorMessage = true;
+        }).finally(function () {
             self.loading = false;
         });
     };

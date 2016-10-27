@@ -19,7 +19,7 @@ public class DBRepository {
 
     public void addUser(User user) {
         try (Connection conn = datasource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO Users (FirstName, LastName, UserName, HashedPassword, Email, Salt) VALUES (?, ?, ?, ?, ?, ?)")) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO Users (FirstName, LastName, UserName, HashedPassword, Email) VALUES (?, ?, ?, ?, ?)")) {
             ps.setString(1, user.getFirstname());
             ps.setString(2, user.getLastname());
             ps.setString(3, user.getUsername());
