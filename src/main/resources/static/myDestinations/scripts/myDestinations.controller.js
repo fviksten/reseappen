@@ -71,16 +71,13 @@ myDestinations.destinations.myDestinationsController = function(myDestinationsSe
             favoriteDestinations: [this.chosenCountries[0].id, this.chosenCountries[1].id, this.chosenCountries[2].id]
         };
         self.loading = true;
-        console.log(self.chosenCountries);
-        console.log("----");
-        console.log(sendObject);
         $http.post("/myDestinations",sendObject)
             .success(function (response) {
             userService.user = response.user;
             $location.path("/personalpage");
         }).error(function (response) {
             userService.user = {};
-            $location.path("/error").search({error : response.runtimeErrors[0].message})
+            $location.path("/error").search({error : response.errors[0].message})
         })
             .finally(function () {
                 self.loading = false;

@@ -80,7 +80,7 @@ personalTest.persTest.persTestService = function (userService,$http) {
                 userService.user = response.user;
             }).error(function (response) {
                 userService.user = {};
-                $location.path("/error").search({error : response.runtimeErrors[0].message});
+                $location.path("/error").search({error : response.errors[0].message});
             }).finally(function () {
                 for (var i = 0; i < questions.persForm.length; i++) {
                 questions.persForm[i].result = '';

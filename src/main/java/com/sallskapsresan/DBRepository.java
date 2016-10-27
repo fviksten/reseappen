@@ -1,8 +1,12 @@
 package com.sallskapsresan;
 
+import com.sallskapsresanDestinations.Destination;
+import com.sallskapsresanDestinations.Destinations;
+import com.sallskapsresanPersonalTest.PersonalityType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import com.sallskapsresanUtils.User;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -150,7 +154,6 @@ public class DBRepository {
             throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
-
     public Destinations getListOfFavourites(User user) {
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT DR.Country_ID, CT.CountryName FROM [dbo].[DestinationRanking] AS DR INNER JOIN [dbo].[Countries] AS CT ON DR.Country_ID=CT.CountryID WHERE DR.User_ID = ?")) {

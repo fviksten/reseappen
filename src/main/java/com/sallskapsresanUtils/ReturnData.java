@@ -1,4 +1,4 @@
-package com.sallskapsresan;
+package com.sallskapsresanUtils;
 
 /**
  * Created by Emil Båth on 2016-10-19.

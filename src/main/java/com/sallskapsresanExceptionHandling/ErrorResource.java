@@ -1,4 +1,6 @@
-package com.sallskapsresan;
+package com.sallskapsresanExceptionHandling;
+
+import com.sallskapsresanExceptionHandling.GeneralError;
 
 import java.util.List;
 
