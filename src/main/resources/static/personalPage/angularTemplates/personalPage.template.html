@@ -7,19 +7,39 @@
 <div ng-init="vm.getFavourites()">
 
     <h1>Favourite destinations:</h1>
+    <div class="container slider">
+        <img ng-repeat="slide in vm.object.listDestinations" class="slide" ng-hide="!vm.isCurrentSlideIndex($index)" data-ng-src="img/{{slide.country}}.jpg">
 
-<div id="slides_control">
-    <div>
-        <carousel interval="vm.myInterval">
-            <slide ng-repeat="item in vm.object.listDestinations track by $index" active="item.active">
-                <img data-ng-src="img/{{item.country}}.jpg">
-                <div class="carousel-caption">
-                    <h4>{{item.country}}</h4>
-                </div>
-            </slide>
-        </carousel>
-    </div>
+
+    <nav class="nav">
+        <div class="wrapper">
+            <ul class="dots">
+                <li class="dot" ng-repeat="slide in vm.object.listDestinations"  >
+                    <a href="#" ng-class="{'active':vm.isCurrentSlideIndex($index)}" ng-click="vm.setCurrentSlideIndex($index);">{{slide.country}}</a></li>
+            </ul>
+        </div>
+    </nav>
 </div>
+
+
+<!--<div id="slides_control">-->
+    <!--<div>-->
+        <!--<carousel interval="vm.myInterval">-->
+            <!--<slide ng-repeat="item in vm.object.listDestinations track by $index" active="item.active">-->
+                <!--<ol>-->
+                   <!--<l1> <img data-ng-src="img/{{item.country}}.jpg">-->
+                    <!--<div class="carousel-caption">-->
+                        <!--<h4>{{item.country}}</h4>-->
+                    <!--</div>-->
+                   <!--</l1>-->
+                <!--</ol>-->
+            <!--</slide>-->
+        <!--</carousel>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+
 
     <p><button type="button" class="btn btn-warning" ng-click="vm.newFavourites();vm.selectFavourites=true " data-ng-hide="vm.selectFavourites">Add favourites</button>
         <div data-ng-show="vm.selectFavourites">
