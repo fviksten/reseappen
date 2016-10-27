@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +24,13 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler{
     public ResponseEntity<Object> handleRunTimeExceptions(RuntimeException e, WebRequest webRequest) {
 
 
-        List<RuntimeError> runtimeExceptionResources = new ArrayList<>();
+        List<GeneralError> runtimeExceptionResources = new ArrayList<>();
         RuntimeError runtimeError = new RuntimeError();
         runtimeError.setMessage(e.getMessage());
         runtimeExceptionResources.add(runtimeError);
 
-        RuntimeErrorResource error = new RuntimeErrorResource();
-        error.setRuntimeErrors(runtimeExceptionResources);
+        ErrorResource error = new ErrorResource();
+        error.setErrors(runtimeExceptionResources);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -45,18 +46,18 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler{
 
         List<FieldError> fieldErrors = iie.getErrors().getFieldErrors();
 
-        List<UserValidationError> userValidationErrorResources = new ArrayList<>();
+        List<GeneralError> userValidationErrorResources = new ArrayList<>();
 
         for (FieldError fieldError : fieldErrors) {
-            UserValidationError userValidationErrorResource = new UserValidationError();
-            userValidationErrorResource.setField(fieldError.getField());
-            userValidationErrorResource.setCode(fieldError.getCode());
-            userValidationErrorResource.setMessage(fieldError.getDefaultMessage());
-            userValidationErrorResources.add(userValidationErrorResource);
+            UserValidationError userValidationError = new UserValidationError();
+            userValidationError.setField(fieldError.getField());
+            userValidationError.setCode(fieldError.getCode());
+            userValidationError.setMessage(fieldError.getDefaultMessage());
+            userValidationErrorResources.add(userValidationError);
         }
 
-        UserValidationErrorResource error = new UserValidationErrorResource();
-        error.setUserValidationErrors(userValidationErrorResources);
+        ErrorResource error = new ErrorResource();
+        error.setErrors(userValidationErrorResources);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -67,7 +68,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler{
     @ExceptionHandler(InvalidPasswordException.class)
     public ResponseEntity<Object> handleInvalidPasswordException(InvalidPasswordException e, WebRequest webRequest) {
         InvalidPasswordException ipe = (InvalidPasswordException) e;
-        ErrorResource error = new ErrorResource("Invalid input", ipe.getMessage());
+        ErrorResource error = new ErrorResource();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
