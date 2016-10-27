@@ -164,7 +164,7 @@ public class DBRepository {
 
     public Destinations getSuggestions(User user) {
         try (Connection conn = datasource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("EXEC getSuggestions ?, ?")) {
+             PreparedStatement ps = conn.prepareStatement("EXEC getSugestions ?, ?")) {
             ps.setLong(1, user.getUserID());
             ps.setLong(2, user.getPersonalityType().ordinal() + 1);
             ResultSet rs = ps.executeQuery();
