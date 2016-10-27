@@ -11,12 +11,7 @@ exception.exception.exceptionController = function(exceptionService, $location, 
     var self = this;
 
     this.getObject = function () {
-        console.log("....")
         var paramValue = $location.search().error;
-        console.log(paramValue);
-        console.log("------")
-
-        console.log($routeParams.param1);
         var param1 = $routeParams.param1;
         self.object = paramValue;
 

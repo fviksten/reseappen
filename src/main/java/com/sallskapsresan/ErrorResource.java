@@ -7,30 +7,16 @@ import java.util.List;
  */
 public class ErrorResource {
 
-    private String code;
-    private String message;
+    private List<GeneralError> errors;
 
     public ErrorResource() {
     }
 
-    public ErrorResource(String code, String message) {
-        this.code = code;
-        this.message = message;
+    public void setErrors(List<GeneralError> errors) {
+        this.errors = errors;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
+    public List<GeneralError> getErrors() {
+        return errors;
     }
 }

@@ -15,6 +15,7 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function (
             if (response.listDestinations[self.index]) {
                 $("iframe").attr("src", "https://www.google.com/maps/embed/v1/place?key=AIzaSyAjjsG2ur6grCBa1u9UP6etCWnKiR6Uma0&q=" + self.currentSuggestion.country)
             }
+            // går att kontrollera http-responsen ifall usern är fel.
         }).error(function (response) {
             userService.user = {};
             $location.path("/error").search({error : response.runtimeErrors[0].message})

@@ -69,13 +69,6 @@ personalTest.persTest.persTestService = function (userService,$http) {
 
 
     this.getQuestion = function () {
-
-        console.log(questions.persForm[0].result);
-        console.log(questions.persForm[1].result);
-        console.log(questions.persForm[2].result);
-        console.log(questions.persForm[3].result);
-        console.log("new line-----");
-
         return questions.persForm[++index];
     }
     this.goBackToQuestion = function () {
@@ -83,11 +76,11 @@ personalTest.persTest.persTestService = function (userService,$http) {
     }
 
     this.send = function () {
-        console.log("send");
-        console.log(questions)
-        $http.post("/persTest", questions)
-            .then(function (response) {
-                userService.user = response.data.user;
+        $http.post("/persTest", questions).success(function (response) {
+                userService.user = response.user;
+            }).error(function (response) {
+                userService.user = {};
+                $location.path("/error").search({error : response.runtimeErrors[0].message});
             }).finally(function () {
                 for (var i = 0; i < questions.persForm.length; i++) {
                 questions.persForm[i].result = '';
