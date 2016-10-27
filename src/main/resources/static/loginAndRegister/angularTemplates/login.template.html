@@ -5,7 +5,7 @@
         <input type="text"
                class="form-control"
                data-ng-model="vm.credentials.username"
-               placeholder="Användarnamn"
+               placeholder="Username"
                ng-keyup="vm.removeRed()"/>
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
     </div>
@@ -14,7 +14,7 @@
         <input type="password"
                class="form-control"
                data-ng-model="vm.credentials.password"
-               placeholder="Lösenord"
+               placeholder="Password"
                ng-keyup="vm.removeRed()"/>
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
     </div>
@@ -22,7 +22,7 @@
     <div>
         <button type="submit"
                 class="btn btn-primary"
-                ng-disabled="form.$invalid">Logga in</button>
+                ng-disabled="form.$invalid">Log in</button>
     </div>
 </form>
 
@@ -31,10 +31,10 @@
 </div>
 
 <div>
-    <p data-ng-if="vm.loading">Laddar...</p>
+    <p data-ng-if="vm.loading">Loading...</p>
 </div>
 
 <div>
-    <a href="#/register">Ny användare</a>
+    <a href="#/register">Create new user</a>
 </div>
 </main>

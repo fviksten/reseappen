@@ -41,7 +41,6 @@ myDestinations.destinations.myDestinationsController = function(myDestinationsSe
 
     this.addItemToList = function () {
         self.chosenCountries.push(self.aCountry);
-        console.log(self.aCountry);
         var indexOfAddedItem = self.object.listDestinations.indexOf(self.aCountry);
         self.object.listDestinations.splice(indexOfAddedItem, 1);
         console.log(self.chosenCountries);
