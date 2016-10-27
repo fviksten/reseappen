@@ -1,5 +1,6 @@
 angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.register", "personalTest.persTest", "myDestinations.destinations", "suggestions.destinationSuggestions", "exception.exception"])
-    .config(["$routeProvider", function ($routeProvider) {
+    .service("userService",userService)
+    .config(["$routeProvider","$httpProvider", function ($routeProvider,$httpProvider) {
         $routeProvider
             .when("/login", {
                 templateUrl: "loginAndRegister/angularTemplates/login.template.html",
@@ -33,5 +34,6 @@ angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.re
                 controllerAs: "vm"
             }
         ).otherwise("/login");
+        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
     }]);
 

@@ -5,7 +5,7 @@ if (!loginAndRegister.login)
     loginAndRegister.login = {};
 
 
-loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
+loginAndRegister.login.LoginController = function ($http, $location, $rootScope, userService) {
     var self = this;
     this.usernameInput = angular.element( document.querySelector( '#usernameInput' ) );
     this.passwordInput = angular.element( document.querySelector( '#passwordInput' ) );
@@ -15,28 +15,25 @@ loginAndRegister.login.LoginController = function ($http,$location,$rootScope) {
             self.passwordInput.removeClass('has-error has-feedback');
             this.showErrorMessage = false;
     };
+    
 
     this.login = function () {
         self.loading = true;
-        $http.post("/authenticate", {
-            username : self.username,
-            password : self.password
-        })
-            .success(function (response) {
-                $rootScope.user = response.user;
-                $rootScope.user.password = self.password;
-                $location.path("/personalpage");
-            }).error(function (response) {
+        userService.authenticate(self.credentials, function () {
+            if (userService.authenticated) {
+                $location.path("/personalpage")
+                console.log(userService.user)
+                self.error = false;
+            } else {
+                $location.path("/login");
+                self.error = true;
+            }
             self.loading = false;
-            self.showErrorMessage = true;
-            self.errorMessage = response.runtimeErrors[0].message;
-            self.usernameInput.addClass('has-error has-feedback');
-            self.passwordInput.addClass('has-error has-feedback');
-        });
+
+        })
     }
-    this.username;
-    this.password;
-    this.errorMessage;
-    this.showErrorMessage = false;
-    this.loading = false;
+
+    self.logout = userService.logout
+    self.credentials = {};
+    self.loading = false;
 }

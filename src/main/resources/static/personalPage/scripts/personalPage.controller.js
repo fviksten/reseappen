@@ -4,20 +4,18 @@ if(!personalPage)
 if(!personalPage.persPage)
     personalPage.persPage = {};
 
-personalPage.persPage.personalPageController = function ($rootScope,$location, $http) {
+personalPage.persPage.personalPageController = function (userService,$location,$http) {
+
     var self = this;
 
     this.getFavourites = function () {
-        $http.post("/myFavourites", $rootScope.user).then(function (response) {
+        $http.post("/myFavourites", userService.user).then(function (response) {
             self.object = response.data; //TAr en stund att ladda
         });
     }
-
-    this.logout = function () {
-        $rootScope.user = {};
-        $location.path("/login");
-    }
-    this.suggestions = function () {
+    this.username = userService.user.username;
+    this.logout = userService.logout;
+    this.suggestions=function() {
         $location.path("/suggestions");
     }
     this.newFavourites = function () {
@@ -36,15 +34,15 @@ personalPage.persPage.personalPageController = function ($rootScope,$location, $
         self.chosenCountries.push(self.aCountry);
         var indexOfAddedItem = self.countries.listDestinations.indexOf(self.aCountry);
         var sendObject = {
-            user: $rootScope.user,
+            user: userService.user,
             favoriteDestinations: [self.chosenCountries[0].id]
         };
         self.object.listDestinations.push({id: self.chosenCountries[0].id, country : self.aCountry.country});
 
         $http.post("/myDestinations",sendObject)
             .then(function(response) {
-                $rootScope.user = response.data.user;
-                console.log($rootScope.user.personalityType)
+                userService.user = response.data.user;
+                console.log(userService.user.personalityType)
                 $location.path("/personalpage");
             })
             .finally(function () {
@@ -52,11 +50,29 @@ personalPage.persPage.personalPageController = function ($rootScope,$location, $
             });
     };
 
+    this.setCurrentSlideIndex = function (index) {
+         self.currentIndex = index;
+        console.log("I setCurrent....")
+        console.log(currentIndex);
+    }
 
+    this.isCurrentSlideIndex = function (index) {
+        return currentIndex === index;
 
+    };
+    $scope.prevSlide = function () {
+        $scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex : 0;
+    };
+    $scope.nextSlide = function () {
+        $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.slides.length - 1;
+    };
+
+    var myInterval = 3000;
     var object;
     var countries;
     var selectFavourites=false;
     var loading = false;
     this.chosenCountries = [];
+    var currentIndex = 0;
+
 }
