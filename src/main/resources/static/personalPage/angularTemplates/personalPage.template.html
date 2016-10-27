@@ -6,12 +6,19 @@
 <div ng-init="vm.getFavourites()">
 
     <h1>Favourite destinations:</h1>
-    <p ng-repeat="item in vm.object.listDestinations track by $index">
-        <span>{{item.country}}</span>
-        <br>
-        <img data-ng-src="img/{{item.country}}.jpg">
-        <br>
-    </p>
+
+<div id="slides_control">
+    <div>
+        <carousel interval="vm.myInterval">
+            <slide ng-repeat="item in vm.object.listDestinations track by $index" active="item.active">
+                <img data-ng-src="img/{{item.country}}.jpg">
+                <div class="carousel-caption">
+                    <h4>{{item.country}}</h4>
+                </div>
+            </slide>
+        </carousel>
+    </div>
+</div>
 
     <p><button type="button" class="btn btn-warning" ng-click="vm.newFavourites();vm.selectFavourites=true " data-ng-hide="vm.selectFavourites">Add favourites</button>
         <div data-ng-show="vm.selectFavourites">

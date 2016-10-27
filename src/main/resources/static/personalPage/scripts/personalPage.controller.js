@@ -52,8 +52,7 @@ personalPage.persPage.personalPageController = function ($rootScope,$location, $
             });
     };
 
-
-
+    var myInterval = 3000;
     var object;
     var countries;
     var selectFavourites=false;
