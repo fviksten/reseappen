@@ -69,13 +69,6 @@ personalTest.persTest.persTestService = function ($http, $rootScope) {
 
 
     this.getQuestion = function () {
-
-        console.log(questions.persForm[0].result);
-        console.log(questions.persForm[1].result);
-        console.log(questions.persForm[2].result);
-        console.log(questions.persForm[3].result);
-        console.log("new line-----");
-
         return questions.persForm[++index];
     }
     this.goBackToQuestion = function () {

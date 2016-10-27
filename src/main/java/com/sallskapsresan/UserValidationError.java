@@ -3,7 +3,7 @@ package com.sallskapsresan;
 /**
  * Created by Administrator on 2016-10-24.
  */
-public class FieldError {
+public class UserValidationError {
     private String field;
     private String code;
     private String message;

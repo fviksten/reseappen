@@ -4,6 +4,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -19,7 +20,7 @@ import java.util.List;
 public class AppExceptionHandler extends ResponseEntityExceptionHandler{
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Object> handleSQLExceptions(RuntimeException e, WebRequest webRequest) {
+    public ResponseEntity<Object> handleRunTimeExceptions(RuntimeException e, WebRequest webRequest) {
 
 
         List<RuntimeError> runtimeExceptionResources = new ArrayList<>();
@@ -42,20 +43,20 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler{
 
         InvalidInputException iie = (InvalidInputException) e;
 
-        List<org.springframework.validation.FieldError> fieldErrors = iie.getErrors().getFieldErrors();
+        List<FieldError> fieldErrors = iie.getErrors().getFieldErrors();
 
-        List<FieldError> fieldErrorResources = new ArrayList<>();
+        List<UserValidationError> userValidationErrorResources = new ArrayList<>();
 
-        for (org.springframework.validation.FieldError fieldError : fieldErrors) {
-            FieldError fieldErrorResource = new FieldError();
-            fieldErrorResource.setField(fieldError.getField());
-            fieldErrorResource.setCode(fieldError.getCode());
-            fieldErrorResource.setMessage(fieldError.getDefaultMessage());
-            fieldErrorResources.add(fieldErrorResource);
+        for (FieldError fieldError : fieldErrors) {
+            UserValidationError userValidationErrorResource = new UserValidationError();
+            userValidationErrorResource.setField(fieldError.getField());
+            userValidationErrorResource.setCode(fieldError.getCode());
+            userValidationErrorResource.setMessage(fieldError.getDefaultMessage());
+            userValidationErrorResources.add(userValidationErrorResource);
         }
 
-        ValidationErrorResource error = new ValidationErrorResource();
-        error.setFieldErrors(fieldErrorResources);
+        UserValidationErrorResource error = new UserValidationErrorResource();
+        error.setUserValidationErrors(userValidationErrorResources);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
