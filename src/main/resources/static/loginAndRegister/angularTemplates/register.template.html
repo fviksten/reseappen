@@ -10,15 +10,15 @@
                    name="username"
                    class="form-control"
                    data-ng-model="vm.username"
-                   placeholder="Användarnamn"
+                   placeholder="Username"
                    ng-minlength="6" ng-maxlength="20" required/>
             <span class="glyphicon glyphicon-ok form-control-feedback"></span>
 
-            <p class="help-block" ng-show="form.username.$error.minlength">Användarnamnet är för kort</p>
-            <p class="help-block" ng-show="form.username.$error.maxlength">Användarnamnet är för långt</p>
+            <p class="help-block" ng-show="form.username.$error.minlength">Username is too short</p>
+            <p class="help-block" ng-show="form.username.$error.maxlength">Username is too long</p>
             <p class="help-block" ng-show="
                 !form.username.$error.minlength && !form.username.$error.maxlength
-                && form.username.$invalid && form.username.$dirty">Användarnamn krävs</p>
+                && form.username.$invalid && form.username.$dirty">Username i required</p>
         </div>
 <!--FIRSTNAME-->
         <div class="form-group" ng-class="{
@@ -29,11 +29,11 @@
                    name="firstname"
                    class="form-control"
                    data-ng-model="vm.firstname"
-                   placeholder="Förnamn"
+                   placeholder="First name"
                    required/>
             <span class="glyphicon glyphicon-ok form-control-feedback"></span>
 
-            <p class="help-block" ng-show="form.firstname.$invalid && !form.firstname.$pristine">Förnamn krävs</p>
+            <p class="help-block" ng-show="form.firstname.$invalid && !form.firstname.$pristine">First name is required</p>
         </div>
 <!--LASTNAME-->
         <div class="form-group" ng-class="{
@@ -44,11 +44,11 @@
                    name="lastname"
                    class="form-control"
                    data-ng-model="vm.lastname"
-                   placeholder="Efternamn"
+                   placeholder="Last name"
                    required="required"/>
             <span class="glyphicon glyphicon-ok form-control-feedback"></span>
 
-            <p class="help-block" ng-show="form.lastname.$invalid && !form.lastname.$pristine">Efternamn krävs</p>
+            <p class="help-block" ng-show="form.lastname.$invalid && !form.lastname.$pristine">Last name is required</p>
         </div>
 <!--EMAIL-->
         <div class="form-group" ng-class="{
@@ -59,10 +59,10 @@
                    name="email"
                    class="form-control"
                    data-ng-model="vm.email"
-                   placeholder="E-post"/>
+                   placeholder="Email"/>
             <span class="glyphicon glyphicon-ok form-control-feedback"></span>
 
-            <p class="help-block" ng-show="form.email.$invalid && form.email.$dirty">Ange en giltig E-post adress</p>
+            <p class="help-block" ng-show="form.email.$invalid && form.email.$dirty">Enter a valid email address</p>
         </div>
 <!--PASSWORD1-->
         <div class="form-group" ng-class="{
@@ -70,7 +70,7 @@
             'has-success has-feedback' : form.pw2.$valid && !form.pw2.$pristine
         }">
             <input type='password' id='pw1'
-                   placeholder="Lösenord"
+                   placeholder="Password"
                    class="form-control"
                    ng-model='vm.password1'
                    required/>
@@ -82,14 +82,14 @@
             'has-success has-feedback' : form.pw2.$valid && form.pw2.$dirty
         }">
             <input type='password' name='pw2'
-                   placeholder="Upprepa lösenord"
+                   placeholder="Repeat password"
                    class="form-control"
                    ng-model='vm.password2'
                    required pw-check='pw1' />
             <span class="glyphicon glyphicon-ok form-control-feedback"></span>
 
             <p class='msg-error help-block' ng-show='form.pw2.$error.pwmatch && form.pw2.$dirty'>
-                Lösenorden matchar inte </p>
+                Passwords do not match</p>
         </div>
 
 
@@ -97,11 +97,11 @@
         <div>
             <button type="submit"
                     class="btn btn-primary"
-                    ng-disabled="form.$invalid">Logga in
+                    ng-disabled="form.$invalid">Create user
             </button>
         </div>
 
-        <div data-ng-if="vm.loading">Laddar...</div>
+        <div data-ng-if="vm.loading">Loading...</div>
         <div data-ng-if="vm.showErrorMessage" ng-repeat="fielderror in vm.errorMessage">{{fielderror.message}}</div>
     </form>
 </main>
