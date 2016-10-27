@@ -7,7 +7,7 @@ if(!personalTest)
 if(!personalTest.persTest)
     personalTest.persTest = {};
 
-personalTest.persTest.persTestController = function(persTestService, $location, $rootScope){
+personalTest.persTest.persTestController = function(persTestService,userService, $location){
 
     var self = this;
     this.getQuestion = function(){
@@ -24,10 +24,7 @@ personalTest.persTest.persTestController = function(persTestService, $location, 
         $location.path("/mydestinations");
     }
 
-    this.logout = function() {
-        persTestService.logout();
-        $location.path("/login");
-    }
+    this.logout = userService.logout;
 
     this.questionObj;
 

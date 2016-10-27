@@ -4,7 +4,7 @@ if (!loginAndRegister)
 if (!loginAndRegister.register)
     loginAndRegister.register = {};
 
-loginAndRegister.register.RegisterController = function ($location, $http, $rootScope) {
+loginAndRegister.register.RegisterController = function ($location, $http, $rootScope, userService) {
     var self = this;
     this.addUser = function () {
         self.loading = true;
@@ -15,16 +15,18 @@ loginAndRegister.register.RegisterController = function ($location, $http, $root
             email: self.email,
             password: self.password1
         })
-            .success(function (response) {
-                console.log(response)
-                $rootScope.user = response.user;
-                $rootScope.user.password = self.password1;
-                $location.path("/perstest");
-            }).error(function (response) {
+            .then(function (response) {
+                if (response.data.message === "Success") {
+                    userService.user = response.data.user;
+                    console.log(userService.user)
+                    $location.path("/perstest");
+                }
+                else {
+                    self.errorMessage = "Something went wrong: " + response.data.message;
+                    self.showErrorMessage = true;
+                }
+            }).finally(function () {
             self.loading = false;
-            self.showErrorMessage = true;
-            console.log(response)
-            self.errorMessage = response.fieldErrors
         });
     };
 

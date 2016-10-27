@@ -7,7 +7,7 @@ if(!myDestinations)
 if(!myDestinations.destinations)
     myDestinations.destinations = {};
 
-myDestinations.destinations.myDestinationsService = function($http, $rootScope){
+myDestinations.destinations.myDestinationsService = function($http){
 
 
     this.getObject = function() {

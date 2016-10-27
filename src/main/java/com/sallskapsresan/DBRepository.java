@@ -1,10 +1,10 @@
 package com.sallskapsresan;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,22 +17,16 @@ public class DBRepository {
     @Autowired
     DataSource datasource;
 
-    Hashing hashing = new Hashing();
-
-    public void addUser(User user) throws NoSuchAlgorithmException {
+    public void addUser(User user) {
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("INSERT INTO Users (FirstName, LastName, UserName, HashedPassword, Email, Salt) VALUES (?, ?, ?, ?, ?, ?)")) {
-            String salt = hashing.getSalt();
-
             ps.setString(1, user.getFirstname());
             ps.setString(2, user.getLastname());
             ps.setString(3, user.getUsername());
-            ps.setString(4, hashing.getHashedPassword(user.getPassword(), salt));
+            ps.setString(4, (new BCryptPasswordEncoder()).encode(user.getPassword()));
             ps.setString(5, user.getEmail());
-            ps.setString(6, salt);
             ps.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
@@ -110,36 +104,15 @@ public class DBRepository {
         }
     }
 
-    public boolean validatePassword(String username, String password) throws NoSuchAlgorithmException {
-
-        try (Connection conn = datasource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT HashedPassword, Salt FROM [dbo].[Users] WHERE Username = ?")) {
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                String storedHash = rs.getString(1).trim();
-                String salt = rs.getString(2).trim();
-                String hash = hashing.getHashedPassword(password, salt);
-                if (storedHash.equals(hash)) {
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("The service is not available at the moment. Please try again later!");
-        }
-        return false;
-    }
-
 
     public void insertFavoritesForUser(long userID, List<Long> countryIDs, boolean favorite) {
         System.out.println(userID);
         try (Connection conn = datasource.getConnection();
-        PreparedStatement ps = conn.prepareStatement("EXEC insertEvaluationsForUser ?,?,?")) {
+             PreparedStatement ps = conn.prepareStatement("EXEC insertEvaluationsForUser ?,?,?")) {
             for (Long id : countryIDs) {
-                ps.setLong(1,userID);
-                ps.setLong(2,id);
-                ps.setBoolean(3,favorite);
+                ps.setLong(1, userID);
+                ps.setLong(2, id);
+                ps.setBoolean(3, favorite);
                 ps.addBatch();
             }
             ps.executeBatch();
@@ -148,7 +121,7 @@ public class DBRepository {
         }
     }
 
-    public Destinations getListOfDestinations(){
+    public Destinations getListOfDestinations() {
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("EXEC getAllCountries")) {
             ResultSet rs = ps.executeQuery();
@@ -177,6 +150,7 @@ public class DBRepository {
             throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
+
     public Destinations getListOfFavourites(User user) {
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT DR.Country_ID, CT.CountryName FROM [dbo].[DestinationRanking] AS DR INNER JOIN [dbo].[Countries] AS CT ON DR.Country_ID=CT.CountryID WHERE DR.User_ID = ?")) {
