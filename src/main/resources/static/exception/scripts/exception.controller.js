@@ -7,9 +7,21 @@ if(!exception)
 if(!exception.exception)
     exception.exception = {};
 
-exception.exception.exceptionController = function(exceptionService, $location, $http, $rootScope) {
+exception.exception.exceptionController = function(exceptionService, $location, $http, $rootScope, $routeParams) {
     var self = this;
 
+    this.getObject = function () {
+        console.log("....")
+        var paramValue = $location.search().error;
+        console.log(paramValue);
+        console.log("------")
 
+        console.log($routeParams.param1);
+        var param1 = $routeParams.param1;
+        self.object = paramValue;
+
+    }
+
+    this.object;
 
 }
