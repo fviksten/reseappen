@@ -1,6 +1,7 @@
 package com.sallskapsresan;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -19,7 +20,7 @@ public class DBRepository {
 
     Hashing hashing = new Hashing();
 
-    public void addUser(User user) throws NoSuchAlgorithmException {
+    public void addUser(User user) {
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("INSERT INTO Users (FirstName, LastName, UserName, HashedPassword, Email, Salt) VALUES (?, ?, ?, ?, ?, ?)")) {
             String salt = hashing.getSalt();
@@ -27,7 +28,7 @@ public class DBRepository {
             ps.setString(1, user.getFirstname());
             ps.setString(2, user.getLastname());
             ps.setString(3, user.getUsername());
-            ps.setString(4, hashing.getHashedPassword(user.getPassword(), salt));
+            ps.setString(4, (new BCryptPasswordEncoder()).encode(user.getPassword()));
             ps.setString(5, user.getEmail());
             ps.setString(6, salt);
             ps.executeUpdate();
@@ -108,27 +109,6 @@ public class DBRepository {
         } catch (SQLException e) {
             throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
-    }
-
-    public boolean validatePassword(String username, String password) throws NoSuchAlgorithmException {
-
-        try (Connection conn = datasource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT HashedPassword, Salt FROM [dbo].[Users] WHERE Username = ?")) {
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                String storedHash = rs.getString(1).trim();
-                String salt = rs.getString(2).trim();
-                String hash = hashing.getHashedPassword(password, salt);
-                if (storedHash.equals(hash)) {
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("The service is not available at the moment. Please try again later!");
-        }
-        return false;
     }
 
 

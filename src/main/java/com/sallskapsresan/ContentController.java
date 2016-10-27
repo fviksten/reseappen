@@ -47,25 +47,6 @@ public class ContentController {
         return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
     }
 
-//    @PostMapping("/authenticate")
-//    public ResponseEntity<ReturnData> authenticateUser(@RequestBody User user, BindingResult bindingResult) {
-//        ReturnData returnData = new ReturnData();
-//        if (bindingResult.hasErrors()) {
-//            returnData.setMessage("Error");
-//            returnData.setUser(user);
-//        }   else {
-//            if (dBRepository.validatePassword(user.getUsername(),user.getPassword())) {
-//                returnData.setMessage("Success");
-//                User sessionUser = dBRepository.getUser(user.getUsername());
-//                System.out.println(sessionUser.getUserID());
-//                returnData.setUser(sessionUser);
-//            } else {
-//                returnData.setMessage("Kunde inte logga in!");
-//                returnData.setUser(user);
-//            }
-//        }
-//        return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
-//    }
 
     @GetMapping("/authenticate")
     public Principal authenticate(Principal principal) {
@@ -108,7 +89,8 @@ public class ContentController {
 
     @PostMapping("/myFavourites")
     public Destinations getListOfFavourites(@RequestBody User user){
-        Destinations destinations = dBRepository.getListOfFavourites(user);
+        User sessionUser = dBRepository.getUser(user.getUsername());
+        Destinations destinations = dBRepository.getListOfFavourites(sessionUser);
         return destinations;
     }
 }

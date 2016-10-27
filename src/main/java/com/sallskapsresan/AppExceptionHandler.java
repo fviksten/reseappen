@@ -62,15 +62,4 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler{
 
         return handleExceptionInternal(e, error, headers, HttpStatus.BAD_REQUEST, webRequest);
     }
-
-    @ExceptionHandler(InvalidPasswordException.class)
-    public ResponseEntity<Object> handleInvalidPasswordException(InvalidPasswordException e, WebRequest webRequest) {
-        InvalidPasswordException ipe = (InvalidPasswordException) e;
-        ErrorResource error = new ErrorResource("Invalid input", ipe.getMessage());
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        return handleExceptionInternal(e, error, headers, HttpStatus.BAD_REQUEST, webRequest);
-    }
 }

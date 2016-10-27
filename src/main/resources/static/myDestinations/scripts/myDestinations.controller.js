@@ -17,8 +17,6 @@ myDestinations.destinations.myDestinationsController = function(myDestinationsSe
         $http.get("/myDestinations")
             .then(function(response) {
                 self.object = response.data;
-                console.log(self.object);
-                console.log('inside new http get...');
                 // return object;
             });
 

@@ -1,7 +1,7 @@
 <nav>
     <button type="button" class="btn btn-warning" ng-click="vm.suggestions()">Vill du få nya restips?</button>
     <button type="button" class="btn btn-warning" onclick="location.href='#/perstest'">Gör personlighetstestet</button>
-    <button type="button" class="btn btn-info" ng-click="vm.logout()">Logga ut - {{user.username}}</button>
+    <button type="button" class="btn btn-info" ng-click="vm.logout()">Logga ut - {{vm.username}}</button>
 </nav>
 <div ng-init="vm.getFavourites()">
 
