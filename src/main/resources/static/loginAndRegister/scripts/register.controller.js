@@ -4,7 +4,7 @@ if (!loginAndRegister)
 if (!loginAndRegister.register)
     loginAndRegister.register = {};
 
-loginAndRegister.register.RegisterController = function ($location, $http, $rootScope) {
+loginAndRegister.register.RegisterController = function ($location, $http, $rootScope, userService) {
     var self = this;
     this.addUser = function () {
         self.loading = true;
@@ -17,8 +17,8 @@ loginAndRegister.register.RegisterController = function ($location, $http, $root
         })
             .then(function (response) {
                 if (response.data.message === "Success") {
-                    $rootScope.user = response.data.user;
-                    $rootScope.user.password = self.password1;
+                    userService.user = response.data.user;
+                    console.log(userService.user)
                     $location.path("/perstest");
                 }
                 else {

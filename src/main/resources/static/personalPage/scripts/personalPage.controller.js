@@ -4,12 +4,9 @@ if(!personalPage)
 if(!personalPage.persPage)
     personalPage.persPage = {};
 
-personalPage.persPage.personalPageController = function ($rootScope,$location) {
+personalPage.persPage.personalPageController = function (userService,$location) {
 
-    this.logout = function() {
-        $rootScope.user = {};
-        $location.path("/login");
-    }
+    this.logout = userService.logout;
     this.suggestions=function() {
         $location.path("/suggestions");
     }

@@ -7,7 +7,7 @@ if(!myDestinations)
 if(!myDestinations.destinations)
     myDestinations.destinations = {};
 
-myDestinations.destinations.myDestinationsController = function(myDestinationsService, $location, $http, $rootScope){
+myDestinations.destinations.myDestinationsController = function(myDestinationsService,userService, $location, $http){
 
 
     var self = this;
@@ -65,7 +65,7 @@ myDestinations.destinations.myDestinationsController = function(myDestinationsSe
 
     this.sendForm = function () {
         var sendObject = {
-            user: $rootScope.user,
+            user: userService.user,
             favoriteDestinations: [this.chosenCountries[0].id, this.chosenCountries[1].id, this.chosenCountries[2].id]
         };
         self.loading = true;
@@ -74,8 +74,7 @@ myDestinations.destinations.myDestinationsController = function(myDestinationsSe
         console.log(sendObject);
         $http.post("/myDestinations",sendObject)
         .then(function(response) {
-            $rootScope.user = response.data.user;
-            console.log($rootScope.user.personalityType)
+            userService.user = response.data.user;
             $location.path("/personalpage");
         })
             .finally(function () {
