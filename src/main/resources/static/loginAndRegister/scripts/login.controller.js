@@ -22,7 +22,6 @@ loginAndRegister.login.LoginController = function ($http, $location, $rootScope,
         userService.authenticate(self.credentials, function () {
             if (userService.authenticated) {
                 $location.path("/personalpage")
-                console.log(userService.user)
                 self.error = false;
             } else {
                 $location.path("/login");

@@ -17,7 +17,7 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function (
             }
         }).error(function (response) {
             userService.user = {};
-            $location.path("/error").search({error : response.runtimeErrors[0].message})
+            $location.path("/error").search({error : response.errors[0].message})
         })
         self.loading = false;
     }

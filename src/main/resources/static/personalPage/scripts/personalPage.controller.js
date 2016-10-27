@@ -20,14 +20,11 @@ personalPage.persPage.personalPageController = function (userService,$location,$
     }
     this.newFavourites = function () {
         loading = true;
-        console.log(" i new favourites");
         $http.get("/myDestinations")
             .then(function (response) {
                 self.countries = response.data;
             })
         loading = false;
-        console.log(selectFavourites);
-        console.log(countries);
     }
 
     this.addFavourite= function(){
@@ -42,7 +39,6 @@ personalPage.persPage.personalPageController = function (userService,$location,$
         $http.post("/myDestinations",sendObject)
             .then(function(response) {
                 userService.user = response.data.user;
-                console.log(userService.user.personalityType)
                 $location.path("/personalpage");
             })
             .finally(function () {
