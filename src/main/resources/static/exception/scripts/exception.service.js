@@ -11,5 +11,4 @@ if(!exception.exception)
 exception.exception.exceptionService = function( $http, $rootScope) {
     var self = this;
 
-
 }

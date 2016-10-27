@@ -8,13 +8,13 @@ if (!personalTest.persTest)
     personalTest.persTest = {};
 
 
-personalTest.persTest.persTestService = function ($http, $rootScope) {
+personalTest.persTest.persTestService = function (userService,$http) {
 
     var index = -1;
 
 
     var questions = {
-        user: $rootScope.user,
+        user: userService.user,
 
         persForm: [
 
@@ -69,13 +69,6 @@ personalTest.persTest.persTestService = function ($http, $rootScope) {
 
 
     this.getQuestion = function () {
-
-        console.log(questions.persForm[0].result);
-        console.log(questions.persForm[1].result);
-        console.log(questions.persForm[2].result);
-        console.log(questions.persForm[3].result);
-        console.log("new line-----");
-
         return questions.persForm[++index];
     }
     this.goBackToQuestion = function () {
@@ -87,12 +80,10 @@ personalTest.persTest.persTestService = function ($http, $rootScope) {
         console.log(questions)
         $http.post("/persTest", questions)
             .then(function (response) {
-                $rootScope.user = response.data.user;
-                console.log($rootScope.user.personalityType)
+                userService.user = response.data.user;
             }).finally(function () {
                 for (var i = 0; i < questions.persForm.length; i++) {
                 questions.persForm[i].result = '';
-                    console.log(questions);
             }
                 index = -1
             }
@@ -101,8 +92,8 @@ personalTest.persTest.persTestService = function ($http, $rootScope) {
 
 
     this.logout = function () {
-        $rootScope.user = {};
-        console.log($rootScope.user);
+        userService.user = {};
+        console.log(userService.user);
     }
 
     this.getQuestions = function () {

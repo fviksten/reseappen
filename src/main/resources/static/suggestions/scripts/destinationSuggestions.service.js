@@ -4,5 +4,5 @@ if(!suggestions)
 if(!suggestions.destinationSuggestions)
     suggestions.destinationSuggestions = {};
 
-suggestions.destinationSuggestions.destinationSuggestionsService = function ($http, $rootScope) {
+suggestions.destinationSuggestions.destinationSuggestionsService = function ($http) {
 }

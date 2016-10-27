@@ -4,7 +4,7 @@
     <div id="usernameInput" class="form-group">
         <input type="text"
                class="form-control"
-               data-ng-model="vm.username"
+               data-ng-model="vm.credentials.username"
                placeholder="Användarnamn"
                ng-keyup="vm.removeRed()"/>
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -13,7 +13,7 @@
     <div id="passwordInput" class="form-group">
         <input type="password"
                class="form-control"
-               data-ng-model="vm.password"
+               data-ng-model="vm.credentials.password"
                placeholder="Lösenord"
                ng-keyup="vm.removeRed()"/>
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -24,7 +24,6 @@
                 class="btn btn-primary"
                 ng-disabled="form.$invalid">Logga in</button>
     </div>
-
 </form>
 
 <div class="has-error">
