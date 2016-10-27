@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016-10-18.
@@ -18,6 +22,7 @@ import java.security.Principal;
 
 @RestController
 public class ContentController {
+
 
     @Autowired
     DBRepository dBRepository;
@@ -28,9 +33,9 @@ public class ContentController {
     public ResponseEntity<ReturnData> addUser(@RequestBody @Valid User user, BindingResult bindingResult) {
         ReturnData returnData = new ReturnData();
         if (bindingResult.hasErrors()) {
-            returnData.setMessage("Error");
-            returnData.setUser(user);
-        } else if (!dBRepository.validateUser(user)) {
+            throw new InvalidInputException("Invalid input", bindingResult);
+        }
+        else if (!dBRepository.validateUsername(user)) {
             returnData.setMessage("Username already in use");
             returnData.setUser(user);
         } else {
@@ -99,5 +104,11 @@ public class ContentController {
         returnData.setUser(user);
         returnData.setMessage("OK");
         return new ResponseEntity<ReturnData>(returnData, HttpStatus.OK);
+    }
+
+    @PostMapping("/myFavourites")
+    public Destinations getListOfFavourites(@RequestBody User user){
+        Destinations destinations = dBRepository.getListOfFavourites(user);
+        return destinations;
     }
 }

@@ -1,11 +1,8 @@
 package com.sallskapsresan;
 
 import org.hibernate.validator.constraints.Email;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Date;
-import java.time.LocalDateTime;
 
 /**
  * Created by Administrator on 2016-10-18.
@@ -14,28 +11,25 @@ public class User {
 
     private Long userID;
 
-//    @NotNull
-//    @Size (min=2, max=30)
+    @NotNull (message="Firstname is a manadatory field!")
+    @Size (min=1, max=30, message="Firstname may be between one and 30 characters long!")
     private String firstname;
 
-//    @NotNull
-//    @Size (min=2, max=30)
+    @NotNull (message="Lastname is a mandatory field!")
+    @Size (min=1, max=30, message="Lastname may be between one and 30 characters long!")
     private String lastname;
 
-    @NotNull
-    @Size (min=6, max=20)
+    @NotNull (message="Username is a mandatory field!")
+    @Size (min=6, max=20, message="Username may be between six and 20 characters long!")
     private String username;
 
-//    @NotNull
-//    @Email
+    @NotNull (message="Email is a mandatory field!")
+    @Email (message="The email-format does not meet the requirements!")
     private String email;
 
-//    @NotNull
+    @NotNull (message="Password is a mandatory field!")
     private String password;
-//    private LocalDateTime joined;
-//    private LocalDateTime lastlogin;
     private PersonalityType personalityType;
-
 
     //empty constructor to make it work with angular
     public User() {
@@ -70,20 +64,13 @@ public class User {
         this.userID = userID;
     }
 
-    //    public void setJoined(LocalDateTime joined) {
-//        this.joined = joined;
-//    }
-//
-//    public void setLastlogin(LocalDateTime lastlogin) {
-//        this.lastlogin = lastlogin;
-//    }
-
     public void setPersonalityType(PersonalityType personalityType) {
         this.personalityType = personalityType;
     }
 
     //getters
-        public String getFirstname() {
+
+    public String getFirstname() {
         return firstname;
     }
 
@@ -107,16 +94,8 @@ public class User {
         return userID;
     }
 
-    //
-//    public LocalDateTime getJoined() {
-//        return joined;
-//    }
-//
-//    public LocalDateTime getLastlogin() {
-//        return lastlogin;
-//    }
-
     public PersonalityType getPersonalityType() {
         return personalityType;
     }
+
 }

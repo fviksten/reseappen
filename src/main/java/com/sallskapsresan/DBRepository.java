@@ -4,12 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -18,28 +17,35 @@ public class DBRepository {
     @Autowired
     DataSource datasource;
 
-    public void addUser(User user) {
+    Hashing hashing = new Hashing();
+
+    public void addUser(User user) throws NoSuchAlgorithmException {
         try (Connection conn = datasource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("EXEC addUser ?,?,?,?,?")) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO Users (FirstName, LastName, UserName, HashedPassword, Email, Salt) VALUES (?, ?, ?, ?, ?, ?)")) {
+            String salt = hashing.getSalt();
+
             ps.setString(1, user.getFirstname());
             ps.setString(2, user.getLastname());
             ps.setString(3, user.getUsername());
-            ps.setString(4, user.getPassword());
+            ps.setString(4, hashing.getHashedPassword(user.getPassword(), salt));
             ps.setString(5, user.getEmail());
+            ps.setString(6, salt);
             ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Fel i addUser");
+        }
+        catch (SQLException e) {
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
-    public boolean validateUser(User user) {
+
+    public boolean validateUsername(User user) {
         try (Connection conn = datasource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT * FROM [dbo].[Users] WHERE UserName = ?")) {
             ps.setString(1, user.getUsername());
             ResultSet rs = ps.executeQuery();
             return !rs.next();
         } catch (SQLException e) {
-            throw new RuntimeException("Fel i addUser");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -50,7 +56,7 @@ public class DBRepository {
             ps.setLong(2, user.getPersonalityType().ordinal() + 1);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Fel i setPersonalityType");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -64,7 +70,7 @@ public class DBRepository {
                 id = rs.getInt("PersonalityTypeID");
             return id;
         } catch (SQLException e) {
-            throw new RuntimeException("Fel i setPersonalityType");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -78,15 +84,14 @@ public class DBRepository {
                 user.setFirstname(rs.getString("FirstName"));
                 user.setLastname(rs.getString("LastName"));
                 user.setEmail(rs.getString("EMail"));
-//                user.setJoined(rs.getTimestamp("Created").toLocalDateTime());
-//                user.setLastlogin(rs.getTimestamp("LastLogin").toLocalDateTime());
+
                 user.setUserID(rs.getLong("UserID"));
                 user.setPersonalityType(getPersonalityType(rs.getLong("Personality_ID")));
             }
             user.setUsername(username);
             return user;
         } catch (SQLException e) {
-            throw new RuntimeException("Fel i getUser");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -101,21 +106,31 @@ public class DBRepository {
             }
             return pt;
         } catch (SQLException e) {
-            throw new RuntimeException("Fel i getPersonalityType");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
-    public boolean validatePassword(String username, String password) {
+    public boolean validatePassword(String username, String password) throws NoSuchAlgorithmException {
+
         try (Connection conn = datasource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("EXEC validatePassword ?,?")) {
+             PreparedStatement ps = conn.prepareStatement("SELECT HashedPassword, Salt FROM [dbo].[Users] WHERE Username = ?")) {
             ps.setString(1, username);
-            ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-            return rs.next();
+
+            if (rs.next()) {
+                String storedHash = rs.getString(1).trim();
+                String salt = rs.getString(2).trim();
+                String hash = hashing.getHashedPassword(password, salt);
+                if (storedHash.equals(hash)) {
+                    return true;
+                }
+            }
         } catch (SQLException e) {
-            throw new RuntimeException("Fel i validatePassword");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
+        return false;
     }
+
 
     public void insertFavoritesForUser(long userID, List<Long> countryIDs, boolean favorite) {
         System.out.println(userID);
@@ -129,7 +144,7 @@ public class DBRepository {
             }
             ps.executeBatch();
         } catch (SQLException e) {
-            throw new RuntimeException("Fel i insertFavorites");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -143,7 +158,7 @@ public class DBRepository {
             }
             return listOfAllDestinations;
         } catch (SQLException e) {
-            throw new RuntimeException("Fel i getListOfAllDestinations");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 
@@ -159,7 +174,21 @@ public class DBRepository {
             }
             return listOfSuggestions;
         } catch (SQLException e) {
-            throw new RuntimeException("Fel i getSuggestions");
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
+        }
+    }
+    public Destinations getListOfFavourites(User user) {
+        try (Connection conn = datasource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT DR.Country_ID, CT.CountryName FROM [dbo].[DestinationRanking] AS DR INNER JOIN [dbo].[Countries] AS CT ON DR.Country_ID=CT.CountryID WHERE DR.User_ID = ?")) {
+            ps.setLong(1, user.getUserID());
+            ResultSet rs = ps.executeQuery();
+            Destinations listOfSuggestions = new Destinations();
+            while (rs.next()) {
+                listOfSuggestions.getListDestinations().add(new Destination(rs.getInt("Country_ID"), rs.getString("CountryName")));
+            }
+            return listOfSuggestions;
+        } catch (SQLException e) {
+            throw new RuntimeException("The service is not available at the moment. Please try again later!");
         }
     }
 }

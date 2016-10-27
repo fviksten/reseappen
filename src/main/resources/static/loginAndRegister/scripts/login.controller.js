@@ -7,12 +7,15 @@ if (!loginAndRegister.login)
 
 loginAndRegister.login.LoginController = function ($http, $location, $rootScope, userService) {
     var self = this;
+    this.usernameInput = angular.element( document.querySelector( '#usernameInput' ) );
+    this.passwordInput = angular.element( document.querySelector( '#passwordInput' ) );
 
-    this.removeRed = function () {
-        self.usernameInput.removeClass('has-error has-feedback');
-        self.passwordInput.removeClass('has-error has-feedback');
-        this.showErrorMessage = false;
+    this.removeRed = function() {
+            self.usernameInput.removeClass('has-error has-feedback');
+            self.passwordInput.removeClass('has-error has-feedback');
+            this.showErrorMessage = false;
     };
+    
 
     this.login = function () {
         self.loading = true;
