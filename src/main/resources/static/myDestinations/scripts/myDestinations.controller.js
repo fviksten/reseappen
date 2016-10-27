@@ -15,12 +15,16 @@ myDestinations.destinations.myDestinationsController = function(myDestinationsSe
     this.getObject = function(){
 
         $http.get("/myDestinations")
-            .then(function(response) {
-                self.object = response.data;
+            .success(function (response) {
+                self.object = response;
                 // return object;
-            });
+            }).error(function (response) {
+            userService.user = {};
+            $location.path("/error").search({error : response.runtimeErrors[0].message})
+        });
 
     }
+
 
     this.send = function(){
         persTestService.send();
@@ -70,12 +74,16 @@ myDestinations.destinations.myDestinationsController = function(myDestinationsSe
         console.log("----");
         console.log(sendObject);
         $http.post("/myDestinations",sendObject)
-        .then(function(response) {
-            userService.user = response.data.user;
+            .success(function (response) {
+            userService.user = response.user;
             $location.path("/personalpage");
+        }).error(function (response) {
+            userService.user = {};
+            $location.path("/error").search({error : response.runtimeErrors[0].message})
         })
             .finally(function () {
                 self.loading = false;
             });
     };
 }
+

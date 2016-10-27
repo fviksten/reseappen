@@ -9,10 +9,14 @@ personalPage.persPage.personalPageController = function (userService,$location,$
     var self = this;
 
     this.getFavourites = function () {
-        $http.post("/myFavourites", userService.user).then(function (response) {
-            self.object = response.data; //TAr en stund att ladda
+        $http.post("/myFavourites", userService.user).success(function (response) {
+            self.object = response; //TAr en stund att ladda
+        }).error(function (response) {
+            userService.user = {};
+            $location.path("/error").search({error : response.runtimeErrors[0].message})
         });
     }
+
     this.username = userService.user.username;
     this.logout = userService.logout;
     this.suggestions=function() {
@@ -22,9 +26,12 @@ personalPage.persPage.personalPageController = function (userService,$location,$
         loading = true;
         console.log(" i new favourites");
         $http.get("/myDestinations")
-            .then(function (response) {
-                self.countries = response.data;
-            })
+            .success(function (response) {
+                self.countries = response;
+            }).error(function (response) {
+            userService.user = {};
+            $location.path("/error").search({error : response.runtimeErrors[0].message})
+        });
         loading = false;
         console.log(selectFavourites);
         console.log(countries);
@@ -40,17 +47,18 @@ personalPage.persPage.personalPageController = function (userService,$location,$
         self.object.listDestinations.push({id: self.chosenCountries[0].id, country : self.aCountry.country});
 
         $http.post("/myDestinations",sendObject)
-            .then(function(response) {
-                userService.user = response.data.user;
+            .success(function (response) {
+                userService.user = response.user;
                 console.log(userService.user.personalityType)
                 $location.path("/personalpage");
+            }).error(function (response) {
+                userService.user = {};
+                $location.path("/error").search({error : response.runtimeErrors[0].message})
             })
             .finally(function () {
                 self.loading = false;
             });
     };
-
-
 
     var object;
     var countries;
