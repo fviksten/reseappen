@@ -1,8 +1,8 @@
 <nav>
     <button type="button" class="btn btn-warning" onclick="location.href='#/error'">Error</button>
-    <button type="button" class="btn btn-warning" ng-click="vm.suggestions()">Vill du få nya restips?</button>
-    <button type="button" class="btn btn-warning" onclick="location.href='#/perstest'">Gör personlighetstestet</button>
-    <button type="button" class="btn btn-info" ng-click="vm.logout()">Logga ut - {{vm.username}}</button>
+    <button type="button" class="btn btn-warning" ng-click="vm.suggestions()">Where should I travel next?</button>
+    <button type="button" class="btn btn-warning" onclick="location.href='#/perstest'">Do personality test</button>
+    <button type="button" class="btn btn-info" ng-click="vm.logout()">Log out - {{vm.username}}</button>
 </nav>
 <div ng-init="vm.getFavourites()">
 
@@ -44,10 +44,10 @@
     <p><button type="button" class="btn btn-warning" ng-click="vm.newFavourites();vm.selectFavourites=true " data-ng-hide="vm.selectFavourites">Add favourites</button>
         <div data-ng-show="vm.selectFavourites">
         <select ng-model="vm.aCountry" ng-options="item.country for item in vm.countries.listDestinations | orderBy:'country'" ng-value="item.id">
-            <option value="">--- Välj destination ---</option>
+            <option value="">--- Choose destination ---</option>
         </select>
 
-        <button class="btn btn-info" id="addButton" ng-click="vm.addFavourite();vm.selectFavourites=false">Add as favourite</button>
+        <button class="btn btn-info" id="addButton" ng-click="vm.addFavourite();vm.selectFavourites=false" ng-disabled="!vm.aCountry">Add as favourite</button>
     <button  class="btn btn-warning" data-ng-click="vm.selectFavourites=false;">Don't add</button>
         </div>
         <br>

@@ -36,7 +36,7 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function (
     this.logout = userService.logout;
 
     this.object;
-
+    this.username = userService.user.username;
     this.currentSuggestion;
     this.loading = false;
     this.index = 0;
