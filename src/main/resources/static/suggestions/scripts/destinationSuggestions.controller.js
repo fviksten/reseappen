@@ -17,6 +17,7 @@ suggestions.destinationSuggestions.destinationSuggestionsController = function (
             }
             // går att kontrollera http-responsen ifall usern är fel.
         }).error(function (response) {
+            console.log(response)
             userService.user = {};
             $location.path("/error").search({error : response.errors[0].message})
         })

@@ -12,7 +12,7 @@ personalPage.persPage.personalPageController = function (userService,$location,$
         $http.post("/myFavourites", userService.user).success(function (response) {
             self.object = response; //TAr en stund att ladda
         }).error(function (response) {
-            userService.user = {};
+            //userService.user = {};
             $location.path("/error").search({error : response.errors[0].message})
         });
     }
@@ -28,7 +28,7 @@ personalPage.persPage.personalPageController = function (userService,$location,$
             .success(function (response) {
                 self.countries = response;
             }).error(function (response) {
-            userService.user = {};
+            //userService.user = {};
             $location.path("/error").search({error : response.errors[0].message})
         });
         loading = false;
@@ -48,7 +48,7 @@ personalPage.persPage.personalPageController = function (userService,$location,$
                 userService.user = response.user;
                 $location.path("/personalpage");
             }).error(function (response) {
-                userService.user = {};
+                //userService.user = {};
                 $location.path("/error").search({error : response.errors[0].message})
             })
             .finally(function () {
