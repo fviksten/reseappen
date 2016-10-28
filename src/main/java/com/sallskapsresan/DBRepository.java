@@ -156,7 +156,7 @@ public class DBRepository {
     }
     public Destinations getListOfFavourites(User user) {
         try (Connection conn = datasource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT DR.Country_ID, CT.CountryName FROM [dbo].[DestinationRanking] AS DR INNER JOIN [dbo].[Countries] AS CT ON DR.Country_ID=CT.CountryID WHERE DR.User_ID = ?")) {
+             PreparedStatement ps = conn.prepareStatement("SELECT DISTINCT DR.Country_ID, CT.CountryName FROM [dbo].[DestinationRanking] AS DR INNER JOIN [dbo].[Countries] AS CT ON DR.Country_ID=CT.CountryID WHERE DR.User_ID = ?")) {
             ps.setLong(1, user.getUserID());
             ResultSet rs = ps.executeQuery();
             Destinations listOfSuggestions = new Destinations();
