@@ -10,18 +10,18 @@
 
     <h2> {{vm.currentSuggestion.country}}</h2>
 
-    <p><button type="button" class="btn btn-warning" ng-click="vm.nextSuggestion()" >Next recommendation</button></p>
+    <p>
+        <button type="button" class="btn btn-warning" ng-click="vm.nextSuggestion()">Next recommendation</button>
+    </p>
     <div data-ng-if="vm.loading">Loading...</div>
 
 </div>
+<div class="flexelement">
+    <img class="test" data-ng-src="img/{{vm.currentSuggestion.country}}.jpg">
 
-    <br>
-        <img data-ng-src="img/{{vm.currentSuggestion.country}}.jpg" width="600">
-    <br>
+    <iframe class="test"
+            frameborder="0" style="border:0"
+            ng-src="" allowfullscreen>
+    </iframe>
+</div>
 
-<iframe
-        width="600"
-        height="450"
-        frameborder="0" style="border:0"
-        ng-src = ""  allowfullscreen>
-</iframe>

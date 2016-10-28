@@ -10,7 +10,7 @@
 
 <p id="pictureWrapper">
     <div id="slides_control">
-        <div>
+        <div height>
             <carousel interval="vm.myInterval">
                 <slide ng-repeat="item in vm.object.listDestinations track by $index" active="item.active">
                     <img class="countryPhotos" ng-src="img/{{item.country}}.jpg">

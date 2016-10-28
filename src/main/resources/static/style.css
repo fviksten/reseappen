@@ -12,7 +12,6 @@ body {
 .centre {
     text-align: center;
     margin: auto;
-    width: 50%;
     color: #325a8b;
     background-color: transparent;
 }
@@ -52,4 +51,19 @@ main {
     width:50%;
     margin:auto;
     text-align:center;
+}
+
+.test {
+    width: 50%;
+}
+
+.flexelement {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#testform {
+    text-align: left;
 }
