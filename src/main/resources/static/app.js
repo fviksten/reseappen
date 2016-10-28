@@ -1,4 +1,4 @@
-angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.register", "personalTest.persTest", "myDestinations.destinations", "suggestions.destinationSuggestions", "exception.exception"])
+angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.register", "personalTest.persTest", "myDestinations.destinations", "suggestions.destinationSuggestions", "exception.exception", "ui.bootstrap"])
     .service("userService",userService)
     .config(["$routeProvider","$httpProvider", function ($routeProvider,$httpProvider) {
         $routeProvider

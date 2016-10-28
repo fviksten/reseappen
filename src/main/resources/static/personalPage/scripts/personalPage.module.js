@@ -1,1 +1,1 @@
-angular.module('personalPage.persPage',['ui.ngAnimate']);
+angular.module('personalPage.persPage',[]);

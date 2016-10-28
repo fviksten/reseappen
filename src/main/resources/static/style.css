@@ -35,17 +35,21 @@ main {
 }
 
 #slides_control > div{
-    height: 200px;
-}
-img{
-    margin:auto;
-    width: 400px;
-}
-#slides_control {
-    position:absolute;
-    width: 400px;
-    left:50%;
-    top:20px;
-    margin-left:-200px;
+    height: 450px;
 }
 
+.countryPhotos {
+    width: 700px;
+    max-height:450px;
+}
+
+#slides_control {
+    width: 700px;
+    margin: auto;
+}
+
+#pictureWrapper {
+    width:50%;
+    margin:auto;
+    text-align:center;
+}
