@@ -1,23 +1,30 @@
 /**
  * Created by Administrator on 2016-10-20.
  */
-if(!myDestinations)
+if (!myDestinations)
     var myDestinations = {};
 
-if(!myDestinations.destinations)
+if (!myDestinations.destinations)
     myDestinations.destinations = {};
 
-myDestinations.destinations.myDestinationsController = function(userService, destinationService, $location, $http){
+myDestinations.destinations.myDestinationsController = function (userService, destinationService, $location, $http) {
 
 
     var self = this;
 
-    self.getObject = function(){
-        self.object = destinationService.getDestinations();
+    self.getObject = function () {
+        destinationService.getDestinations()
+            .success(function (response) {
+                self.object = response;
+            })
+            .error(function (response) {
+                // userService.user = {};
+                $location.path("/error").search({error: response.runtimeErrors[0].message})
+            })
     }
 
 
-    self.send = function(){
+    self.send = function () {
         persTestService.send();
         $location.path("/login");
     }

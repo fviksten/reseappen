@@ -35,6 +35,6 @@ userService = function ($http,$location) {
     }
 
     self.addUser = function(userDetails) {
-        $http.post("/adduser", userDetails)
+        return $http.post("/adduser", userDetails)
     }
 }

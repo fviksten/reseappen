@@ -69,7 +69,7 @@
             'has-error' : form.pw2.$invalid && !form.pw2.$pristine,
             'has-success has-feedback' : form.pw2.$valid && !form.pw2.$pristine
         }">
-            <input type='password' id='pw1'
+            <input type='password' id='pw1' name="pw1"
                    placeholder="Password"
                    class="form-control"
                    ng-model='vm.password1'
@@ -81,7 +81,7 @@
             'has-error' : form.pw2.$invalid && form.pw2.$dirty,
             'has-success has-feedback' : form.pw2.$valid && form.pw2.$dirty
         }">
-            <input type='password' name='pw2'
+            <input type='password' name='pw2' id="pw2"
                    placeholder="Repeat password"
                    class="form-control"
                    ng-model='vm.password2'
