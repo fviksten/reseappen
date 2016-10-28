@@ -58,8 +58,6 @@ personalPage.persPage.personalPageController = function (userService,$location,$
 
     this.setCurrentSlideIndex = function (index) {
          self.currentIndex = index;
-        console.log("I setCurrent....")
-        console.log(currentIndex);
     }
 
     this.isCurrentSlideIndex = function (index) {
