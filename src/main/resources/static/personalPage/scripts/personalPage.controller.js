@@ -32,7 +32,7 @@ personalPage.persPage.personalPageController = function (userService, destinatio
                 self.countries = response;
             })
             .error(function (response) {
-                userService.user = {};
+                // userService.user = {};
                 $location.path("/error").search({error: response.runtimeErrors[0].message})
             })
 
@@ -54,8 +54,6 @@ personalPage.persPage.personalPageController = function (userService, destinatio
 
     this.setCurrentSlideIndex = function (index) {
          self.currentIndex = index;
-        console.log("I setCurrent....")
-        console.log(currentIndex);
     }
 
     this.isCurrentSlideIndex = function (index) {

@@ -1,7 +1,11 @@
+<nav data-ng-init="vm.getObject()">
+    <button type="button" class="btn btn-info" ng-click="vm.logout()">Log out</button>
+</nav>
+
 <div>
     <h1>Oops! Something went wrong.</h1>
 </div>
 
-<div data-ng-init="vm.getObject()">
+<div >
     <p>{{vm.object}}</p>
 </div>

@@ -1,5 +1,6 @@
-package com.sallskapsresanExceptionHandling;
+package com.sallskapsresan;
 
+import com.sallskapsresanExceptionHandling.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
