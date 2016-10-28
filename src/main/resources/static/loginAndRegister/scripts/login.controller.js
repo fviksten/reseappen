@@ -18,6 +18,7 @@ loginAndRegister.login.LoginController = function ($http, $location, $rootScope,
     
 
     this.login = function () {
+        self.error = false;
         self.loading = true;
         userService.authenticate(self.credentials, function () {
             if (userService.authenticated) {

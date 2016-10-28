@@ -1,40 +1,33 @@
 <main>
-<form name="form" data-ng-submit="vm.login()" role="form">
+    <form name="form" data-ng-submit="vm.login()" role="form">
 
-    <div id="usernameInput" class="form-group">
-        <input type="text"
-               class="form-control"
-               data-ng-model="vm.credentials.username"
-               placeholder="Username"
-               ng-keyup="vm.removeRed()"/>
-        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
-    </div>
+        <div id="usernameInput" class="form-group">
+            <input type="text"
+                   class="form-control"
+                   data-ng-model="vm.credentials.username"
+                   placeholder="Username"
+                   ng-keyup="vm.removeRed()"/>
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
 
-    <div id="passwordInput" class="form-group">
-        <input type="password"
-               class="form-control"
-               data-ng-model="vm.credentials.password"
-               placeholder="Password"
-               ng-keyup="vm.removeRed()"/>
-        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
-    </div>
-
+        <div id="passwordInput" class="form-group">
+            <input type="password"
+                   class="form-control"
+                   data-ng-model="vm.credentials.password"
+                   placeholder="Password"
+                   ng-keyup="vm.removeRed()"/>
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+        <p class="help-block" ng-show="vm.error">Could not login</p>
+        <p class="help-block" ng-show="vm.loading">Loading...</p>
+        <div>
+            <button type="submit"
+                    class="btn btn-primary"
+                    ng-disabled="form.$invalid">Log in
+            </button>
+        </div>
+    </form>
     <div>
-        <button type="submit"
-                class="btn btn-primary"
-                ng-disabled="form.$invalid">Log in</button>
+        <a href="#/register">Create new user</a>
     </div>
-</form>
-
-<div class="has-error">
-    <p class="help-block" data-ng-if="vm.showErrorMessage">{{vm.errorMessage}}</p>
-</div>
-
-<div>
-    <p data-ng-if="vm.loading">Loading...</p>
-</div>
-
-<div>
-    <a href="#/register">Create new user</a>
-</div>
 </main>
