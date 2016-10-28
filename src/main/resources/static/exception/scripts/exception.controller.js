@@ -7,7 +7,7 @@ if(!exception)
 if(!exception.exception)
     exception.exception = {};
 
-exception.exception.exceptionController = function(exceptionService, $location, $http, $rootScope, $routeParams) {
+exception.exception.exceptionController = function($location, $routeParams) {
     var self = this;
 
     this.getObject = function () {

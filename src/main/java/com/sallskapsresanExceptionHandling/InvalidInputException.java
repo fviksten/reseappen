@@ -1,4 +1,4 @@
-package com.sallskapsresan;
+package com.sallskapsresanExceptionHandling;
 
 import org.springframework.validation.Errors;
 

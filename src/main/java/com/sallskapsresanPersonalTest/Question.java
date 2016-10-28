@@ -1,4 +1,4 @@
-package com.sallskapsresan;
+package com.sallskapsresanPersonalTest;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

@@ -13,7 +13,7 @@ personalPage.persPage.personalPageController = function (userService,$location,$
             self.object = response; //TAr en stund att ladda
         }).error(function (response) {
             userService.user = {};
-            $location.path("/error").search({error : response.runtimeErrors[0].message})
+            $location.path("/error").search({error : response.errors[0].message})
         });
     }
 
@@ -24,17 +24,14 @@ personalPage.persPage.personalPageController = function (userService,$location,$
     }
     this.newFavourites = function () {
         loading = true;
-        console.log(" i new favourites");
         $http.get("/myDestinations")
             .success(function (response) {
                 self.countries = response;
             }).error(function (response) {
             userService.user = {};
-            $location.path("/error").search({error : response.runtimeErrors[0].message})
+            $location.path("/error").search({error : response.errors[0].message})
         });
         loading = false;
-        console.log(selectFavourites);
-        console.log(countries);
     }
 
     this.addFavourite= function(){
@@ -49,11 +46,10 @@ personalPage.persPage.personalPageController = function (userService,$location,$
         $http.post("/myDestinations",sendObject)
             .success(function (response) {
                 userService.user = response.user;
-                console.log(userService.user.personalityType)
                 $location.path("/personalpage");
             }).error(function (response) {
                 userService.user = {};
-                $location.path("/error").search({error : response.runtimeErrors[0].message})
+                $location.path("/error").search({error : response.errors[0].message})
             })
             .finally(function () {
                 self.loading = false;

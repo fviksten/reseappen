@@ -1,4 +1,6 @@
-package com.sallskapsresan;
+package com.sallskapsresanPersonalTest;
+
+import com.sallskapsresanUtils.User;
 
 import java.util.ArrayList;
 import java.util.List;

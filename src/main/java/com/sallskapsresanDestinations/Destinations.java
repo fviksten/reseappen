@@ -1,4 +1,4 @@
-package com.sallskapsresan;
+package com.sallskapsresanDestinations;
 
 import java.util.ArrayList;
 import java.util.List;

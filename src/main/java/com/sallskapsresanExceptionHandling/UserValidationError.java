@@ -1,4 +1,4 @@
-package com.sallskapsresan;
+package com.sallskapsresanExceptionHandling;
 
 /**
  * Created by Administrator on 2016-10-24.

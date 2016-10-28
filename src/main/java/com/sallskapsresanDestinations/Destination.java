@@ -1,4 +1,4 @@
-package com.sallskapsresan;
+package com.sallskapsresanDestinations;
 
 /**
  * Created by Administrator on 2016-10-20.
