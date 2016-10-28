@@ -33,4 +33,8 @@ userService = function ($http,$location) {
             callback && callback();
         });
     }
+
+    self.addUser = function(userDetails) {
+        $http.post("/adduser", userDetails)
+    }
 }

@@ -7,39 +7,29 @@ if(!myDestinations)
 if(!myDestinations.destinations)
     myDestinations.destinations = {};
 
-myDestinations.destinations.myDestinationsController = function(myDestinationsService,userService, $location, $http){
+myDestinations.destinations.myDestinationsController = function(userService, destinationService, $location, $http){
 
 
     var self = this;
 
-    this.getObject = function(){
-
-        $http.get("/myDestinations")
-            .success(function (response) {
-                self.object = response;
-                // return object;
-            }).error(function (response) {
-            userService.user = {};
-            $location.path("/error").search({error : response.runtimeErrors[0].message})
-        });
-
+    self.getObject = function(){
+        self.object = destinationService.getDestinations();
     }
 
 
-    this.send = function(){
+    self.send = function(){
         persTestService.send();
         $location.path("/login");
     }
 
-    this.object;
+    self.object;
 
-
-    this.chosenCountries = [];
+    self.chosenCountries = [];
 
     var add_button = document.getElementById("addButton");
     var submit_button = document.getElementById("submitButton");
 
-    this.addItemToList = function () {
+    self.addItemToList = function () {
         self.chosenCountries.push(self.aCountry);
         var indexOfAddedItem = self.object.listDestinations.indexOf(self.aCountry);
         self.object.listDestinations.splice(indexOfAddedItem, 1);
@@ -51,7 +41,7 @@ myDestinations.destinations.myDestinationsController = function(myDestinationsSe
         }
     };
 
-    this.removeItemFromList = function (listitem) {
+    self.removeItemFromList = function (listitem) {
         var indexOfItem = self.chosenCountries.indexOf(listitem);
         self.object.listDestinations.push(listitem);
         console.log(listitem);
@@ -70,17 +60,8 @@ myDestinations.destinations.myDestinationsController = function(myDestinationsSe
             favoriteDestinations: [this.chosenCountries[0].id, this.chosenCountries[1].id, this.chosenCountries[2].id]
         };
         self.loading = true;
-        $http.post("/myDestinations",sendObject)
-            .success(function (response) {
-            userService.user = response.user;
-            $location.path("/personalpage");
-        }).error(function (response) {
-            userService.user = {};
-            $location.path("/error").search({error : response.errors[0].message})
-        })
-            .finally(function () {
-                self.loading = false;
-            });
+        destinationService.sendDestinations(sendObject);
+        self.loading = false;
     };
 }
 

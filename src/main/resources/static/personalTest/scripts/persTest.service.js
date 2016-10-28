@@ -93,7 +93,6 @@ personalTest.persTest.persTestService = function (userService,$http) {
 
     this.logout = function () {
         userService.user = {};
-        console.log(userService.user);
     }
 
     this.getQuestions = function () {

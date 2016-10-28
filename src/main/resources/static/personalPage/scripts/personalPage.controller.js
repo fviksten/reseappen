@@ -1,64 +1,60 @@
-if(!personalPage)
+if (!personalPage)
     var personalPage = {};
 
-if(!personalPage.persPage)
+if (!personalPage.persPage)
     personalPage.persPage = {};
 
-personalPage.persPage.personalPageController = function (userService,$location,$http) {
+personalPage.persPage.personalPageController = function (userService, destinationService, $location) {
 
     var self = this;
 
-    this.getFavourites = function () {
-        $http.post("/myFavourites", userService.user).success(function (response) {
-            self.object = response; //TAr en stund att ladda
-        }).error(function (response) {
-            userService.user = {};
-            $location.path("/error").search({error : response.errors[0].message})
-        });
+    self.getFavourites = function () {
+        destinationService.getFavourites(userService.user)
+            .success(function (response) {
+                self.object = response; //TAr en stund att ladda
+            })
+            .error(function (response) {
+                userService.user = {};
+                $location.path("/error").search({error: response.errors[0].message})
+            });
     }
 
-    this.username = userService.user.username;
-    this.logout = userService.logout;
-    this.suggestions=function() {
+    self.username = userService.user.username;
+    self.logout = userService.logout;
+    self.suggestions = function () {
         $location.path("/suggestions");
     }
-    this.newFavourites = function () {
-        loading = true;
-        $http.get("/myDestinations")
+
+    self.newFavourites = function () {
+        self.loading = true;
+        destinationService.getDestinations()
             .success(function (response) {
                 self.countries = response;
-            }).error(function (response) {
-            userService.user = {};
-            $location.path("/error").search({error : response.errors[0].message})
-        });
-        loading = false;
+            })
+            .error(function (response) {
+                userService.user = {};
+                $location.path("/error").search({error: response.runtimeErrors[0].message})
+            })
+
+        self.loading = false;
     }
 
-    this.addFavourite= function(){
+    self.addFavourite = function () {
+        self.loading = true;
         self.chosenCountries.push(self.aCountry);
         var indexOfAddedItem = self.countries.listDestinations.indexOf(self.aCountry);
         var sendObject = {
             user: userService.user,
             favoriteDestinations: [self.chosenCountries[0].id]
         };
-        self.object.listDestinations.push({id: self.chosenCountries[0].id, country : self.aCountry.country});
-
-        $http.post("/myDestinations",sendObject)
-            .success(function (response) {
-                userService.user = response.user;
-                $location.path("/personalpage");
-            }).error(function (response) {
-                userService.user = {};
-                $location.path("/error").search({error : response.errors[0].message})
-            })
-            .finally(function () {
-                self.loading = false;
-            });
+        self.object.listDestinations.push({id: self.chosenCountries[0].id, country: self.aCountry.country});
+        destinationService.sendDestinations(sendObject)
+        self.loading = false;
     };
 
     var object;
     var countries;
-    var selectFavourites=false;
-    var loading = false;
-    this.chosenCountries = [];
+    var selectFavourites = false;
+    self.loading = false;
+    self.chosenCountries = [];
 }

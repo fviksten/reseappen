@@ -1,5 +1,6 @@
 angular.module("app", ["ngRoute", "loginAndRegister.login", "loginAndRegister.register", "personalTest.persTest", "myDestinations.destinations", "suggestions.destinationSuggestions", "exception.exception"])
     .service("userService",userService)
+    .service("destinationService",destinationService)
     .config(["$routeProvider","$httpProvider", function ($routeProvider,$httpProvider) {
         $routeProvider
             .when("/login", {

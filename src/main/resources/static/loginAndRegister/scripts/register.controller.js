@@ -6,19 +6,22 @@ if (!loginAndRegister.register)
 
 loginAndRegister.register.RegisterController = function ($location, $http, $rootScope, userService) {
     var self = this;
-    this.addUser = function () {
+
+
+    self.addUser = function () {
         self.loading = true;
-        $http.post("/adduser", {
+        var userDetails = {
             username: self.username,
             firstname: self.firstname,
             lastname: self.lastname,
             email: self.email,
             password: self.password1
-        })
+        }
+        userService.addUser(userDetails)
             .success(function (response) {
                 var credentials = {
-                    username: self.username,
-                    password: self.password1
+                    username: userDetails.username,
+                    password: userDetails.password
                 }
                 userService.authenticate(credentials, function () {
                     if (userService.authenticated) {

@@ -1,2 +1,1 @@
-angular.module('suggestions.destinationSuggestions',[])
-    .service('destinationSuggestionsService',suggestions.destinationSuggestions.destinationSuggestionsService)
+angular.module('suggestions.destinationSuggestions',[]);
