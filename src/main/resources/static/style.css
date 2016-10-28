@@ -33,3 +33,23 @@ main {
     margin-left:30%;
     margin-right:30%;
 }
+
+#slides_control > div{
+    height: 450px;
+}
+
+.countryPhotos {
+    width: 700px;
+    max-height:450px;
+}
+
+#slides_control {
+    width: 700px;
+    margin: auto;
+}
+
+#pictureWrapper {
+    width:50%;
+    margin:auto;
+    text-align:center;
+}

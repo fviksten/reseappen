@@ -3,34 +3,55 @@
     <button type="button" class="btn btn-warning" ng-click="vm.suggestions()">Where should I travel next?</button>
     <button type="button" class="btn btn-warning" onclick="location.href='#/perstest'">Do personality test</button>
     <button type="button" class="btn btn-info" ng-click="vm.logout()">Log out - {{vm.username}}</button>
-    <p>
-        <button type="button" class="btn btn-warning" ng-click="vm.newFavourites();vm.selectFavourites=true "
-                data-ng-hide="vm.selectFavourites">Add favourites
-        </button>
-    <div data-ng-show="vm.selectFavourites">
-        <select ng-model="vm.aCountry"
-                ng-options="item.country for item in vm.countries.listDestinations | orderBy:'country'"
-                ng-value="item.id">
-            <option value="">--- Choose destination ---</option>
-        </select>
-
-        <button class="btn btn-info" id="addButton" ng-click="vm.addFavourite();vm.selectFavourites=false"
-                ng-disabled="!vm.aCountry">Add as favourite
-        </button>
-        <button class="btn btn-warning" data-ng-click="vm.selectFavourites=false;">Don't add</button>
-    </div>
-    <br>
-    </p>
 </nav>
 <div ng-init="vm.getFavourites()">
 
     <h1>Favourite destinations:</h1>
-    <h2>
-        <p ng-repeat="item in vm.object.listDestinations track by $index">
-            <span>{{item.country}}</span>
-            <br>
-            <img data-ng-src="img/{{item.country}}.jpg" width="600">
-            <br>
-        </p>
-    </h2>
+
+<p id="pictureWrapper">
+    <div id="slides_control">
+        <div>
+            <carousel interval="vm.myInterval">
+                <slide ng-repeat="item in vm.object.listDestinations track by $index" active="item.active">
+                    <img class="countryPhotos" ng-src="img/{{item.country}}.jpg">
+                    <div class="carousel-caption">
+                        <h4>{{item.country}}</h4>
+                    </div>
+                </slide>
+            </carousel>
+        </div>
+    </div>
+</p>
+
+<!--<div id="slides_control">-->
+    <!--<div>-->
+        <!--<carousel interval="vm.myInterval">-->
+            <!--<slide ng-repeat="item in vm.object.listDestinations track by $index" active="item.active">-->
+                <!--<ol>-->
+                   <!--<l1> <img data-ng-src="img/{{item.country}}.jpg">-->
+                    <!--<div class="carousel-caption">-->
+                        <!--<h4>{{item.country}}</h4>-->
+                    <!--</div>-->
+                   <!--</l1>-->
+                <!--</ol>-->
+            <!--</slide>-->
+        <!--</carousel>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+
+<div>
+    <p><button type="button" class="btn btn-warning" ng-click="vm.newFavourites();vm.selectFavourites=true " data-ng-hide="vm.selectFavourites">Add favourites</button>
+        <div data-ng-show="vm.selectFavourites">
+        <select ng-model="vm.aCountry" ng-options="item.country for item in vm.countries.listDestinations | orderBy:'country'" ng-value="item.id">
+            <option value="">--- Choose destination ---</option>
+        </select>
+
+        <button class="btn btn-info" id="addButton" ng-click="vm.addFavourite();vm.selectFavourites=false" ng-disabled="!vm.aCountry">Add as favourite</button>
+    <button  class="btn btn-warning" data-ng-click="vm.selectFavourites=false;">Don't add</button>
+        </div>
+        <br>
+    </p>
+</div>
 </div>

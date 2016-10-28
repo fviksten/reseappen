@@ -52,8 +52,22 @@ personalPage.persPage.personalPageController = function (userService, destinatio
         self.loading = false;
     };
 
+    this.setCurrentSlideIndex = function (index) {
+         self.currentIndex = index;
+        console.log("I setCurrent....")
+        console.log(currentIndex);
+    }
+
+    this.isCurrentSlideIndex = function (index) {
+        return currentIndex === index;
+
+    };
+
+    var myInterval = 3000;
     var object;
     var countries;
+    this.chosenCountries = [];
+    var currentIndex = 0;
     var selectFavourites = false;
     self.loading = false;
     self.chosenCountries = [];
