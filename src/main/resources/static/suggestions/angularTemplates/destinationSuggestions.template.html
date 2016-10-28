@@ -9,19 +9,21 @@
 <div data-ng-init="vm.getObject()">
 
     <h2> {{vm.currentSuggestion.country}}</h2>
+    <h2 ng-if="!vm.currentSuggestion.country">You should stay home</h2>
 
     <p>
-        <button type="button" class="btn btn-warning" ng-click="vm.nextSuggestion()">Next recommendation</button>
+        <button type="button" class="btn btn-warning" ng-if="vm.currentSuggestion.country" ng-click="vm.nextSuggestion()">Next recommendation</button>
     </p>
     <div data-ng-if="vm.loading">Loading...</div>
 
 </div>
 <div class="flexelement">
-    <img class="test" data-ng-src="img/{{vm.currentSuggestion.country}}.jpg">
+    <img class="test" data-ng-src="img/{{vm.currentSuggestion.country}}.jpg" ng-if="vm.currentSuggestion.country">
 
     <iframe class="test"
             frameborder="0" style="border:0"
-            ng-src="" allowfullscreen>
+            ng-src="" allowfullscreen
+            ng-if="vm.currentSuggestion.country">
     </iframe>
 </div>
 
