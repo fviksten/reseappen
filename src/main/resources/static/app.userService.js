@@ -3,8 +3,8 @@
 userService = function ($http,$location) {
     var self = this;
 
-    self.user = {}
-    self.authenticated
+    self.user = {};
+    self.authenticated;
 
     self.logout = function () {
         $http.post("/logout").finally(function () {
